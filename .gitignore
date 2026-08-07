@@ -11,6 +11,13 @@
 # would fail verify-tree on a fresh clone.
 /proj/
 
+# Dev-lane symbolic tooling. .serena/ is excluded from the seal at the root
+# (config/seal.v1.json) because Serena writes memories and an LSP cache here
+# during ordinary use. The project configuration is committed so the setup is
+# shared and reviewable; nothing Serena writes is.
+/.serena/*
+!/.serena/project.yml
+
 # Python
 __pycache__/
 *.py[cod]

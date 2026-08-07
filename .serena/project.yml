@@ -1,0 +1,85 @@
+# Serena project configuration — dev-lane.
+#
+# This is tooling for working ON loopstrap. It is not part of the kernel and
+# nothing in loopstrap_core/ or spec/ consults it. The runtime bindings a loop's
+# roles use are a different file: config/serena.v1.json.
+#
+# .serena/ is excluded from the seal at the tree root (config/seal.v1.json),
+# because Serena writes memories and an LSP cache here during ordinary use and a
+# sealed .serena/ would report drift every session. This file is committed so the
+# setup is shared; everything Serena writes alongside it stays untracked.
+
+project_name: "loopstrap"
+
+# Python only. config/serena.v1.json records which language servers are reliable
+# enough for a no-flaky loop, from Serena's own suite: python, go, typescript,
+# rust. CUE has no server here, and the shell surface is small enough that a weak
+# one would add flake without adding reach.
+languages: ["python"]
+
+encoding: "utf-8"
+
+# Picks up /proj/, /repos/, /.worktrees/, /xor/, /scratch/, __pycache__ and the
+# build artifacts without restating them.
+ignore_all_files_in_gitignore: true
+
+ignored_paths:
+  # Pinned CUE binary — sealed, versioned by digest in config/cue-tool.v1.json,
+  # and not source.
+  - "tools/cue/**"
+  # Generated run output rather than authored material.
+  - "artifacts/reports/**"
+
+# Read-only, deliberately.
+#
+# Every change to this tree goes through the same path: edit, reseal, and for
+# anything under tests/readiness/ a frozen-suite revision. A second editing
+# surface does not bypass the seal — seal-tree.py would report it — but it does
+# add a way to change the tree that no reviewer is watching, in exchange for
+# convenience the harness's own edit tools already provide.
+#
+# Set at PROJECT level, not as a mode: modes are switchable at runtime, while
+# project read_only triggers ToolSet.without_editing_tools(), which strips every
+# ToolMarkerCanEdit tool (execute_shell_command included) and is applied last in
+# the config fold, so nothing re-adds them.
+#
+# What this buys is the half that was missing: find_symbol,
+# find_referencing_symbols, get_symbols_overview, find_implementations. Flip to
+# false if symbol-addressed editing earns its place; it is one line.
+read_only: true
+
+# config/serena.v1.json records as unverified whether write_memory carries
+# ToolMarkerCanEdit, and so whether project read_only strips it. Until that is
+# confirmed, memories are held read-only explicitly. This is a regex, not a glob.
+read_only_memory_patterns: [".*"]
+
+excluded_tools: []
+included_optional_tools: []
+fixed_tools: []
+
+# Convention, which neither the contract graph nor the symbol index carries.
+initial_prompt: |
+  loopstrap has two lanes and conflating them is the standing hazard.
+
+  Production is the sealed kernel: loopstrap_core/, spec/cue/, config/*.v1.json,
+  tests/. Dev-lane is the machinery that develops it: contract/ (package
+  contract), artifacts/instance/tools/, skills/, the gate. Both are CUE in
+  places; they are not the same thing and dev-lane must never gate production
+  into rigidity.
+
+  Three things bind every change:
+
+  - The seal. loopstrap.manifest lists every file with a sha256 and a mode, and
+    it is exhaustive — an unlisted file is an error, not an omission. Re-run
+    artifacts/instance/tools/seal-tree.py after any change and read the delta.
+  - The frozen suite. tests/readiness/ is pinned by FROZEN.sha256 with a strict
+    claims.toml/map.tsv bijection. Changing it requires a REVISION-NNN.md that
+    states the defect, not the diff.
+  - The gate. artifacts/instance/tools/contract-check.sh holds six invariants
+    against a budget of six. Adding one means deleting one or raising the cap
+    deliberately, and the cap is sealed.
+
+  A check earns permanence by catching something real. Untested claims and
+  never-fired invariants are the failure mode this repository is built against,
+  so show a test failing before it passes, and never weaken a check to make it
+  pass.

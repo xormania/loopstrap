@@ -6,7 +6,7 @@ fda93145963698d5182031c543f7ea01642d6f4ee5f9b2943c4add0b88de7f5b  ./.claude/comm
 5a53e4c73eef2794fbac81b5607096a631a9bf2fc3113187ba86f7757e75124b  ./.claude/settings.json
 5167310148c1dca3ec9d253ac471a8af88699fc46c98f4efe15073f002834959  ./.github/pull_request_template.md
 3b7582c491beaf83eb95e8e2e82d0064ad53d98b7f6ec29ecb34ed0c028fc500  ./.github/workflows/pr.yml
-9a5f9487be01fd1b19c2ccb0d07ba4fd30b625453f9b99c74c2851cf0d866bb9  ./.gitignore
+6051a91dee2d25e8d5d1fab92142c04cbaec6884088a2e5e98e896be348863fc  ./.gitignore
 fb499f4759ba8e234f9f6020a7e321f3124dc0a65ec5df7e377f9e1338ae073c  ./.loopstrap-root-config.manifest
 6283ec4cbaa79d0ddc69954f9126c6cb1cfd9624a8485e2c58d70048aa66dcbf  ./.loopstrap/roles/builder-adversary.md
 2c31945b5c36defa2fffbf2d4863ea1ecd6ca6a653e1b80f20f8efcfeb621fe8  ./.loopstrap/roles/implementer.md
@@ -101,9 +101,9 @@ cc67d0af57cb78488674588df698111fa0ced27a455c3d0d33448b174552b959  ./artifacts/in
 f4821e87eb5a7226c553074fa0d52f2191ef7273846b8d2d6e14719450151cce  ./artifacts/instance/tools/probe-questions.md
 31a7507297152c298e23ff5b5d0275f9aa10a205aa960bf2e9605d8fccd77ab4  ./artifacts/instance/tools/publication-check.py
 1e7f96af6b1f091629308d530b909b5206c922d4ee5f6bacb295b944b4919a41  ./artifacts/instance/tools/schema-facts.py
-f8c245469e8bd7129410aba524beb3fb1447706a7b16aa711f1e0ae4e135a125  ./artifacts/instance/tools/seal-tree.py
+4292f15a30784bf0f3553344645fa6bc1ecd010dfc1c321ea55adcaca3753070  ./artifacts/instance/tools/seal-tree.py
 8d6432ad4d153aaf608944bd72aca5c6d75bbff8a2b5ee24fd592137185e0776  ./artifacts/instance/tools/token-breaker.py
-2aab6fdddcb5faf35ac82c6fe2d72fdad9703fdfffc4659ab078ee923e3364c6  ./artifacts/instance/tools/verify-tree.py
+22487b9ea36c205ee5c5e2f34d3b4b6e02f95fda181f56b36336f1fe30bcde88  ./artifacts/instance/tools/verify-tree.py
 ca8885b9a56459b16ddeb214e2c4bf322cc6375b809b99182ed774fccf96dc07  ./artifacts/intent/README.md
 1c28b29f7eeb6d02c1bed1525a5d76ecbde0dc56114f7e3f6e211535d35d266e  ./artifacts/intent/family.md
 af036d362d3eb8706b5f3a005b979ff4dddc245ade4435012d208bd48433063d  ./artifacts/members.toml
@@ -134,7 +134,7 @@ fa59c352573a7a379021f1c2c95559d914279ca9aa20ace58bec9e798e7d340d  ./config/harne
 4946b18a70f35eaa713eda3300cfe8c31218bff588afc20b62afbe3ba044229c  ./config/harness-profiles.v1.json
 9a0a77f2811560c40b954d2eba2554f85babcceddd657b13a110b7fea0fa4165  ./config/role-treatments.v1.json
 0a5f11cde28f6e6fcdb28f60efe0d9cf3ac8eb82211a18e8ffbbde01ad7b201e  ./config/roles.v1.json
-05ca49e686a1dee32070119d9ab3f1d6f534c4c45272f0464263a155b8220ffa  ./config/seal.v1.json
+f780ed1d15160c1b7bf9df426e4995730020c36e1cf4d94f09f5e36838749c2b  ./config/seal.v1.json
 dfb31c93ed9abdc5ae1bff49dd32f982051327bd22193fd9954d5212be0820a6  ./config/serena.v1.json
 2b109d4b328af8c4f7203668794c5fa7b558cb72ba3bfdf033ff5fe693ec4bf1  ./config/workflow.v1.json
 359dbe5065e93135f31d7eeded36c30959a5c3d067f5f20214161311ecbfd2eb  ./contract/README.md
