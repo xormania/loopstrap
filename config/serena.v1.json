@@ -1,0 +1,69 @@
+{
+  "config_version": 1,
+  "purpose": "Per-role symbolic-tooling bindings. Capability, not ceremony: each entry adds something a role could not otherwise do, and none of it adds a step to the loop.",
+
+  "tool_timeout_seconds": 45,
+  "tool_timeout_note": "Serena defaults to 240s (minimum 10s), which is far too long inside a loop. Hangs are bounded structurally — apply_ex hands every call to a single-threaded TaskExecutor and waits on future.result(timeout) — so this is about how long a wedge is allowed to cost, not whether it terminates. The per-request LSP timeout derives as this minus 5.",
+
+  "reliable_languages": ["python", "go", "typescript", "rust"],
+  "reliable_languages_note": "Serena's own suite permanently disables BSL and F# and disables Kotlin on CI, which is the best available proxy for what not to put in a no-flaky loop. Angular/Vue/Svelte additionally require the project's own npm install; Julia's dependency install can time out; Godot needs a running editor.",
+
+  "reference_evidence": {
+    "requires_warm_index": true,
+    "prewarm_command": "serena project index",
+    "cold_index_status": "derived"
+  },
+  "reference_evidence_note": "Language servers without a readiness wait return PARTIAL RESULTS SILENTLY while indexing. An early-session 'no references found' is not admissible as evidence of no references — it is indistinguishable from 'not indexed yet'. A reference count taken before the index is warm is tagged derived, never probed, in the same evidence vocabulary the harness surfaces use.",
+
+  "rust_diagnostics": {
+    "filter_by_source": true,
+    "excluded_sources": ["rustc"]
+  },
+  "rust_diagnostics_note": "rust-analyzer emits diagnostics from several sources. Acting on source 'rustc' entries after in-session edits produces false positives. Rust is the product language, so this is load-bearing rather than trivia.",
+
+  "roles": {
+    "planner-v1": {
+      "enabled": true,
+      "read_only": true,
+      "purpose": "orientation before planning: read the symbol graph without reading whole files",
+      "included_optional_tools": []
+    },
+    "planning-subagent-v1": {
+      "enabled": true,
+      "read_only": true,
+      "purpose": "same surface as its parent planner",
+      "included_optional_tools": []
+    },
+    "implementer-v1": {
+      "enabled": true,
+      "read_only": false,
+      "purpose": "symbol-addressed edits and language-server renames, which keep the LS view coherent through the edit",
+      "included_optional_tools": []
+    },
+    "builder-adversary-v1": {
+      "enabled": true,
+      "read_only": false,
+      "purpose": "fault injection at symbol granularity: replace a body, observe the witness",
+      "included_optional_tools": []
+    },
+    "independent-adversary-v1": {
+      "enabled": true,
+      "read_only": false,
+      "purpose": "attack the decomposition, which requires editing to demonstrate a defect",
+      "included_optional_tools": ["get_diagnostics_for_symbol"]
+    },
+    "independent-reviewer-v1": {
+      "enabled": true,
+      "read_only": true,
+      "purpose": "reads, references and diagnostics only; the rename and safe-delete wins are editing-side and irrelevant here",
+      "included_optional_tools": ["get_diagnostics_for_symbol"]
+    }
+  },
+  "roles_note": "read_only true must be set at PROJECT level in project.yml, never as a mode. Modes are switchable at runtime; project read_only triggers ToolSet.without_editing_tools(), which strips every ToolMarkerCanEdit tool — execute_shell_command included — and is applied last in the config fold so nothing re-adds them. Calling a stripped tool returns an error rather than being ignored.",
+
+  "enforcement_note": "This covers Serena's tool surface ONLY. The host harness's native edit tools are untouched, so a role that may not write needs harness-level denial as well. C-SERENA-001 requires both.",
+
+  "unverified": [
+    "Whether write_memory carries ToolMarkerCanEdit, and so whether project read_only strips it. Until confirmed, any read-only role also sets read_only_memory_patterns to \".*\" — which is a regex, not a glob."
+  ]
+}

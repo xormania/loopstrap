@@ -21,6 +21,15 @@ package contract
 	role:    string
 	harness: string
 	model_route: {selector: string, ...}
+	configuration: {
+		// `mode` is the only permission field every Role-Treatment declares.
+		// workspace_write, outside_workspace and candidate_write each appear on
+		// some roles and not others, so joining on them yields a non-concrete
+		// value for the rest.
+		permissions: {mode: string, ...}
+		tools: {deny: [...string], ...}
+		...
+	}
 	...
 }
 
@@ -68,6 +77,22 @@ configs: {
 			probed_at:     string | null
 			binary_sha256: string | null
 			flags: [...{name: string, takes_value: bool, ...}]
+			...
+		}
+		...
+	}
+
+	serena: data: {
+		tool_timeout_seconds: int
+		reliable_languages: [...string]
+		reference_evidence: {
+			requires_warm_index: bool
+			cold_index_status:   string
+			...
+		}
+		roles: [string]: {
+			enabled:   bool
+			read_only: bool
 			...
 		}
 		...
