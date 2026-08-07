@@ -23,6 +23,12 @@ jobs:
           exit 1
 
       - uses: actions/checkout@v4
+        with:
+          # Full history. A shallow clone has no merge base with the target
+          # branch, so the changed-file diff fails — and an empty changed-file
+          # list makes the red-before-green requirement apply to nothing. A
+          # detection that fails open is worse than no detection.
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
@@ -79,10 +85,21 @@ jobs:
           CONTRACT: ${{ steps.contract.outputs.line }}
           BATTERY: ${{ steps.battery.outputs.line }}
         run: |
+          set -euo pipefail
           printf '%s' "$BODY" > /tmp/pr-body.md
-          git fetch --quiet origin "${{ github.event.pull_request.base.ref }}"
-          mapfile -t changed < <(git diff --name-only \
-            "origin/${{ github.event.pull_request.base.ref }}...HEAD")
+          base="${{ github.event.pull_request.base.ref }}"
+          git fetch --quiet origin "$base"
+          if ! mapfile -t changed < <(git diff --name-only "origin/$base...HEAD"); then
+            echo "::error::could not diff against origin/$base" >&2
+            exit 1
+          fi
+          if [ "${#changed[@]}" -eq 0 ]; then
+            echo "::error::changed-file list is empty; refusing to evaluate the" \
+                 "red-before-green rule against nothing" >&2
+            exit 1
+          fi
+          printf 'changed files (%s):\n' "${#changed[@]}"
+          printf '  %s\n' "${changed[@]}"
           python3 artifacts/instance/tools/pr-evidence-check.py \
             --body-file /tmp/pr-body.md \
             --seal "$SEAL" \

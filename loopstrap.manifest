@@ -5,7 +5,7 @@ d3bcf833b2070730d738827c2cdbf475dc591de60633fce95bd4438ce4c5440e  ./.claude/comm
 fda93145963698d5182031c543f7ea01642d6f4ee5f9b2943c4add0b88de7f5b  ./.claude/commands/retro.md
 5a53e4c73eef2794fbac81b5607096a631a9bf2fc3113187ba86f7757e75124b  ./.claude/settings.json
 5167310148c1dca3ec9d253ac471a8af88699fc46c98f4efe15073f002834959  ./.github/pull_request_template.md
-f99d1ce283b3db675bd5d8b9bf98d9da2ed58a590f1ff23b0d7cac6f58c64433  ./.github/workflows/pr.yml
+ae2341f17bdb5f4204a93b1a49f6599d54cc9573143887c4e41f4b79931f9b61  ./.github/workflows/pr.yml
 9a5f9487be01fd1b19c2ccb0d07ba4fd30b625453f9b99c74c2851cf0d866bb9  ./.gitignore
 fb499f4759ba8e234f9f6020a7e321f3124dc0a65ec5df7e377f9e1338ae073c  ./.loopstrap-root-config.manifest
 6283ec4cbaa79d0ddc69954f9126c6cb1cfd9624a8485e2c58d70048aa66dcbf  ./.loopstrap/roles/builder-adversary.md
