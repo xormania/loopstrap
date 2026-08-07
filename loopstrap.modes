@@ -289,6 +289,7 @@
 0644	tests/readiness/REVISION-007.md
 0644	tests/readiness/REVISION-008.md
 0644	tests/readiness/REVISION-009.md
+0644	tests/readiness/REVISION-010.md
 0644	tests/readiness/claims.toml
 0644	tests/readiness/fixtures/acceptance-request.json
 0644	tests/readiness/fixtures/contract-graph.json
