@@ -30,9 +30,29 @@ Key paths:
   mechanical/inference method, and Loopstrap conformance claims
 - `tests/battery.sh` — deterministic change detector
 - `tests/mutation-check.sh` — sampled causal checks against detector blindness
+- `tests/cases/` — battery cases, each assertion mapped to a register ruling
 - `TELEMETRY.md` — observation boundary, schema, captured data, and current gaps
-- `artifacts/` — legacy project material retained as evidence and for utilities
-  still covered by tests
+
+The tree is sealed. `loopstrap.manifest` and `loopstrap.modes` list every file
+with a sha256 and a mode, and the listing is *exhaustive* — an unlisted file is an
+error, not an omission. Regenerate with
+`artifacts/instance/tools/seal-tree.py` after any change and read the delta; never
+edit either by hand, and never hand-resolve a merge conflict in them.
+
+- `artifacts/instance/tools/` — the working toolchain: the seal, the contract
+  gate, the publication check, the pin checker, the consistency audit
+- `ops/` — operator scripts and the git hooks. `setup.sh` and `launch-loop.sh`
+  stay at the root because they are what a person runs first
+- `contract/` — CUE package `contract`: the gate's invariants and the facts they
+  read. Dev-lane CUE, distinct from the production schemas in `spec/cue/`
+- `.agents/` — orientation for any agent working here, vendor-neutral
+- `.claude/`, `.codex/` — harness surfaces. Skills, commands, settings for Claude
+  Code, which grok also reads; a single adapter for codex
+- `.serena/` — symbolic navigation, project read-only
+- `artifacts/` — material carrying one of three standings: **authority** (cited
+  and enforced), **method** (transferable technique, never executed), and
+  **record** (evidence of one past run). Age is not a standing; check which
+  before treating anything there as binding
 
 Each run writes an append-only `telemetry.sqlite3` alongside its authoritative
 hash-chained ledger. The database copies every observable sanitized event,

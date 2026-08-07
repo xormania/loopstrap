@@ -235,6 +235,7 @@
 0644	tests/active/REVISION-001.md
 0644	tests/active/REVISION-002.md
 0644	tests/active/REVISION-003.md
+0644	tests/active/REVISION-004.md
 0644	tests/active/claims.toml
 0644	tests/active/map.tsv
 0644	tests/active/run.py

@@ -65,6 +65,14 @@ check that refuses correct work is the defect, not the work: it gets fixed, neve
 bypassed. `tests/cases/controls-reachable.sh` enforces this, and three shipped
 violations of it are named in the register.
 
+**6. Never hand-merge the seal.** If your branch merges another and both touched
+the tree, `loopstrap.manifest` will conflict and `loopstrap.modes` may auto-merge
+*silently* — and the silent one is the dangerous one, because a clean textual
+merge of a manifest looks like success and verifies nothing. A manifest is a
+claim that these exact digests describe this exact tree; git can merge it as
+text, only `seal-tree.py` can make it true. Regenerate both, read the delta, and
+regenerate your pull request's evidence blocks too — the counts move.
+
 `/check` runs the seal, the gate and the battery in one step.
 
 ## Harness configuration

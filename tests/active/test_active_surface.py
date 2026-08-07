@@ -209,7 +209,7 @@ class ActiveConfigurationAcceptance(unittest.TestCase):
 
 
 class ActiveControlSurfaceAcceptance(unittest.TestCase):
-    def test_root_instructions_activate_new_kernel_without_legacy_doctrine(self) -> None:
+    def test_root_instructions_activate_the_current_kernel_and_no_member_doctrine(self) -> None:
         texts = {
             path.name: path.read_text(encoding="utf-8")
             for path in (ROOT / "AGENTS.md", ROOT / "CLAUDE.md", ROOT / "README.md")
@@ -217,7 +217,13 @@ class ActiveControlSurfaceAcceptance(unittest.TestCase):
         combined = "\n".join(texts.values())
         self.assertIn("loopstrap_core", combined)
         self.assertIn("tests/acceptance", combined)
-        self.assertIn("legacy", combined.lower())
+        # The root instructions must tell a reader that material under
+        # artifacts/ is not runtime authority. This asserted the single word
+        # "legacy", which no claim required and which named an age rather than a
+        # standing; an unmarked file that reads as a specification is the hazard,
+        # and age was never what made it one. All three standings must be named.
+        for standing in ("authority", "method", "record"):
+            self.assertIn(standing, combined.lower())
         for forbidden in (
             "wrong place (Loopstrap dev lane)",
             "units_per_session",
@@ -252,7 +258,7 @@ class ActiveControlSurfaceAcceptance(unittest.TestCase):
             self.assertIn("governing", result.stderr.lower())
             self.assertFalse(marker.exists())
 
-    def test_consistency_audit_checks_active_kernel_not_legacy_doctrine(self) -> None:
+    def test_consistency_audit_checks_the_active_kernel_not_superseded_doctrine(self) -> None:
         result = subprocess.run(
             ["bash", "artifacts/instance/tools/audit-consistency.sh"],
             cwd=ROOT,

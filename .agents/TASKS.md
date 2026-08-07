@@ -64,6 +64,22 @@ For `cue` the pin is only half the job — the binary in `tools/cue/` has to be
 fetched deliberately and the tree resealed. You are putting a new executable into
 a sealed tree that the gate then runs.
 
+## Merge another branch into yours
+
+```shell
+git merge origin/dev
+python3 artifacts/instance/tools/seal-tree.py .     # regenerate; never resolve by hand
+python3 artifacts/instance/tools/verify-tree.py
+bash tests/battery.sh
+```
+
+`loopstrap.manifest` will conflict. `loopstrap.modes` may auto-merge cleanly,
+which is worse — it looks like success and verifies nothing. Take either side of
+the conflict, then regenerate both; the regeneration is the resolution.
+
+Then **regenerate your pull request's evidence blocks**. The file count moves, and
+a body describing the pre-merge tree fails the evidence check, correctly.
+
 ## Open a pull request
 
 Target `dev`. An agent may open a **draft** PR from `dev` to `main`; only the
