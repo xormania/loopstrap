@@ -29,7 +29,7 @@ EXCLUDED_SUFFIXES = (".egg-info",)
 # Matched ONLY at the tree root. A name matched at any depth is a bypass, not an
 # exclusion: a file can be hidden from the manifest by placing it in a directory
 # of that name inside loopstrap_core.
-EXCLUDED_ROOT_NAMES = frozenset({"proj"})
+EXCLUDED_ROOT_NAMES = frozenset({".serena", "proj"})
 
 
 def is_excluded(name: str, *, at_root: bool) -> bool:

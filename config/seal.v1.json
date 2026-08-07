@@ -9,8 +9,9 @@
   "excluded_suffixes": [".egg-info"],
   "excluded_suffixes_note": "Directory-name suffixes, matched at any depth.",
 
-  "excluded_root_names": ["proj"],
+  "excluded_root_names": [".serena", "proj"],
   "excluded_root_names_note": "Matched ONLY at the tree root. Never move an entry from here to excluded_names: a name matched at any depth is a bypass, not an exclusion — a file can be hidden from the manifest by placing it in a directory of that name inside loopstrap_core.",
+  "serena_note": "Dev-lane symbolic tooling. Serena writes memories and an LSP cache into .serena/ during ordinary use, so sealing it would report drift on every session. project.yml is committed anyway, so the setup is shared and reviewable while everything Serena writes stays untracked. Two declared holes in the seal is where this should stop.",
 
   "never_excludable": [
     "loopstrap_core",
