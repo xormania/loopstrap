@@ -1,0 +1,134 @@
+{
+  "config_version": 1,
+  "purpose": "Snapshot of each harness's command-line surface. The declared side of the vendor boundary: what loopstrap believes a harness accepts.",
+  "provenance_note": "declared = asserted from the argv in use, nobody asked the binary. probed = produced by interrogating the pinned executable, and then probed_at and binary_sha256 are required. A treatment may not be enabled against a merely declared surface \u2014 see C-CLI-003.",
+  "harnesses": {
+    "codex": {
+      "version": "0.144.6",
+      "provenance": "declared",
+      "probed_at": null,
+      "binary_sha256": null,
+      "basis": "inferred from the argv skeleton in harness-profiles.v1.json; the binary has never been interrogated",
+      "flags": [
+        {
+          "name": "--cd",
+          "takes_value": true
+        },
+        {
+          "name": "--ignore-rules",
+          "takes_value": false
+        },
+        {
+          "name": "--ignore-user-config",
+          "takes_value": false
+        },
+        {
+          "name": "--json",
+          "takes_value": false
+        },
+        {
+          "name": "--model",
+          "takes_value": true
+        },
+        {
+          "name": "--output-schema",
+          "takes_value": true
+        },
+        {
+          "name": "--strict-config",
+          "takes_value": false
+        },
+        {
+          "name": "-c",
+          "takes_value": true
+        }
+      ]
+    },
+    "claude-code": {
+      "version": "2.1.216",
+      "provenance": "declared",
+      "probed_at": null,
+      "binary_sha256": null,
+      "basis": "inferred from the argv skeleton in harness-profiles.v1.json; the binary has never been interrogated",
+      "flags": [
+        {
+          "name": "--effort",
+          "takes_value": true
+        },
+        {
+          "name": "--forward-subagent-text",
+          "takes_value": false
+        },
+        {
+          "name": "--include-partial-messages",
+          "takes_value": false
+        },
+        {
+          "name": "--json-schema",
+          "takes_value": true
+        },
+        {
+          "name": "--model",
+          "takes_value": true
+        },
+        {
+          "name": "--output-format",
+          "takes_value": true
+        },
+        {
+          "name": "--strict-mcp-config",
+          "takes_value": false
+        },
+        {
+          "name": "--verbose",
+          "takes_value": false
+        },
+        {
+          "name": "-p",
+          "takes_value": false
+        }
+      ]
+    },
+    "grok-build": {
+      "version": "ruled-out",
+      "provenance": "declared",
+      "probed_at": null,
+      "binary_sha256": null,
+      "basis": "inferred from the argv skeleton in harness-profiles.v1.json; the binary has never been interrogated",
+      "flags": [
+        {
+          "name": "--cwd",
+          "takes_value": true
+        },
+        {
+          "name": "--effort",
+          "takes_value": true
+        },
+        {
+          "name": "--model",
+          "takes_value": true
+        },
+        {
+          "name": "--no-auto-update",
+          "takes_value": false
+        },
+        {
+          "name": "--no-memory",
+          "takes_value": false
+        },
+        {
+          "name": "--output-format",
+          "takes_value": true
+        },
+        {
+          "name": "--prompt-file",
+          "takes_value": true
+        },
+        {
+          "name": "--verbatim",
+          "takes_value": false
+        }
+      ]
+    }
+  }
+}

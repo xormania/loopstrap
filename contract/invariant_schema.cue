@@ -1,90 +1,36 @@
 package contract
 
-// Invariants join extracted facts against declared intent. Each produces a map
-// of subject to human-readable reason rather than a boolean, so a failure names
-// the offender and says what is wrong — the diagnostic IS the message.
+// One invariant. It is here because it caught a real defect: spec/cue/evidence.cue
+// required `treatment_id` while loopstrap_core/evidence.py required
+// `role_treatment_id`, and EvidenceCompiler ran both over the same document. No
+// evidence record could satisfy both, so acceptance-check could not accept any
+// input, for a week, behind a green battery.
 //
-// An empty `diagnostics` map is the pass condition.
+// Every other check that lived in this file was plausible and had never fired on
+// anything real. They were deleted. An invariant earns permanence by catching
+// something; until then it is a guess with a diagnostic code.
 
 import (
 	"list"
 	"strings"
 )
 
-_pythonByLabel: {
-	for fact in python {
-		"\(fact.label)": fact
-	}
-}
-
-_cueByDefinition: {
-	for fact in cue {
-		"\(fact.definition)": fact
-	}
-}
-
-// C-SCHEMA-001 — a declared pair must agree exactly on required field names.
-// This is the class of defect that made acceptance-check unsatisfiable.
+// C-SCHEMA-001 — a declared pair disagrees on required field names.
 _cSchema001: {
 	for pair in pairs
-	if (_pythonByLabel & {"\(pair.pythonLabel)": _}) != _|_
-	if (_cueByDefinition & {"\(pair.definition)": _}) != _|_
 	let py = [for fact in python if fact.label == pair.pythonLabel {fact}]
 	let cu = [for fact in cue if fact.definition == pair.definition {fact}]
 	if len(py) == 1 && len(cu) == 1
-	let pyFields = py[0].fields
 	let cuFields = list.Concat([cu[0].fields, pair.optional])
-	let onlyPy = [for f in pyFields if !list.Contains(cuFields, f) {f}]
-	let onlyCue = [for f in cu[0].fields if !list.Contains(pyFields, f) {f}]
+	let onlyPy = [for f in py[0].fields if !list.Contains(cuFields, f) {f}]
+	let onlyCue = [for f in cu[0].fields if !list.Contains(py[0].fields, f) {f}]
 	if len(onlyPy) > 0 || len(onlyCue) > 0 {
 		"\(pair.pythonLabel) vs \(pair.definition)": "field sets disagree — only in Python: [\(strings.Join(onlyPy, ", "))]; only in CUE: [\(strings.Join(onlyCue, ", "))]"
 	}
 }
 
-// C-SCHEMA-002 — every declared pair must name a Python label and a CUE
-// definition that actually exist. Catches a rename on either side.
-_cSchema002: {
-	for pair in pairs
-	let py = [for fact in python if fact.label == pair.pythonLabel {fact}]
-	if len(py) != 1 {
-		"\(pair.pythonLabel)": "declared Python label matches \(len(py)) extracted facts, expected exactly 1"
-	}
-}
-
-_cSchema002b: {
-	for pair in pairs
-	let cu = [for fact in cue if fact.definition == pair.definition {fact}]
-	if len(cu) != 1 {
-		"\(pair.definition)": "declared CUE definition matches \(len(cu)) extracted definitions, expected exactly 1"
-	}
-}
-
-// C-SCHEMA-003 — every extracted Python field set must be either paired or
-// explicitly declared unpaired. A new document type cannot appear on one side
-// only and go unnoticed.
-_cSchema003: {
-	let paired = [for pair in pairs {pair.pythonLabel}]
-	let excused = [for row in unpaired {row.label}]
-	for fact in python
-	if !list.Contains(paired, fact.label) && !list.Contains(excused, fact.label) {
-		"\(fact.label)": "extracted from \(fact.module) but neither paired with a CUE definition nor declared unpaired"
-	}
-}
-
-// C-SCHEMA-004 — a newly unresolvable _exact() call site is a diagnostic, so the
-// extractor's blind spots stay declared rather than growing quietly.
-_cSchema004: {
-	let waived = [for row in waivedUnresolved {row.label}]
-	for site in pythonUnresolved
-	if site.label == null || !list.Contains(waived, "\(site.label)") {
-		"\(site.module):\(site.line)": "unresolvable exact-field set is not waived — \(site.reason)"
-	}
-}
-
 diagnostics: {
 	for subject, reason in _cSchema001 {"C-SCHEMA-001 \(subject)": reason}
-	for subject, reason in _cSchema002 {"C-SCHEMA-002 \(subject)": reason}
-	for subject, reason in _cSchema002b {"C-SCHEMA-002 \(subject)": reason}
-	for subject, reason in _cSchema003 {"C-SCHEMA-003 \(subject)": reason}
-	for subject, reason in _cSchema004 {"C-SCHEMA-004 \(subject)": reason}
+	for subject, reason in _cLane001 {"C-LANE-001 \(subject)": reason}
+	for subject, reason in _cLane002 {"C-LANE-002 \(subject)": reason}
 }

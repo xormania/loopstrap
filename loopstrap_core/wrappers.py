@@ -91,6 +91,29 @@ class HarnessWrapper(Protocol):
         ...
 
 
+def _flatten(value: Any, prefix: str = "") -> dict[str, str]:
+    """Scalar leaves of a Role-Treatment, as underscore-joined placeholder names.
+
+    The substitution vocabulary used to be eight names hardcoded here, so any new
+    command-line knob meant editing Python. Every scalar a Role-Treatment
+    declares is now addressable from a harness profile's argv template, which
+    makes adding a flag a config change.
+
+    Lists and nested containers are skipped deliberately: a placeholder expands
+    to one argv token, and per-role argument lists already have their own seam at
+    the native marker.
+    """
+    flat: dict[str, str] = {}
+    if isinstance(value, dict):
+        for key, item in value.items():
+            flat.update(_flatten(item, f"{prefix}{key}_"))
+    elif isinstance(value, bool):
+        flat[prefix.rstrip("_")] = "true" if value else "false"
+    elif isinstance(value, (str, int, float)):
+        flat[prefix.rstrip("_")] = str(value)
+    return flat
+
+
 class _BaseWrapper:
     harness = ""
 
@@ -136,7 +159,11 @@ class _BaseWrapper:
         workspace = Path(request.workspace).resolve()
         profile = profile_for(self.harness)
         state_subdir = profile.get("state_subdir", "")
+        # Every scalar the Role-Treatment declares, addressable from a profile.
+        # The eight names below are kept verbatim and take precedence, so
+        # rendered argv is unchanged and certification argv-exactness holds.
         substitutions = {
+            **_flatten(role_treatment.to_dict()),
             "vendor_executable": role_treatment.wrapper.vendor_executable,
             "model_selector": role_treatment.model_route.selector,
             "reasoning_control": role_treatment.reasoning.control,

@@ -1,6 +1,9 @@
 # Contributing
 
-Target `dev`. `dev` → `main` is opened the same way and merged only by the owner.
+Target `dev`. `dev` → `main` is a **promotion**, not a review: every commit
+reaching `dev` already carried its own evidence, so the body requirement is
+skipped on that route. The battery, the contract gate and the seal still run.
+Merged only by the owner.
 
 Cross-repository pull requests are rejected. The battery runs committed tools —
 including a 24MB digest-pinned CUE binary — against a hash-and-mode sealed tree,

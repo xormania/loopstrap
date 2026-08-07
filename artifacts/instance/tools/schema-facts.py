@@ -19,6 +19,8 @@ from __future__ import annotations
 import argparse
 import ast
 import json
+import hashlib
+import os
 from pathlib import Path
 import re
 import subprocess
@@ -47,8 +49,29 @@ def _local_sets(function: ast.AST) -> dict[str, set[str]]:
     return found
 
 
+def _tree_key(root: Path, salt: str) -> str:
+    """sha256 over every source file's name and bytes, in sorted order."""
+    digest = hashlib.sha256()
+    digest.update(salt.encode("utf-8"))
+    for path in sorted(root.glob("*.py")):
+        digest.update(path.name.encode("utf-8"))
+        digest.update(b"\0")
+        digest.update(path.read_bytes())
+        digest.update(b"\0")
+    return digest.hexdigest()
+
+
 def python_facts(root: Path) -> tuple[list[dict], list[dict]]:
-    """(resolved field sets, call sites whose set could not be resolved)."""
+    """(resolved field sets, call sites whose set could not be resolved).
+
+    Parsing 26 modules with ast costs ~104ms and is the gate's largest single
+    expense. Cached on the sha256 of the sources themselves, so an edit to any of
+    them always misses.
+    """
+    key = _tree_key(root, "python_facts/v1")
+    cached = _cache_load(key)
+    if cached is not None:
+        return cached["facts"], cached["unresolved"]
     facts: list[dict] = []
     unresolved: list[dict] = []
     for path in sorted(root.glob("*.py")):
@@ -117,42 +140,181 @@ def python_facts(root: Path) -> tuple[list[dict], list[dict]]:
                         "fields": sorted(fields),
                     }
                 )
+    _cache_store(key, {"facts": facts, "unresolved": unresolved})
     return facts, unresolved
 
 
+
+# Content-addressed cache for definition enumeration.
+#
+# CUE process startup is ~50ms and dominates: three files cost 150ms of a 307ms
+# gate. The answer depends on exactly two things — the bytes of the .cue file and
+# which compiler read them — so the key is both, and a changed file always misses.
+#
+# Deliberately NOT keyed on mtime. A timestamp heuristic is fine for a build
+# system and wrong for anything whose job is noticing a change; the seal and the
+# binary digest are not cached for the same reason.
+#
+# Lives outside the tree, so it is never sealed and never needs cleaning.
+def _cache_dir() -> Path:
+    base = os.environ.get("XDG_CACHE_HOME") or str(Path.home() / ".cache")
+    return Path(base) / "loopstrap" / "cue-definitions"
+
+
+def _cache_key(binary: Path, path: Path) -> str | None:
+    """sha256 of the pinned compiler identity plus the file's bytes.
+
+    The compiler digest is read from the pin rather than hashed: the binary is
+    24MB and hashing it every run would cost more than the cache saves.
+    """
+    pin = binary.parent.parent.parent.parent / "config" / "cue-tool.v1.json"
+    try:
+        compiler = json.loads(pin.read_text(encoding="utf-8"))["binary_sha256"]
+    except (OSError, ValueError, KeyError):
+        return None
+    digest = hashlib.sha256()
+    digest.update(compiler.encode("utf-8"))
+    digest.update(b"\0")
+    digest.update(path.read_bytes())
+    return digest.hexdigest()
+
+
+
+def _cache_load(key: str) -> dict | None:
+    if os.environ.get("LOOPSTRAP_NO_CACHE"):
+        return None
+    try:
+        return json.loads((_cache_dir() / f"{key}.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
+
+
+def _cache_store(key: str, value: dict) -> None:
+    if os.environ.get("LOOPSTRAP_NO_CACHE"):
+        return
+    try:
+        directory = _cache_dir()
+        directory.mkdir(parents=True, exist_ok=True)
+        target = directory / f"{key}.json"
+        scratch = target.with_suffix(".tmp")
+        scratch.write_text(json.dumps(value, sort_keys=True), encoding="utf-8")
+        scratch.replace(target)
+    except OSError:
+        pass
+
+
+def _cache_read(binary: Path, path: Path) -> dict | None:
+    if os.environ.get("LOOPSTRAP_NO_CACHE"):
+        return None
+    key = _cache_key(binary, path)
+    if key is None:
+        return None
+    try:
+        return json.loads((_cache_dir() / f"{key}.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
+
+
+def _cache_write(binary: Path, path: Path, answer: dict) -> None:
+    if os.environ.get("LOOPSTRAP_NO_CACHE"):
+        return
+    key = _cache_key(binary, path)
+    if key is None:
+        return
+    try:
+        directory = _cache_dir()
+        directory.mkdir(parents=True, exist_ok=True)
+        target = directory / f"{key}.json"
+        scratch = target.with_suffix(".tmp")
+        scratch.write_text(json.dumps(answer, sort_keys=True), encoding="utf-8")
+        scratch.replace(target)
+    except OSError:
+        pass
+
+
+DEV_PACKAGE = "contract"
+DEV_PATHS = ("contract/", "probe/", "skills/dev/", "FROZEN.sha256", "seal-tree.py")
+
+
+def lane_facts(root: Path) -> list[dict]:
+    """Which package each production CUE file declares, and any development
+    machinery a production file names.
+
+    The lane-classification skill teaches the judgement; this makes the
+    mechanical half checkable. A development package name inside spec/cue means a
+    development expectation can unify into the shipped contract surface, which is
+    invisible until something impossible happens.
+    """
+    facts: list[dict] = []
+    for path in sorted((root / "spec" / "cue").glob("*.cue")):
+        text = path.read_text(encoding="utf-8")
+        declared = ""
+        for line in text.splitlines():
+            if line.startswith("package "):
+                declared = line.split(None, 1)[1].strip()
+                break
+        facts.append({
+            "file": f"spec/cue/{path.name}",
+            "lane": "production",
+            "package": declared,
+            "references": sorted({p for p in DEV_PATHS if p in text}),
+        })
+    for path in sorted((root / "loopstrap_core").glob("*.py")):
+        text = path.read_text(encoding="utf-8")
+        hits = sorted({p for p in DEV_PATHS if p in text})
+        if hits:
+            facts.append({
+                "file": f"loopstrap_core/{path.name}",
+                "lane": "production",
+                "package": "",
+                "references": hits,
+            })
+    return facts
+
+
 def cue_facts(binary: Path, schema_root: Path) -> list[dict]:
+    """Field names per closed definition, straight from the compiler.
+
+    One evaluation per FILE, not per definition. The first version spawned a
+    subprocess for each of the 20 definitions and cost 217ms of a 316ms gate; a
+    batched expression asks the same questions in three. The fastest cache is not
+    needing one — there is nothing here to warm, invalidate, or get wrong.
+    """
     facts: list[dict] = []
     for path in sorted(schema_root.glob("*.cue")):
-        for name in DEFINITION.findall(path.read_text(encoding="utf-8")):
-            completed = subprocess.run(
-                [
-                    str(binary),
-                    "eval",
-                    str(path),
-                    "-e",
-                    f"[for k, _ in {name} {{k}}]",
-                    "--out",
-                    "json",
-                ],
-                stdin=subprocess.DEVNULL,
-                capture_output=True,
-                text=True,
-                env={"PATH": "/usr/bin:/bin", "LC_ALL": "C", "TZ": "UTC"},
-            )
-            if completed.returncode != 0:
-                print(
-                    f"schema-facts: {path.name} {name}: {completed.stderr.strip()}",
-                    file=sys.stderr,
+        names = DEFINITION.findall(path.read_text(encoding="utf-8"))
+        if not names:
+            continue
+        cached = _cache_read(binary, path)
+        if cached is not None:
+            for name, fields in cached.items():
+                facts.append(
+                    {"definition": name, "file": path.name, "fields": sorted(fields)}
                 )
-                raise SystemExit(2)
-            facts.append(
-                {
-                    "definition": name,
-                    "file": path.name,
-                    "fields": sorted(json.loads(completed.stdout)),
-                }
+            continue
+        expression = "{" + ",".join(
+            f'"{name}": [for k, _ in {name} {{k}}]' for name in names
+        ) + "}"
+        completed = subprocess.run(
+            [str(binary), "eval", str(path), "-e", expression, "--out", "json"],
+            stdin=subprocess.DEVNULL,
+            capture_output=True,
+            text=True,
+            env={"PATH": "/usr/bin:/bin", "LC_ALL": "C", "TZ": "UTC"},
+        )
+        if completed.returncode != 0:
+            print(
+                f"schema-facts: {path.name}: {completed.stderr.strip()}",
+                file=sys.stderr,
             )
-    return facts
+            raise SystemExit(2)
+        answer = json.loads(completed.stdout)
+        _cache_write(binary, path, answer)
+        for name, fields in answer.items():
+            facts.append(
+                {"definition": name, "file": path.name, "fields": sorted(fields)}
+            )
+    return sorted(facts, key=lambda row: (row["file"], row["definition"]))
 
 
 def main() -> int:
@@ -166,6 +328,7 @@ def main() -> int:
     document = {
         "python": facts,
         "pythonUnresolved": unresolved,
+        "lanes": lane_facts(root),
         "cue": cue_facts(
             root / "tools" / "cue" / "v0.17.0" / "cue", root / "spec" / "cue"
         ),
