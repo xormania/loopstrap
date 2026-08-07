@@ -29,19 +29,19 @@ fails, including a mismatch you introduced by reformatting.
 **1. Seal delta** — `python3 artifacts/instance/tools/seal-tree.py .`
 
 ```
-PASTE THE SEALED / SEAL CHANGED LINES HERE
+<<<REPLACE-WITH-REAL-OUTPUT>>>
 ```
 
 **2. Contract gate** — `bash artifacts/instance/tools/contract-check.sh`
 
 ```
-PASTE THE CONTRACT CLEAN LINE HERE
+<<<REPLACE-WITH-REAL-OUTPUT>>>
 ```
 
 **3. Battery** — `bash tests/battery.sh`
 
 ```
-PASTE THE "N PASS · N FAIL" LINE HERE
+<<<REPLACE-WITH-REAL-OUTPUT>>>
 ```
 
 ## Red before green
@@ -58,8 +58,10 @@ PASTE THE "N PASS · N FAIL" LINE HERE
 
 ```
 BEFORE (failing):
+<<<REPLACE-WITH-REAL-OUTPUT>>>
 
 AFTER (passing):
+<<<REPLACE-WITH-REAL-OUTPUT>>>
 ```
 
 ## Checklist

@@ -4,7 +4,7 @@ d3bcf833b2070730d738827c2cdbf475dc591de60633fce95bd4438ce4c5440e  ./.claude/comm
 974bf7431378e81b4b809cd24382e94d43a2e9d6cc97f6dc31a84be7c206f298  ./.claude/commands/prep.md
 fda93145963698d5182031c543f7ea01642d6f4ee5f9b2943c4add0b88de7f5b  ./.claude/commands/retro.md
 5a53e4c73eef2794fbac81b5607096a631a9bf2fc3113187ba86f7757e75124b  ./.claude/settings.json
-c93b34dbd04311bdd27a6c624a5f5596d892f6cad3eaac2e0e3c44c6c558d6bf  ./.github/pull_request_template.md
+5167310148c1dca3ec9d253ac471a8af88699fc46c98f4efe15073f002834959  ./.github/pull_request_template.md
 f99d1ce283b3db675bd5d8b9bf98d9da2ed58a590f1ff23b0d7cac6f58c64433  ./.github/workflows/pr.yml
 9a5f9487be01fd1b19c2ccb0d07ba4fd30b625453f9b99c74c2851cf0d866bb9  ./.gitignore
 fb499f4759ba8e234f9f6020a7e321f3124dc0a65ec5df7e377f9e1338ae073c  ./.loopstrap-root-config.manifest
@@ -93,7 +93,7 @@ d2e786da7034a0421878b9772857b41d8669af964b85d4f4e907a83b50b7aec1  ./artifacts/in
 8d363f908538e557083cc25961049c78448f0b1b5c83553518d8b7069db18607  ./artifacts/instance/tools/gen-seal-rules.py
 0523b717ee837f6b5a89e786caebba5bfb175d288d91a5734ae62921e658931a  ./artifacts/instance/tools/intent-landing-template.md
 cc67d0af57cb78488674588df698111fa0ced27a455c3d0d33448b174552b959  ./artifacts/instance/tools/launcher-args.sh
-21730294f695cc8136e1f23714db9e9dd38a224c7662656024b3372bece4dbcb  ./artifacts/instance/tools/pr-evidence-check.py
+831011ae8a7953d62ccf1e4c9e403ad50fd35f2d4064d19a738a81edbb95ab23  ./artifacts/instance/tools/pr-evidence-check.py
 2a219e95cbb67175ae49d3526f5e0a45e755ff010e567a9c0b469ffc5c8aef2c  ./artifacts/instance/tools/probe-key.md
 f4821e87eb5a7226c553074fa0d52f2191ef7273846b8d2d6e14719450151cce  ./artifacts/instance/tools/probe-questions.md
 76e537c3f0c799dbfea373d0c7411db4e382a1bc0102e8ee99539d433f963730  ./artifacts/instance/tools/schema-facts.py

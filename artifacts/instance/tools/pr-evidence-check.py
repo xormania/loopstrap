@@ -23,7 +23,11 @@ import re
 import sys
 
 
-PLACEHOLDERS = ("PASTE THE", "BEFORE (failing):", "AFTER (passing):")
+# One token, chosen so it cannot occur in genuine content. An earlier version
+# treated "BEFORE (failing):" and "PASTE THE" as placeholders and rejected an
+# honest body twice over: those are the natural labels for real evidence, and a
+# body that quotes this tool's own error message contains the word PASTE.
+PLACEHOLDERS = ("<<<REPLACE-WITH-REAL-OUTPUT>>>",)
 REQUIRED_HEADINGS = (
     "## What this changes, and why",
     "## What breaks if this is wrong",
