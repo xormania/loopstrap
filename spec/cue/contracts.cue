@@ -118,6 +118,19 @@ import "list"
 			}
 		}
 	}
+	// A Cell may only depend on a Cell the graph declares. Resolving each
+	// referent through _cellByID makes an undeclared one an undefined field.
+	// Containment acyclicity is not expressible here without a declared depth
+	// bound, and stays a Python-side check.
+	_dependencyChecks: {
+		for cell in cells {
+			"\(cell.id)": {
+				for index, dependency in cell.dependencies {
+					"\(index)": _cellByID[dependency].id
+				}
+			}
+		}
+	}
 	_connectionChecks: {
 		for composite in composites {
 			"\(composite.id)": {
