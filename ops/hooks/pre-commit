@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Refuse a commit whose staged content names something the operator has not
+# published.
+#
+# The expensive case is not writing the name — it is importing a file that
+# already carries it. Files copied in from elsewhere bring their origin's
+# vocabulary, and prose you did not write is prose you did not proofread. This
+# scans ADDED lines only: removing a reference puts it in the diff as a deleted
+# line, and flagging the act of fixing the problem is how a check gets disabled.
+#
+# It cannot catch a description that avoids every term. Nothing can. Reread your
+# own prose for that — see skills/dev/publication-check/SKILL.md.
+set -euo pipefail
+
+root="$(git rev-parse --show-toplevel)"
+git diff --cached | python3 "$root/artifacts/instance/tools/publication-check.py" \
+    --root "$root" --stdin

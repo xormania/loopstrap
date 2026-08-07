@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Refuse a commit whose message names something the operator has not published.
+#
+# A commit message is the hardest channel to retract: it is content-addressed,
+# it propagates to every clone, and removing it means rewriting history and
+# force-pushing. Checking it by habit works right up until the once it does not.
+#
+# Fail-closed by construction — publication-check.py exits 2 when no denylist is
+# available, and that is a blocked commit, not a passed one. If you have no
+# private terms to protect you do not need these hooks; see ops/hooks/install.sh.
+set -euo pipefail
+
+root="$(git rev-parse --show-toplevel)"
+exec python3 "$root/artifacts/instance/tools/publication-check.py" \
+    --root "$root" --file "$1"
