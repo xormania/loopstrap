@@ -1,0 +1,40 @@
+# Codex project configuration for the Loopstrap root.
+#
+# The ONLY harness adapter this repository needs, and it exists for one reason:
+# codex reads neither .claude/settings.json nor .claude/commands/. Its
+# instructions already come free from AGENTS.md, which codex reads natively and
+# which the consistency audit holds byte-identical to its staged copy.
+#
+# There is deliberately no .grok/ directory. Grok reads AGENTS.md and CLAUDE.md
+# as project rules, loads ./.claude/skills/ and ./.claude/commands/ at repo
+# priority under Claude compatibility (on by default), and merges
+# .claude/settings.json permission rules into its own rule set. A .grok/ tree
+# here would be a second copy of all of that, and second copies drift. If grok
+# ever needs a genuine override, add .grok/config.toml with ONLY the override —
+# never a mirror.
+#
+# Machine-local keys — model_provider, profiles, notify, otel — cannot live in
+# project config by Codex's own design. They stay in ~/.codex/config.toml. This
+# file is loaded only once the repository is trusted, at the first-run prompt.
+
+# Deliberately not read-only. The root is the dev-lane surface, and a session
+# here does the same work a Claude Code session does: edit, reseal, run the
+# battery. A read-only posture would make it a viewer rather than a contributor,
+# which is a control with no path through (L48). Approvals stay on request.
+approval_policy = "on-request"
+
+[features]
+codex_git_commit = true
+
+# Symbolic navigation, project-scoped — one instance per repo root. The project
+# itself is configured in .serena/project.yml, which sets read_only there: the
+# value of Serena here is find_symbol and find_referencing_symbols, not a second
+# editing surface that no reviewer watches.
+#
+# VERIFY the context name against the installed serena
+# (`serena start-mcp-server --help`) before relying on it; config/serena.v1.json
+# records what is known about reliability, and an early-session "no references
+# found" is not admissible as evidence of no references while the index is cold.
+[mcp_servers.serena]
+command = "serena"
+args = ["start-mcp-server", "--context", "codex", "--project-from-cwd"]
