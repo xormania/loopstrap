@@ -140,6 +140,7 @@
 0644	contract/extracted_config.cue
 0644	contract/invariant_config.cue
 0644	contract/invariant_harness_cli.cue
+0644	contract/invariant_lanes.cue
 0644	contract/invariant_schema.cue
 0644	contract/invariant_serena.cue
 0644	contract/schema_harness_surface.cue
@@ -195,6 +196,7 @@
 0755	reset.sh
 0755	serena-fleet.sh
 0755	setup.sh
+0644	skills/dev/lane-classification/SKILL.md
 0644	spec/cue/contracts.cue
 0644	spec/cue/evidence.cue
 0644	spec/cue/project.cue

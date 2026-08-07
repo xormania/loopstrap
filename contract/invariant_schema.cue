@@ -87,4 +87,7 @@ diagnostics: {
 	for subject, reason in _cSchema002b {"C-SCHEMA-002 \(subject)": reason}
 	for subject, reason in _cSchema003 {"C-SCHEMA-003 \(subject)": reason}
 	for subject, reason in _cSchema004 {"C-SCHEMA-004 \(subject)": reason}
+	for subject, reason in _cLane001 {"C-LANE-001 \(subject)": reason}
+	for subject, reason in _cLane002 {"C-LANE-002 \(subject)": reason}
+	for subject, reason in _cLane003 {"C-LANE-003 \(subject)": reason}
 }

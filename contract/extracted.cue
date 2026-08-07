@@ -29,6 +29,14 @@ package contract
 	fields: [string, ...string]
 })
 
+#LaneFact: close({
+	file:    string & !=""
+	lane:    "production" | "development"
+	package: string
+	references: [...string]
+})
+
+lanes: [...#LaneFact]
 python: [...#PythonFact]
 pythonUnresolved: [...#UnresolvedSite]
 cue: [...#CueFact]
