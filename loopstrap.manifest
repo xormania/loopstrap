@@ -4,7 +4,7 @@ d3bcf833b2070730d738827c2cdbf475dc591de60633fce95bd4438ce4c5440e  ./.claude/comm
 0e169f2c3cf37c60841519e4a5d7cbb352b166a62d64e6a195ad531d166c17cb  ./.claude/commands/halt.md
 6d44a989b19d691eb079c6ddae7b1f54798bd2a8cac8ac8d96b9277b74dd56db  ./.claude/commands/prep.md
 fda93145963698d5182031c543f7ea01642d6f4ee5f9b2943c4add0b88de7f5b  ./.claude/commands/retro.md
-dfcd2d61f7a1571d606cedae75c11a963c90f2a5429c48e9429beafd9280d7ca  ./.claude/settings.json
+4a4fc87cdf9fc0b79519ab3afee561ecf646041ce1e1521421600ce83486399f  ./.claude/settings.json
 7cee9294b6fe9f07b623005bc73d6cf98cea0cf0ff4b57b62b576ea21807737f  ./.claude/skills/lane-classification/SKILL.md
 ab4355cd7b4e975f881f224b5434d3642950b814788f36ec9d5beceb112d3266  ./.claude/skills/publication-check/SKILL.md
 5167310148c1dca3ec9d253ac471a8af88699fc46c98f4efe15073f002834959  ./.github/pull_request_template.md
@@ -39,7 +39,7 @@ d3bcf833b2070730d738827c2cdbf475dc591de60633fce95bd4438ce4c5440e  ./artifacts/ag
 0e169f2c3cf37c60841519e4a5d7cbb352b166a62d64e6a195ad531d166c17cb  ./artifacts/agent-configs/root/.claude/commands/halt.md
 6d44a989b19d691eb079c6ddae7b1f54798bd2a8cac8ac8d96b9277b74dd56db  ./artifacts/agent-configs/root/.claude/commands/prep.md
 fda93145963698d5182031c543f7ea01642d6f4ee5f9b2943c4add0b88de7f5b  ./artifacts/agent-configs/root/.claude/commands/retro.md
-dfcd2d61f7a1571d606cedae75c11a963c90f2a5429c48e9429beafd9280d7ca  ./artifacts/agent-configs/root/.claude/settings.json
+4a4fc87cdf9fc0b79519ab3afee561ecf646041ce1e1521421600ce83486399f  ./artifacts/agent-configs/root/.claude/settings.json
 97169fa067e287c9c7882ae1367b8784da956213aaa27365c9b678ada817854a  ./artifacts/agent-configs/root/AGENTS.md
 19a96ca058fa2a7c462e1d7f9d03b6d234a735ea4747db83148495ab509868e0  ./artifacts/agent-configs/root/CLAUDE.md
 9a5ef5304a536c8b281a825e95dc731735171eafc4db8987c6cbcf9c3b5cab13  ./artifacts/agent-configs/root/README.md

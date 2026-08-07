@@ -2,7 +2,6 @@
   "_comment": "v8 (L41): defaultMode=bypassPermissions \u2014 the steward session is prompt-free by default; no launch flag to remember. v7 (L40): THE USER BOUNDARY IS THE SECURITY BOUNDARY. Everything inside math-lsp is expendable by xor's declaration \u2014 no in-session structural denial exists; run with any permission mode, --dangerously-skip-permissions included. The allow list below only smooths default-mode sessions. What escapes the user keeps its guards elsewhere: origin/main (server-side, Box-2 promote) and spend (the breaker's uid-forgery-proof override lane). Lane discipline (steward never hand-edits member source or pushes) is doctrinal, for record-truth \u2014 detected via git history + owner-records, not prevented.",
   "permissions": {
     "deny": [
-      "Read(./proj/**)",
       "Read(./.private-terms)",
       "Read(~/.config/publication-denylist)"
     ],
@@ -78,5 +77,5 @@
     ],
     "defaultMode": "bypassPermissions"
   },
-  "_comment_deny": "proj/ is untracked working notes and is already omitted from the seal (config/seal.v1.json excluded_root_names), from git (.gitignore), from Serena (ignore_all_files_in_gitignore) and from publication-check's own walk (SKIP_DIRS). Claude Code has no equivalent switch, so it is denied here. The operator denylist itself now lives at ~/.config/publication-denylist, outside every repository, because for a list that IS the disclosure 'not present' beats 'configured not to look'. A deny rule cannot stop a shell read; it stops the accidental one, which is the case that actually happens."
+  "_comment_deny": "The operator denylist lives at ~/.config/publication-denylist, outside every repository, because a list that IS the disclosure is safest when it is simply not present in the tree. Only the secret paths themselves are denied. proj/ and other gitignored directories are DEV WORKSPACE and are deliberately NOT denied: an earlier revision blocked Read(./proj/**) and that is a control with no path through (L48) \u2014 it stopped ordinary work on drafts and the firings ledger while protecting nothing that was still there. Omission from the seal, from git, from Serena's index and from publication-check's walk is about scope, not secrecy, and none of those should imply the agent may not read."
 }
