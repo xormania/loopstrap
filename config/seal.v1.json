@@ -1,7 +1,7 @@
 {
   "config_version": 1,
   "purpose": "Authored source of truth for seal exclusions. Compiled into seal-tree.py and verify-tree.py by artifacts/instance/tools/gen-seal-rules.py; the compiled block is committed, and C-SEAL-001 fails if it is stale.",
-  "why_compiled": "verify-tree.py travels. land.sh ships it alone inside a courier and runs it against a tree that carries neither this config nor any shared module, so the tool must be self-contained. Compiling the authored config into the tool keeps one source of truth without giving the tool a runtime dependency — and it means a courier can never supply its own permissive exclusion policy.",
+  "why_compiled": "verify-tree.py travels. ops/land.sh ships it alone inside a courier and runs it against a tree that carries neither this config nor any shared module, so the tool must be self-contained. Compiling the authored config into the tool keeps one source of truth without giving the tool a runtime dependency — and it means a courier can never supply its own permissive exclusion policy.",
 
   "excluded_names": [".git", "__pycache__"],
   "excluded_names_note": "Matched at ANY depth. Version-control metadata and build artifacts legitimately appear anywhere in a tree.",

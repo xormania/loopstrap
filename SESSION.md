@@ -8,7 +8,7 @@
 - `loopstrap_core/profiles.py` added: profile loader/renderer; built-in defaults byte-identical to the certified argv.
 - `config/harness-profiles.v1.json` added: THE tweak seam. Per harness: `argv` (certified wrapper skeleton — changing it means re-certification), `smoke_argv` (assumed-basic usage), env templates, `version_pin`, `basis` with D38 notes.
 - `loopstrap_core/wrappers.py`: the three compile() bodies now render from the profile; no vendor flag is hardcoded in Python anymore.
-- `harness-smoke.sh` added: one bounded invocation, mock mode default (zero tokens), `--live` for the real CLI; a live flag rejection is the D38 drift signal and the fix is the profile file.
+- `ops/harness-smoke.sh` added: one bounded invocation, mock mode default (zero tokens), `--live` for the real CLI; a live flag rejection is the D38 drift signal and the fix is the profile file.
 
 **Frozen:** untouched; certification 26/26 green with the seam in place (argv exactness preserved).
 

@@ -31,7 +31,7 @@ run_leg(){ # root leg
       ( cd "$root" && LS_ASSERTION_RECORD="$MUT_REC" LS_SUITE_SUMMARY="$MUT_SUM" \
         bash tests/run-tests.sh ${SUITE_SELECTOR:+"$SUITE_SELECTOR"} ) >"$LOG" 2>&1 ;;
     wall)
-      ( cd "$root" && bash wall.sh --sweep ) >"$LOG" 2>&1 ;;
+      ( cd "$root" && bash ops/wall.sh --sweep ) >"$LOG" 2>&1 ;;
     audit)
       ( cd "$root" && bash artifacts/instance/tools/audit-consistency.sh ) >"$LOG" 2>&1 ;;
     syntax)
@@ -175,7 +175,7 @@ say "  baseline: battery GREEN; $(wc -l < "$BASE_REC") protected assertion event
 rm -rf "$BASE"
 
 say "── product guards: break one; its own witness must stop passing ──"
-mut wall.sh 's/^  scan "R5 dev-inside-product"/  : scan "R5 dev-inside-product"/' \
+mut ops/wall.sh 's/^  scan "R5 dev-inside-product"/  : scan "R5 dev-inside-product"/' \
   "wall R5 disabled" suite label "wall-filter|wall R5 fires (dev-inside-product)"
 mut artifacts/instance/tools/docs_verify.py \
   's/^        elif Counter(document_ids) != Counter(index_ids):/        elif False:/' \
@@ -185,11 +185,11 @@ mut ops/sovereign.sh \
   's/^    cp -p -- "$backup" "$target" || fail "restore failed: $target"/    true # mutation: restore disabled/' \
   "sovereign restore disabled" suite label \
   "sovereign-walls|sovereign walls on: guard restored byte-exact"
-mut land.sh \
+mut ops/land.sh \
   's/^    rm -f -- "$stale" || fail "stale removal failed: $stale"/    true # mutation: stale removal disabled/' \
   "landing stale removal disabled" suite label \
   "landing|landing: stale regular file removed"
-mut install-configs.sh \
+mut ops/install-configs.sh \
   's/^    missing_repos=.*; fail=1; drift=1/    missing_repos=$((missing_repos+1)); : # mutation: absence licensed/' \
   "installer absence requirement disabled" suite label \
   "install|install: --check fails when a registered repo is absent"
@@ -201,15 +201,15 @@ mut artifacts/instance/tools/token-breaker.py \
   '84c\    print(os.path.join(os.path.dirname(os.path.abspath(sys.argv[2])), sys.argv[3], "override.env"))' \
   "breaker override path disconnected" suite label \
   "breaker-wires|override path: breaker consumes sovereign's canonical file"
-mut custody-sweep.sh \
+mut ops/custody-sweep.sh \
   's|^SNAP="$(mktemp -d "$DST/plan-sweep-$STAMP.XXXXXX")"|SNAP="$DST/plan-sweep-fixed"; mkdir "$SNAP"|' \
   "custody snapshot uniqueness disabled" suite label \
   "custody-sweep|custody: second sweep exits 0"
-mut reset.sh \
+mut ops/reset.sh \
   's|^  "$HOME_REAL") die "LOOPSTRAP_ROOT may not equal HOME; xor/ could not be set aside safely" ;;|  "$HOME_REAL") : ;;|' \
   "reset HOME refusal disabled" suite label \
   "reset-boundary|reset: refuses HOME as destructive target"
-mut wall.sh \
+mut ops/wall.sh \
   '91c\  [ -f "$f" ] || { echo "wall input missing or non-regular: $f" >&2; continue; }' \
   "wall missing-input refusal disabled" suite label \
   "wall-filter|wall refuses missing requested inputs"

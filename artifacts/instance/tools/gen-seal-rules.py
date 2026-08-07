@@ -2,7 +2,7 @@
 """Compile config/seal.v1.json into seal-tree.py and verify-tree.py.
 
 seal-tree.py and verify-tree.py must agree on what the seal covers, and neither
-may import a module or read a config file at run time: land.sh ships
+may import a module or read a config file at run time: ops/land.sh ships
 verify-tree.py alone inside a courier and runs it against a tree that carries
 neither. Self-containment is a courier requirement — and it also means a courier
 can never supply its own permissive exclusion policy.

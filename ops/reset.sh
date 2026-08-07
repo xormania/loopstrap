@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# reset.sh — scorched-earth reset (D60). The machine posture, finally honest:
+# ops/reset.sh — scorched-earth reset (D60). The machine posture, finally honest:
 # NOTHING in the family dir is precious (D39's four legs guarantee it), so a
 # reset is always available and always safe:
-#   1 · backup.sh runs FIRST and must verify (xor/, reports/, live plan/,
+#   1 · ops/backup.sh runs FIRST and must verify (xor/, reports/, live plan/,
 #       dotfiles → one dated self-verifying tarball) — refuse to nuke otherwise
 #   2 · xor/ (your custody lane, tarballs included) is set aside — never in scope
 #   3 · rm -rf the ENTIRE family dir
@@ -10,8 +10,8 @@
 #   5 · fresh clone — kills LOCAL residue only; clones re-import origin's refs,
 #       so step 5b verifies the remotes and FAILS LOUD if legacy refs exist (D64)
 #   6 · install-configs
-# land.sh remains the fast in-place path; reset.sh is the clean-slate path.
-# Usage: ./reset.sh <courier.zip>      (env RESET_SKIP_CLONE=1 for dry estates)
+# ops/land.sh remains the fast in-place path; ops/reset.sh is the clean-slate path.
+# Usage: ./ops/reset.sh <courier.zip>      (env RESET_SKIP_CLONE=1 for dry estates)
 set -uo pipefail
 say(){ echo; echo "════ $* ════"; }
 die(){ echo "✗ RESET REFUSED: $*"; exit 1; }
@@ -40,8 +40,8 @@ STAMP="$(date -u +%Y%m%dT%H%M%S.%N)"
 say "1/6 BACKUP first — no verified tarball, no nuke"
 if [ -d "$F" ]; then
   cd "$F"
-  unzip -o -q "$Z" backup.sh && chmod +x backup.sh
-  ./backup.sh || die "backup did not verify — nothing was touched"
+  unzip -o -q "$Z" ops/backup.sh && chmod +x ops/backup.sh
+  ./ops/backup.sh || die "backup did not verify — nothing was touched"
 else
   echo "  no existing tree — fresh install path"
 fi
@@ -87,7 +87,7 @@ done
 echo "  remotes clean ✓"
 
 say "6/6 INSTALL"
-./install-configs.sh || die "install-configs"
+./ops/install-configs.sh || die "install-configs"
 
 say "RESET COMPLETE — pristine courier · fresh clones · xor/ intact · old world in the tarball"
 echo "next:  cd repos/lsp_math && codex   # trust, Ctrl-C, cd ../.."

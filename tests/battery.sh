@@ -31,7 +31,7 @@ run_leg readiness bash -c \
   'PYTHONDONTWRITEBYTECODE=1 python3 tests/readiness/verify_freeze.py && PYTHONDONTWRITEBYTECODE=1 python3 tests/readiness/run.py'
 run_leg certification bash -c \
   'PYTHONDONTWRITEBYTECODE=1 python3 tests/certification/verify_freeze.py && PYTHONDONTWRITEBYTECODE=1 python3 tests/certification/run.py'
-run_leg wall ./wall.sh --sweep
+run_leg wall ./ops/wall.sh --sweep
 run_leg audit bash artifacts/instance/tools/audit-consistency.sh
 run_leg register-map bash tests/check-register-map.sh "$REC" "$SUMMARY"
 

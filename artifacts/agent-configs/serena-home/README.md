@@ -1,5 +1,5 @@
 Fleet-wide Serena home surfaces (~/.serena) — HUMAN-AUTHORED policy, never planted
-into repos. serena-fleet.sh installs contexts/ into ~/.serena/contexts/ (refuses on
+into repos. ops/serena-fleet.sh installs contexts/ into ~/.serena/contexts/ (refuses on
 divergence; refuses while a paste-me marker remains). Register D26.
 
 Upgrade check — codex shadow (verified against source @ serena v1.5.3, 2449313c;

@@ -80,7 +80,7 @@ unify into the production contract surface. Test 1 catches it (the expectation i
 meaningless in another repo); the fix was its own package name.
 
 **A config read by something that travels.** Seal exclusions were moved into
-`config/seal.v1.json` and read at runtime by `verify-tree.py` — which `land.sh`
+`config/seal.v1.json` and read at runtime by `verify-tree.py` — which `ops/land.sh`
 ships alone inside a courier, to a tree carrying no config. The battery caught it
 as 14 register-map violations. Test 4 catches it earlier: the verifier must
 survive being separated from this repository, so it cannot depend on this

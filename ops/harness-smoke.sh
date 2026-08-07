@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
-# harness-smoke.sh — one bounded, profile-driven harness invocation.
+# ops/harness-smoke.sh — one bounded, profile-driven harness invocation.
 #
-#   bash harness-smoke.sh <codex|claude-code> [--live]
+#   bash ops/harness-smoke.sh <codex|claude-code> [--live]
 #
 # Default mode uses tests/mocks on PATH: zero tokens, proves the seam end to
 # end (profile -> rendered argv -> process -> output). --live uses the real
 # CLI on PATH: spends a few tokens; a flag rejection in live mode is the D38
 # drift signal — correct config/harness-profiles.v1.json, not this script.
 set -euo pipefail
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 HARNESS="${1:-}"; MODE="${2:-mock}"
-[ -n "$HARNESS" ] || { echo "usage: harness-smoke.sh <codex|claude-code> [--live]" >&2; exit 2; }
+[ -n "$HARNESS" ] || { echo "usage: ops/harness-smoke.sh <codex|claude-code> [--live]" >&2; exit 2; }
 [ "$MODE" = "--live" ] || export PATH="$ROOT/tests/mocks:$PATH"
 
 WORK="$(mktemp -d)"; trap 'rm -rf "$WORK"' EXIT

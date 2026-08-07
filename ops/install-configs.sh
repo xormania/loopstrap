@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# install-configs.sh — plant staged agent configs into member repos.
+# ops/install-configs.sh — plant staged agent configs into member repos.
 # Staging: artifacts/agent-configs/<member>/  ->  repos/<member>/
 # Duties: copy · write .git/info/exclude entries · write manifests (sha256) ·
 #         refuse on foreign collision · idempotent · --check = drift report only
 #         (.serena/project.yml: presence-checked only — serena normalizes it on index).
 set -euo pipefail
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 STAGING="$ROOT/artifacts/agent-configs"
 CHECK=0; [[ "${1:-}" == "--check" ]] && CHECK=1
 MB="# >>> loopstrap agent-config plants (managed block — do not edit) >>>"

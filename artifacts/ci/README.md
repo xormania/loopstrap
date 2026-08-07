@@ -67,5 +67,5 @@ Not yet in CI (need prerequisites outside the runner):
 Updating a template here updates the gate for **future** repos (committed at
 creation). **An existing repo takes a template change as a normal committed unit** —
 CI is product content, so it rides a PR through the judges like any code, not an
-`install-configs.sh` plant. The empty-crate guard means a template can land in a
+`ops/install-configs.sh` plant. The empty-crate guard means a template can land in a
 code-less repo without wedging the required check.

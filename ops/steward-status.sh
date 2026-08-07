@@ -4,8 +4,8 @@
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"; cd "$ROOT"
 echo "══════ LOOPSTRAP STATUS · $(date -u +%FT%TZ) · $ROOT ══════"
 sha256sum -c loopstrap.manifest --quiet 2>/dev/null && echo "tree     : ✓ matches loopstrap.manifest ($(wc -l < loopstrap.manifest) files)" || echo "tree     : ✗ DRIFT vs manifest — land a courier or investigate"
-echo "configs  : $(./install-configs.sh --check 2>/dev/null | tail -1)"
-echo "wall     : $(./wall.sh --sweep 2>/dev/null | tail -2 | head -1)"
+echo "configs  : $(./ops/install-configs.sh --check 2>/dev/null | tail -1)"
+echo "wall     : $(./ops/wall.sh --sweep 2>/dev/null | tail -2 | head -1)"
 echo "audit    : $(bash artifacts/instance/tools/audit-consistency.sh 2>/dev/null | tail -3 | head -1 | sed 's/^ *//')"
 echo "── members (registry) ──"
 for m in $(grep -oP '^\[\K[^]]+' artifacts/members.toml 2>/dev/null); do

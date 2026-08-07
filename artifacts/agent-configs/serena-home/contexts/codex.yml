@@ -2,7 +2,7 @@
 # Shadows by name from ~/.serena/contexts/ — adds the single_project lock the built-in
 # lacks (claude-code has it; codex doesn't). BEFORE INSTALLING: replace the marker below
 # with the built-in prompt, VERBATIM, from src/serena/resources/config/contexts/codex.yml
-# at your installed version. serena-fleet.sh refuses to install while the marker remains.
+# at your installed version. ops/serena-fleet.sh refuses to install while the marker remains.
 description: Codex, single-project locked (fleet shadow of built-in)
 prompt: |
   You are running in the Codex IDE assistant mode, where file operations, basic (line-based) edits and reads 

@@ -3,7 +3,7 @@
 # from the shared templates by INLINING the family-law block (never @import — imports
 # do not expand on subdir launch, verified Claude Code 2.1.215). Run from repo root:
 #   artifacts/agent-configs/shared/regen-doctrine.sh
-# Then ./install-configs.sh to plant. Per-member content lives in the CASE block below —
+# Then ./ops/install-configs.sh to plant. Per-member content lives in the CASE block below —
 # the one place member facts are authored; templates carry structure only.
 set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"

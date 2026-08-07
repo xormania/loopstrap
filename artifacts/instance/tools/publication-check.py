@@ -93,22 +93,59 @@ def looks_like_diff(text: str) -> bool:
     )
 
 
-def added_lines_only(text: str) -> str:
-    """Keep only what a diff ADDS.
-
-    Removing a reference puts that reference in the diff as a deleted line, so
-    scanning a raw diff flags the very act of fixing the problem. Only additions
-    can leak; deletions are the cure.
-    """
-    kept: list[str] = []
+def diff_sections(text: str) -> dict[str, tuple[list[str], list[str]]]:
+    """Split a unified diff into {path: (added lines, removed lines)}."""
+    sections: dict[str, tuple[list[str], list[str]]] = {}
+    path = "<stdin>"
     for line in text.splitlines():
-        if line.startswith("+++"):
-            kept.append("")
-        elif line.startswith("+"):
-            kept.append(line[1:])
-        else:
-            kept.append("")
-    return "\n".join(kept)
+        if line.startswith("+++ "):
+            named = line[4:].strip().split("\t")[0]
+            path = named[2:] if named.startswith(("a/", "b/")) else named
+            sections.setdefault(path, ([], []))
+            continue
+        if line.startswith(("--- ", "diff --git ", "@@", "index ", "similarity ",
+                            "rename ", "new file", "deleted file", "old mode",
+                            "new mode", "Binary files")):
+            continue
+        if line.startswith("+"):
+            sections.setdefault(path, ([], []))[0].append(line[1:])
+        elif line.startswith("-"):
+            sections.setdefault(path, ([], []))[1].append(line[1:])
+    return sections
+
+
+def scan_diff(text: str, terms: list[str]) -> list[tuple[str, int, str, str]]:
+    """Flag only what a diff genuinely INTRODUCES.
+
+    Scanning added lines alone flags the act of fixing the problem, because
+    removing a reference puts it in the diff as a deleted line. Scanning added
+    lines alone ALSO flags every edit to a line that already carried the term —
+    a path rewrite, a reflow, a rename — which is the common case and the one
+    that trains people to reach for --no-verify.
+
+    So the unit is the net count per file per term: if a file removes as many
+    occurrences of a term as it adds, it has introduced nothing. Per file, not
+    globally, so deleting a mention in one file cannot license a new one
+    somewhere else.
+
+    When there IS an excess this reports every added line carrying the term and
+    says how many are new, because term matching cannot identify WHICH addition
+    is the new one. Naming them all and stating the arithmetic is honest; naming
+    one would be a guess.
+    """
+    hits: list[tuple[str, int, str, str]] = []
+    for path, (added, removed) in sorted(diff_sections(text).items()):
+        for term in terms:
+            pattern = re.compile(re.escape(term), re.IGNORECASE)
+            carrying = [line for line in added if pattern.search(line)]
+            gained = sum(len(pattern.findall(line)) for line in added)
+            lost = sum(len(pattern.findall(line)) for line in removed)
+            if gained - lost <= 0:
+                continue
+            label = f"{path} (+{gained} -{lost}, {gained - lost} new)"
+            for number, line in enumerate(carrying, 1):
+                hits.append((label, number, term, line.strip()[:100]))
+    return hits
 
 
 def scan(text: str, terms: list[str], label: str) -> list[tuple[str, int, str, str]]:
@@ -150,9 +187,10 @@ def main() -> int:
     if args.stdin:
         text = sys.stdin.read()
         if looks_like_diff(text):
-            text = added_lines_only(text)
-            print("  (input is a diff — scanning added lines only)", file=sys.stderr)
-        hits += scan(text, terms, "<stdin>")
+            print("  (input is a diff — counting net introductions per file)", file=sys.stderr)
+            hits += scan_diff(text, terms)
+        else:
+            hits += scan(text, terms, "<stdin>")
     if args.file:
         hits += scan(args.file.read_text(encoding="utf-8", errors="replace"), terms, str(args.file))
     for path in walk(args.paths):

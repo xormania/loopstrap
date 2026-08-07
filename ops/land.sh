@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-# land.sh — converge the installed tree to an exhaustive, hash- and mode-sealed
+# ops/land.sh — converge the installed tree to an exhaustive, hash- and mode-sealed
 # courier. Mutable runtime paths (repos/, .worktrees/, xor/, scratch/, reports/)
 # are outside courier completeness and are never removed.
 set -uo pipefail
 
 fail(){ echo "✗ LANDING FAILED: $*" >&2; exit 1; }
 ZIP="${1:-}"
-[ -f "$ZIP" ] || fail "usage: ./land.sh <courier.zip>"
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+[ -f "$ZIP" ] || fail "usage: ./ops/land.sh <courier.zip>"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT" || fail "cannot enter live root"
 
 TMP="$(mktemp -d)"

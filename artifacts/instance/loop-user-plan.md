@@ -61,7 +61,7 @@
 
 ## Phase 5 — evidence + custody migration (xor, once)
 - [ ] Donor-era reports stay with the donor archive; the lsp_math ledger opens fresh
-- [ ] `xor/` custody per P2 ruling; backup.sh path implications recorded after
+- [ ] `xor/` custody per P2 ruling; ops/backup.sh path implications recorded after
 - [ ] Old donor-era artifacts on the box: retire per P3 answer
 
 ## Phase 6 — first-launch battery (loop user)
