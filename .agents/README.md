@@ -3,7 +3,7 @@
 A welcome mat, not doctrine. Three short files, and the most useful thing in
 them is what *not* to read.
 
-- **`MAP.md`** — every top-level directory, one line each, marked live or legacy.
+- **`MAP.md`** — every top-level directory, one line each, marked by standing.
 - **`TASKS.md`** — the half-dozen jobs you will actually be asked to do, with the
   exact commands and the order they go in.
 
@@ -28,8 +28,8 @@ in-flight work, not a finished property.
 ## The first thing to know
 
 `artifacts/` is 4,273 lines of markdown across 71 files, and roughly half is
-cited by nothing that runs. That does not make it *legacy* — age was never the
-property that mattered. What matters is **standing**, and there are three:
+cited by nothing that runs. Age is not what makes that a problem, and it is not
+how anything here is filed. What matters is **standing**, and there are three:
 
 | standing | where | your rule |
 |---|---|---|

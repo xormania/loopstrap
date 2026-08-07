@@ -1,7 +1,8 @@
 # Loopstrap implementation surface
 
-**New here?** `.agents/README.md` is a three-file welcome mat: what is live
-versus legacy, where everything is, and the exact commands for the usual jobs.
+**New here?** `.agents/README.md` is a three-file welcome mat: the standing of
+everything under `artifacts/`, where things are, and the exact commands for the
+usual jobs.
 
 This directory is the Loopstrap source root. The active deterministic kernel is
 `loopstrap_core`; versioned runtime selections live under `config/`.
@@ -27,9 +28,10 @@ unavailable value, content reference, and available byte copy. Large and
 repeated bytes remain digest-deduplicated inside the mirror; credential-shaped
 structured data and unredacted harness streams remain prohibited.
 
-Files under `artifacts/` predate the current kernel unless an active check or
-versioned configuration names them. Treat that material as legacy evidence, not
-runtime authority. Roles name responsibilities; Role-Treatments bind those
+Files under `artifacts/` carry a standing rather than an age. **Authority** is
+cited by an active check or versioned configuration and is binding. **Method**
+is technique, never executed. **Record** is evidence of one past run and is
+never runtime authority. Check which before relying on anything there. Roles name responsibilities; Role-Treatments bind those
 responsibilities to an exact harness, provider/model route, native reasoning
 control, wrapper, and configuration. The three governing design documents and
 live Role-Treatment receipts are intentionally not present yet, so the system
