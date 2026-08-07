@@ -8,7 +8,7 @@ from typing import Any, Iterable, Protocol
 from .atomic import canonical_json
 from .errors import HarnessProtocolError, SchemaError
 from .harness import RoleTreatment
-from .profiles import profile_for, render
+from .profiles import load_profiles, profile_for, render
 
 
 WRAPPER_ISSUER = "loopstrap-harness-wrapper-v1"
@@ -175,26 +175,22 @@ class _BaseWrapper:
         }
 
 
-class CodexWrapper(_BaseWrapper):
-    harness = "codex"
+class ProfileWrapper(_BaseWrapper):
+    """The only wrapper. Which vendor a wrapper serves is data — a key in
+    config/harness-profiles.v1.json — not a Python class.
 
-    def compile(
-        self, role_treatment: RoleTreatment, request: WrapperRequest
-    ) -> LaunchPlan:
-        return self._plan_from_profile(role_treatment, request)
+    This replaces CodexWrapper, ClaudeCodeWrapper and GrokBuildWrapper, whose
+    bodies were byte-identical once the profile seam landed on 2026-07-30: all
+    three delegated to _plan_from_profile and differed only in a string. Keeping
+    three classes meant adding a harness required editing Python, and it put
+    vendor names in the kernel that the rest of the kernel is audited for not
+    containing.
+    """
 
-
-class ClaudeCodeWrapper(_BaseWrapper):
-    harness = "claude-code"
-
-    def compile(
-        self, role_treatment: RoleTreatment, request: WrapperRequest
-    ) -> LaunchPlan:
-        return self._plan_from_profile(role_treatment, request)
-
-
-class GrokBuildWrapper(_BaseWrapper):
-    harness = "grok-build"
+    def __init__(self, harness: str) -> None:
+        if not isinstance(harness, str) or not harness:
+            raise SchemaError("wrapper harness must be a nonempty string")
+        self.harness = harness
 
     def compile(
         self, role_treatment: RoleTreatment, request: WrapperRequest
@@ -210,8 +206,9 @@ class HarnessWrapperRegistry:
         self.wrappers = {item.harness: item for item in rows}
 
     @classmethod
-    def default(cls) -> "HarnessWrapperRegistry":
-        return cls((CodexWrapper(), ClaudeCodeWrapper(), GrokBuildWrapper()))
+    def default(cls, root: Path | None = None) -> "HarnessWrapperRegistry":
+        """One wrapper per declared profile. Adding a harness is a config change."""
+        return cls(ProfileWrapper(name) for name in sorted(load_profiles(root)))
 
     def get(self, harness: str) -> HarnessWrapper:
         try:
