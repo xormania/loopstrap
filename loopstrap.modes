@@ -133,6 +133,7 @@
 0644	loopstrap_core/artifacts.py
 0644	loopstrap_core/atomic.py
 0644	loopstrap_core/authority.py
+0644	loopstrap_core/bounded.py
 0644	loopstrap_core/budget.py
 0644	loopstrap_core/certification.py
 0644	loopstrap_core/cli.py

@@ -29,6 +29,7 @@ from .evidence import (
     EvidenceRecord,
     RawExecutionCustodian,
 )
+from .bounded import sanitized_environment
 from .harness import (
     Assignment,
     HarnessDispatcher,
@@ -884,7 +885,7 @@ class LoopstrapSystem:
                 "max_output_bytes": invocation.max_output_bytes,
                 "environment": dict(invocation.environment),
                 "effective_environment_keys": sorted(
-                    HarnessDispatcher._environment(invocation.environment)
+                    sanitized_environment(invocation.environment)
                 ),
                 "live": False,
                 "require_live": False,

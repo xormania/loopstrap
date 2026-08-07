@@ -13,6 +13,7 @@ import uuid
 
 from .artifacts import ArtifactStore
 from .atomic import canonical_json
+from .bounded import run_bounded
 from .errors import (
     CertificationError,
     HarnessOutputLimitError,
@@ -682,13 +683,11 @@ class CertificationRunner:
             "TZ": "UTC",
             **environment,
         }
-        from .harness import HarnessDispatcher
-
         started = time.monotonic()
         return_code: int | None
         timed_out = False
         try:
-            return_code, stdout, stderr, _ = HarnessDispatcher._run_bounded(
+            return_code, stdout, stderr, _ = run_bounded(
                 command,
                 b"",
                 workspace=workspace.probe_repo,

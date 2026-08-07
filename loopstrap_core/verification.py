@@ -7,7 +7,7 @@ from typing import Any, Iterable
 
 from .atomic import canonical_json
 from .errors import SchemaError
-from .harness import HarnessDispatcher
+from .bounded import run_bounded, sanitized_environment
 
 
 VISIBILITIES = {"visible", "holdout"}
@@ -138,9 +138,9 @@ class DeterministicVerifier:
         if not workspace.is_dir() or workspace.is_symlink():
             raise SchemaError("verification workspace must be a real directory")
         receipts: list[VerificationReceipt] = []
-        environment = HarnessDispatcher._environment({})
+        environment = sanitized_environment({})
         for command in plan.commands:
-            return_code, stdout, stderr, process_trace = HarnessDispatcher._run_bounded(
+            return_code, stdout, stderr, process_trace = run_bounded(
                 command.argv,
                 b"",
                 workspace=workspace,
