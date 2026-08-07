@@ -13,7 +13,7 @@ import "list"
 	cell_revision:        int & >=1
 	scope_kind:           #ScopeKind
 	scope_id:             #Nonempty
-	treatment_id:         #Nonempty
+	role_treatment_id:    #Nonempty
 	producer_id:          #Nonempty
 	producer_class:       #Nonempty
 	subject_producer_ids: [#Nonempty, ...#Nonempty]

@@ -305,8 +305,8 @@ mut loopstrap_core/system.py \
   's/^        self.telemetry.capture_available_references($/        if False: self.telemetry.capture_available_references( # mutation: byte capture disconnected/' \
   "telemetry artifact byte capture disconnected" telemetry sig \
   "test_successful_attempt_mirrors_ledger_process_paths_bytes_and_lineage"
-mut loopstrap_core/harness.py \
-  's/^            duration_ns=ended_monotonic_ns - started_monotonic_ns,$/            duration_ns=ended_monotonic_ns - started_monotonic_ns + 1, # mutation: duration relationship corrupted/' \
+mut loopstrap_core/bounded.py \
+  's/^        duration_ns=ended_monotonic_ns - started_monotonic_ns,$/        duration_ns=ended_monotonic_ns - started_monotonic_ns + 1, # mutation: duration relationship corrupted/' \
   "process duration relationship corrupted" telemetry sig \
   "test_successful_attempt_mirrors_ledger_process_paths_bytes_and_lineage"
 mut loopstrap_core/system.py \
@@ -369,8 +369,8 @@ mut loopstrap_core/wrappers.py \
   's/^        if configuration\["user_config_policy"\] != "exclude":/        if False: # mutation: hidden user config accepted/' \
   "wrapper hidden-config exclusion disabled" certification sig \
   "test_wrapper_refuses_hidden_config_and_unapproved_invocation_override"
-mut loopstrap_core/wrappers.py \
-  's/^            "--strict-config",/            "--not-strict-config", # mutation: Codex strict config removed/' \
+mut config/harness-profiles.v1.json \
+  's/^        "--strict-config",/        "--not-strict-config",/' \
   "Codex native strict-config control removed" certification sig \
   "test_one_contract_compiles_three_harness_native_interfaces"
 mut loopstrap_core/wrappers.py \

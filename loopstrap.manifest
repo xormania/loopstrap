@@ -90,7 +90,7 @@ d2e786da7034a0421878b9772857b41d8669af964b85d4f4e907a83b50b7aec1  ./artifacts/in
 cc67d0af57cb78488674588df698111fa0ced27a455c3d0d33448b174552b959  ./artifacts/instance/tools/launcher-args.sh
 2a219e95cbb67175ae49d3526f5e0a45e755ff010e567a9c0b469ffc5c8aef2c  ./artifacts/instance/tools/probe-key.md
 f4821e87eb5a7226c553074fa0d52f2191ef7273846b8d2d6e14719450151cce  ./artifacts/instance/tools/probe-questions.md
-eb3fe4c9b9da5bcd1e24e9dfd6865f7e008a9a36a063c529738a9d153519719e  ./artifacts/instance/tools/seal-tree.py
+bbc499b60ec3d1904ae55660264ed4de9b23b3ddf77e016aa58d9b0082e7e535  ./artifacts/instance/tools/seal-tree.py
 8d6432ad4d153aaf608944bd72aca5c6d75bbff8a2b5ee24fd592137185e0776  ./artifacts/instance/tools/token-breaker.py
 c0322bd6265e35a17b860e5379aef3fe1c9276b676f5e7c32a6d43ef719fb7eb  ./artifacts/instance/tools/verify-tree.py
 ca8885b9a56459b16ddeb214e2c4bf322cc6375b809b99182ed774fccf96dc07  ./artifacts/intent/README.md
@@ -169,7 +169,7 @@ c7e20fc29c4db8df7bc9aa212adaa629188a4b8ff9bba993e8d875209616fc38  ./reset.sh
 a29dd852052a7a0952b7ec0202cee715e53723cce12a5362a534e4a896b0235d  ./serena-fleet.sh
 30b9cc34ae85b50b0206f1b1800277a8d7e3c842f015055e89c395e4a41cf0ac  ./setup.sh
 814fd25b003b2d07793d6f0fd104445c0d736db70126ed6c3bf4fbfb0a7b1dbf  ./spec/cue/contracts.cue
-7f479b4b8c4cf19356a79c6104439219a649929fb67b34e6c3e0cbf30d8ccc78  ./spec/cue/evidence.cue
+22113e0232b6ae4fe1cec4a4d8261a6a72309d8d7a03c5e01bbe13a5184598a6  ./spec/cue/evidence.cue
 c1cd8006092a66b6aebd26628b12a5c1e1de4d491bfdfa194ae87c958274ed13  ./spec/cue/project.cue
 0bf12c1c0c4d2e4209adc037f7a10ada4a33c9c5aeaa5a456f0a21acde6d4ae6  ./tests/COVERAGE.md
 416a6599f4e3fb9234bb8b227c0e9cc81495fc2703e1d98de6106b78fb5ae52d  ./tests/REGISTER-MAP.tsv
@@ -247,7 +247,7 @@ a34ba816d9ec91e462304838551cd281ba1fcad14e5bd7e557162bfcec11d89c  ./tests/integr
 56e1118ed0c6c0ad63765bd30cff95b2c484b019c09d784ecaf6fec531f8f185  ./tests/mocks/codex
 9e41b1413d3c4981a18ee460cce7c367408257c9f7f228909e3c918e59acefad  ./tests/mocks/gh
 4ea609c7a860917df6d948523146a6c745a7e7f47b335dda79076addbaacb687  ./tests/mocks/serena
-974951d649fa251bad2e578e1716cd5758f3b576efd993c0e4f713998873fe90  ./tests/mutation-check.sh
+cbb2565e1de904ac788360e42fb05dd0958f7b05491513aae7abf9fe363f6205  ./tests/mutation-check.sh
 26ecda820b555efd8646f113b591fa98651c79cd17a88cc6992b500341edba74  ./tests/readiness/FROZEN.sha256
 abe9cc17a5234bd7aa9455b3d9ffe2632191299a1bdce5cdf6d74d9c40d3c663  ./tests/readiness/REVISION-001.md
 e9aa3185e569eb8fb9446880771b1b64615090e14bdbe5f57ac7c8b3457b2304  ./tests/readiness/REVISION-002.md

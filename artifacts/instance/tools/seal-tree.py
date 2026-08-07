@@ -40,6 +40,43 @@ def regular_files(root: Path) -> list[Path]:
     return sorted(result, key=lambda path: path.relative_to(root).as_posix())
 
 
+def read_manifest(path: Path) -> dict[str, str]:
+    """Previous seal as {relative path: digest}. Absent or malformed reads empty."""
+    rows: dict[str, str] = {}
+    if not path.is_file():
+        return rows
+    for line in path.read_text(encoding="utf-8").splitlines():
+        digest, separator, rel = line.partition("  ")
+        if separator and len(digest) == 64:
+            rows[rel] = digest
+    return rows
+
+
+def report(previous: dict[str, str], current: dict[str, str]) -> None:
+    """A seal that changes silently is not tamper-evident. Say what moved."""
+    if not previous:
+        print("  first seal — no prior manifest to compare")
+        return
+    added = sorted(set(current) - set(previous))
+    removed = sorted(set(previous) - set(current))
+    changed = sorted(
+        rel for rel in set(current) & set(previous) if current[rel] != previous[rel]
+    )
+    if not (added or removed or changed):
+        print("  UNCHANGED — every path and digest matches the previous seal")
+        return
+    for rel in added:
+        print(f"  + added    {rel}")
+    for rel in removed:
+        print(f"  - removed  {rel}")
+    for rel in changed:
+        print(f"  ~ changed  {rel}")
+    print(
+        f"  SEAL CHANGED — {len(added)} added, {len(removed)} removed, "
+        f"{len(changed)} content change(s)"
+    )
+
+
 def main() -> int:
     root = Path(sys.argv[1] if len(sys.argv) > 1 else ".").resolve()
     modes_path = root / "loopstrap.modes"
@@ -54,12 +91,18 @@ def main() -> int:
     modes_path.write_text(mode_text, encoding="utf-8")
 
     files = regular_files(root)
-    manifest_text = "".join(
-        f"{hashlib.sha256(path.read_bytes()).hexdigest()}  ./{path.relative_to(root).as_posix()}\n"
+    manifest_path = root / "loopstrap.manifest"
+    previous = read_manifest(manifest_path)
+    current = {
+        f"./{path.relative_to(root).as_posix()}": hashlib.sha256(
+            path.read_bytes()
+        ).hexdigest()
         for path in files
-    )
-    (root / "loopstrap.manifest").write_text(manifest_text, encoding="utf-8")
+    }
+    manifest_text = "".join(f"{digest}  {rel}\n" for rel, digest in current.items())
+    manifest_path.write_text(manifest_text, encoding="utf-8")
     print(f"SEALED — {len(files)} files with hashes and modes")
+    report(previous, current)
     return 0
 
 
