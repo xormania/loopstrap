@@ -426,6 +426,16 @@ class ContractGraph:
         if not set(controlled).issubset(cell_by_id):
             raise DecompositionError("a composite contract controls an unknown Cell")
 
+        for cell in self.cells:
+            unknown = set(cell.dependencies) - set(cell_by_id)
+            if unknown:
+                raise DecompositionError(
+                    "Cell depends on undeclared Cells: "
+                    f"{cell.cell_id} -> {sorted(unknown)}"
+                )
+
+        self._verify_containment_terminates(cell_by_id)
+
         exclusive: dict[str, str] = {}
         member_guarantees: dict[str, GuaranteeContract] = {}
         for cell in self.cells:
@@ -500,6 +510,49 @@ class ContractGraph:
                     raise DecompositionError(
                         f"composite guarantee lacks support or direct verification: {guarantee.guarantee_id}"
                     )
+
+    def _verify_containment_terminates(
+        self, cell_by_id: dict[str, CellContract]
+    ) -> None:
+        """Refuse a containment recursion that never bottoms out.
+
+        A composite naming `controlling_cell_id` declares itself the interior of
+        that Cell, so containment is an edge from a Cell to the members of its
+        interior. Composition is only recursive if that relation terminates: a
+        Cell reachable from its own interior is not a decomposition, it is a
+        regress, and every consumer that walks it inherits the problem.
+
+        Unknown members are skipped rather than followed — the membership check
+        below owns that diagnostic, and reporting it as a containment cycle
+        would name the wrong defect.
+        """
+        interior = {
+            composite.controlling_cell_id: composite
+            for composite in self.composites
+            if composite.controlling_cell_id is not None
+        }
+        settled: set[str] = set()
+        on_path: list[str] = []
+
+        def descend(cell_id: str) -> None:
+            if cell_id in settled:
+                return
+            if cell_id in on_path:
+                cycle = on_path[on_path.index(cell_id):] + [cell_id]
+                raise DecompositionError(
+                    "composite containment forms a cycle: " + " -> ".join(cycle)
+                )
+            on_path.append(cell_id)
+            composite = interior.get(cell_id)
+            if composite is not None:
+                for member in composite.members:
+                    if member in cell_by_id:
+                        descend(member)
+            on_path.pop()
+            settled.add(cell_id)
+
+        for cell in self.cells:
+            descend(cell.cell_id)
 
     def cell(self, cell_id: str) -> CellContract:
         matches = [cell for cell in self.cells if cell.cell_id == cell_id]
