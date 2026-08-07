@@ -6,7 +6,7 @@ fda93145963698d5182031c543f7ea01642d6f4ee5f9b2943c4add0b88de7f5b  ./.claude/comm
 5a53e4c73eef2794fbac81b5607096a631a9bf2fc3113187ba86f7757e75124b  ./.claude/settings.json
 5167310148c1dca3ec9d253ac471a8af88699fc46c98f4efe15073f002834959  ./.github/pull_request_template.md
 3b7582c491beaf83eb95e8e2e82d0064ad53d98b7f6ec29ecb34ed0c028fc500  ./.github/workflows/pr.yml
-9a5f9487be01fd1b19c2ccb0d07ba4fd30b625453f9b99c74c2851cf0d866bb9  ./.gitignore
+6051a91dee2d25e8d5d1fab92142c04cbaec6884088a2e5e98e896be348863fc  ./.gitignore
 fb499f4759ba8e234f9f6020a7e321f3124dc0a65ec5df7e377f9e1338ae073c  ./.loopstrap-root-config.manifest
 6283ec4cbaa79d0ddc69954f9126c6cb1cfd9624a8485e2c58d70048aa66dcbf  ./.loopstrap/roles/builder-adversary.md
 2c31945b5c36defa2fffbf2d4863ea1ecd6ca6a653e1b80f20f8efcfeb621fe8  ./.loopstrap/roles/implementer.md
@@ -16,7 +16,7 @@ da03ecfa08a0bf7ff0cfd9a3da43bbd55f442582e15428f2fc8f1c868159b0fc  ./.loopstrap/r
 6c59ae173f6e71a08d6f3ef878f717f22b7324e7092dbbbedfa5c17724c7e1d0  ./.loopstrap/roles/planning-subagent.md
 97169fa067e287c9c7882ae1367b8784da956213aaa27365c9b678ada817854a  ./AGENTS.md
 19a96ca058fa2a7c462e1d7f9d03b6d234a735ea4747db83148495ab509868e0  ./CLAUDE.md
-db7d203dde0f2a09002a4b5765545bdbb74138bc8015ca7f5e017988d120fd1d  ./CONTRIBUTING.md
+d9ee0b160f09a2ab4b643ebe12a69626923ec53508285b0525875dab42c374c7  ./CONTRIBUTING.md
 9a5ef5304a536c8b281a825e95dc731735171eafc4db8987c6cbcf9c3b5cab13  ./README.md
 a61808d689a36e9d6cf7c664fb7dc859344491a2fb652e3c47083c36f968f9e5  ./SESSION.md
 7d1d9b061cf6d81e6a6ec2048f13b41e5cfb84f6689550fc6af2cb2ce139b350  ./TELEMETRY.md
@@ -101,9 +101,9 @@ cc67d0af57cb78488674588df698111fa0ced27a455c3d0d33448b174552b959  ./artifacts/in
 f4821e87eb5a7226c553074fa0d52f2191ef7273846b8d2d6e14719450151cce  ./artifacts/instance/tools/probe-questions.md
 31a7507297152c298e23ff5b5d0275f9aa10a205aa960bf2e9605d8fccd77ab4  ./artifacts/instance/tools/publication-check.py
 1e7f96af6b1f091629308d530b909b5206c922d4ee5f6bacb295b944b4919a41  ./artifacts/instance/tools/schema-facts.py
-f8c245469e8bd7129410aba524beb3fb1447706a7b16aa711f1e0ae4e135a125  ./artifacts/instance/tools/seal-tree.py
+4292f15a30784bf0f3553344645fa6bc1ecd010dfc1c321ea55adcaca3753070  ./artifacts/instance/tools/seal-tree.py
 8d6432ad4d153aaf608944bd72aca5c6d75bbff8a2b5ee24fd592137185e0776  ./artifacts/instance/tools/token-breaker.py
-2aab6fdddcb5faf35ac82c6fe2d72fdad9703fdfffc4659ab078ee923e3364c6  ./artifacts/instance/tools/verify-tree.py
+22487b9ea36c205ee5c5e2f34d3b4b6e02f95fda181f56b36336f1fe30bcde88  ./artifacts/instance/tools/verify-tree.py
 ca8885b9a56459b16ddeb214e2c4bf322cc6375b809b99182ed774fccf96dc07  ./artifacts/intent/README.md
 1c28b29f7eeb6d02c1bed1525a5d76ecbde0dc56114f7e3f6e211535d35d266e  ./artifacts/intent/family.md
 af036d362d3eb8706b5f3a005b979ff4dddc245ade4435012d208bd48433063d  ./artifacts/members.toml
@@ -134,7 +134,7 @@ fa59c352573a7a379021f1c2c95559d914279ca9aa20ace58bec9e798e7d340d  ./config/harne
 4946b18a70f35eaa713eda3300cfe8c31218bff588afc20b62afbe3ba044229c  ./config/harness-profiles.v1.json
 9a0a77f2811560c40b954d2eba2554f85babcceddd657b13a110b7fea0fa4165  ./config/role-treatments.v1.json
 0a5f11cde28f6e6fcdb28f60efe0d9cf3ac8eb82211a18e8ffbbde01ad7b201e  ./config/roles.v1.json
-05ca49e686a1dee32070119d9ab3f1d6f534c4c45272f0464263a155b8220ffa  ./config/seal.v1.json
+f780ed1d15160c1b7bf9df426e4995730020c36e1cf4d94f09f5e36838749c2b  ./config/seal.v1.json
 dfb31c93ed9abdc5ae1bff49dd32f982051327bd22193fd9954d5212be0820a6  ./config/serena.v1.json
 2b109d4b328af8c4f7203668794c5fa7b558cb72ba3bfdf033ff5fe693ec4bf1  ./config/workflow.v1.json
 359dbe5065e93135f31d7eeded36c30959a5c3d067f5f20214161311ecbfd2eb  ./contract/README.md
@@ -151,7 +151,7 @@ bdcae61d55e8d367cee6e45629d79b0d330812fb1c92ee9f9cd49ff8d215b85f  ./install-conf
 6275f8a716c65d9699dd0fd674b366818766149ef5be2f33b4db460d03ad98ed  ./land.sh
 c5a681e8d41fd4d2700d2d28a6d7003b57526d172e191d0bcd0cbf7f32f76869  ./launch-codex.sh
 ed4c3dc68260a576828dc2aba15c753e0b4b0a8f9229438d844dfb9975010e71  ./launch-loop.sh
-5876248ee409706d5213e6ad86999c6286eb796ed3156487efad24ca0f9bd0fb  ./loopstrap.modes
+0b9f4c6ef9744f10b63c64f0500446b472d2303c54e728a19e4e1ae14ee8aacc  ./loopstrap.modes
 0a8f55ad48ab37866a7f28ae6eab03e59633a14c7c31950d3c5233be753c9bab  ./loopstrap_core/__init__.py
 21ed41b12e3222813d9ad67dfed5ba92f8235caf19674c54028811e2a278fd2b  ./loopstrap_core/artifacts.py
 383fed739af1d61836eb79f394ac3632d5b53b8091ee492f50b61b702268a2af  ./loopstrap_core/atomic.py
@@ -161,7 +161,7 @@ fd76849732c28ed4546597f873e72370acc10d4f20aa1e7e7a6bc919913c29e6  ./loopstrap_co
 ef2053a42cb01fe111ff6291911bebb174ea4a0989364fe0a0d3b142857b1299  ./loopstrap_core/certification.py
 dc3daf8d6c3c3db85b2983bb860751105ab71189762ccd2d754828c454509c97  ./loopstrap_core/cli.py
 ced8e2bab2c1c9fca8b2f7cfd61b8cf3152935b75f268c887d77579118b4a251  ./loopstrap_core/context.py
-57b2e230143e33340ddee42c53692904fb64bc3cf8e1da492d13eed9311107ce  ./loopstrap_core/contracts.py
+2fc42718df6d1d94977851d2511cf711c27f46b11101786782ada3526692de47  ./loopstrap_core/contracts.py
 5878eebfc49567546d778866fc7c2ae645bf0d25e20f31e155cdfa8334872906  ./loopstrap_core/corpus.py
 ab6b5dd237b0aa08795c1e0ac617f23c2e47213bbad301af4567ac1aacdd150c  ./loopstrap_core/driver.py
 3d5cabafe453c35c95a3fad01c20bb0974fdeef05b86715f8bce8edafec116a7  ./loopstrap_core/errors.py
@@ -180,6 +180,9 @@ e4b4e743fe72fc37833a2828de4d7bf3661b4253fc04e94c802307c94d96d97d  ./loopstrap_co
 e367399c50a4c80863166d3dd260bf6db331864f05730298e7c72345419dbc10  ./loopstrap_core/workspace.py
 34c22d9653735512cd931042aa3b3771faef6a3c76084d7f242ba562fb98f55a  ./loopstrap_core/wrappers.py
 703bbf3add3be76adfc5b71f6a4dc993e1d20c96279e6c6e0735c339558710d5  ./ops/dashboard.sh
+1627b8682033c59a9e3f1cfa7a041ae1d5818b0bc9d53cf61ba5abd13109be23  ./ops/hooks/commit-msg
+379e193d058c0e3de5f8b480ba4b1f39f81ef3f75fa614318da3c07a4967ea89  ./ops/hooks/install.sh
+bf2ebe4b5adc2ba3aff5d96bf67f0f35ce853bf8ce11f2138520d5bdc1270bba  ./ops/hooks/pre-commit
 05a4ada63fe5ac007360e8f5533b26d811e344062f905617ab14558fe574faf3  ./ops/loop-status.sh
 576f6c103b16ff37df47b99aa75bf3f4c93d9ac1546221af88bc79fc26a8e15a  ./ops/loop-watch.sh
 afe864fd838192174fed25113dae00b3a78d86749e5f759b5bddb7c8c3f961df  ./ops/sovereign.sh
@@ -199,7 +202,7 @@ a29dd852052a7a0952b7ec0202cee715e53723cce12a5362a534e4a896b0235d  ./serena-fleet
 30b9cc34ae85b50b0206f1b1800277a8d7e3c842f015055e89c395e4a41cf0ac  ./setup.sh
 acd8f9f791094f3dda5fdafb7e45c61dbfe8768295fd73c54c4e48968ebc1a8c  ./skills/dev/lane-classification/SKILL.md
 ab4355cd7b4e975f881f224b5434d3642950b814788f36ec9d5beceb112d3266  ./skills/dev/publication-check/SKILL.md
-814fd25b003b2d07793d6f0fd104445c0d736db70126ed6c3bf4fbfb0a7b1dbf  ./spec/cue/contracts.cue
+d90df848bf3f88d33a41035e670ee5b87c1bd42775ab2f736b11ac480b789fa6  ./spec/cue/contracts.cue
 22113e0232b6ae4fe1cec4a4d8261a6a72309d8d7a03c5e01bbe13a5184598a6  ./spec/cue/evidence.cue
 c1cd8006092a66b6aebd26628b12a5c1e1de4d491bfdfa194ae87c958274ed13  ./spec/cue/project.cue
 0bf12c1c0c4d2e4209adc037f7a10ada4a33c9c5aeaa5a456f0a21acde6d4ae6  ./tests/COVERAGE.md
@@ -279,7 +282,7 @@ a34ba816d9ec91e462304838551cd281ba1fcad14e5bd7e557162bfcec11d89c  ./tests/integr
 9e41b1413d3c4981a18ee460cce7c367408257c9f7f228909e3c918e59acefad  ./tests/mocks/gh
 4ea609c7a860917df6d948523146a6c745a7e7f47b335dda79076addbaacb687  ./tests/mocks/serena
 0ffe10dadf2bad4366a649f62b4665b63a356e1eb7a24f43faabae0a70325e21  ./tests/mutation-check.sh
-ded6be00b326cd4d4208da9172b157180a929bff643bf6b9cd78609cc787da1c  ./tests/readiness/FROZEN.sha256
+eb572d530ebb5afd5dfcb918a8edf714ba1e1ab2209dc9a1a8954991da89d3af  ./tests/readiness/FROZEN.sha256
 abe9cc17a5234bd7aa9455b3d9ffe2632191299a1bdce5cdf6d74d9c40d3c663  ./tests/readiness/REVISION-001.md
 e9aa3185e569eb8fb9446880771b1b64615090e14bdbe5f57ac7c8b3457b2304  ./tests/readiness/REVISION-002.md
 d5a08ed23ae306c191841d87ae0c43dbc0c814dc2e7c9814bf583de6e356db9d  ./tests/readiness/REVISION-003.md
@@ -288,7 +291,9 @@ f0b35d7b43160e2777d26a6223f84e9c1cb0139e7bf7185b105decdfdb1400f1  ./tests/readin
 be3970266728aa80989939655dd59a5b9623fec05fd3151e39ee24d68b6b81f6  ./tests/readiness/REVISION-006.md
 f4b64f1642a412af84b7915b9194261daf4c11c77db4db6d2d804d431df68c68  ./tests/readiness/REVISION-007.md
 337cc47903d1ad00bd596435c3e04b91ad43f13659e12b8977dcf46ea3833772  ./tests/readiness/REVISION-008.md
-ed63ade28141cab920ffbabd89675fe25aa5462dd2e058ac5ce0a916b279275a  ./tests/readiness/claims.toml
+922180a49d9f70567431d9384522d6450d139bc754ff8a8c28e75d460f3def2f  ./tests/readiness/REVISION-009.md
+b5aa77dde8ca2ea3529d423002b2cc1f4088e919308284e440e8a987fa6392f8  ./tests/readiness/REVISION-010.md
+b16c518c726bb530574b1dfe39e57ba5c2a8dae4d1cc314bff2e063278d9d35a  ./tests/readiness/claims.toml
 118097441aa00bb1724b62cf0b0109785780eac7963ec5492bb56fcbcfd3c2b7  ./tests/readiness/fixtures/acceptance-request.json
 44de01cc56aceb1542a3e3c715e1acc02e734f965f2c0c92cd8459c0f33bca8b  ./tests/readiness/fixtures/contract-graph.json
 64b399d3e4c2fa7c15e9c4fa6677aa76436cad31a231775a2c5bd56681e004d5  ./tests/readiness/fixtures/project/contracts.cue
@@ -296,11 +301,11 @@ db0746509a9e5991eecf37389cffe191590b52ffee0242b35e1816b359107a09  ./tests/readin
 df32af5638837f6266019475261953cd6ea2e37fd0dc6d26fafb702f188306bb  ./tests/readiness/fixtures/project/lexicon.cue
 5a8595950ba0cc1efe7e123a756b4052f144cff0a7afce1191aef99b203e5178  ./tests/readiness/fixtures/project/package.cue
 49556a41e38d75d5e71219e4f4c7f92326594dbd62b61ab74009859f04d69aec  ./tests/readiness/fixtures/project/realization.cue
-137645255015b293eb5de77cd2954122f02e7bab96f138be1caed6f719542686  ./tests/readiness/map.tsv
+7cc1f8c9f3d7035c47f1d9da8dba40d63a7e3102ed389a42ab4e42c472215e32  ./tests/readiness/map.tsv
 1e7511b4157a286c406e2bc396dfc4eac57d102edfdf58a1bc719535877f4a33  ./tests/readiness/run.py
 c9a3c3b7fd7cce5d19d399ad5024a9f536c49e4f762cea2bac63707c63ee1793  ./tests/readiness/support.py
 abd9d0352632d76eb0826842fe33f3cbc1507d9e32475d3468d34b90c61c940d  ./tests/readiness/test_cli_bridge.py
-0d4fb5594f478973c53e659f2d9b157d547ee134d5e4220ff7a3597ac7617888  ./tests/readiness/test_contracts.py
+ad946593657a153eb38861b1273b709dc32918ad7730f3b3e0cbe53c945d0da5  ./tests/readiness/test_contracts.py
 ad3e657fd71e202de3f1f666c2fd77a48d2061e933e3781104d31f7375683f78  ./tests/readiness/test_driver.py
 9c87072d2199f46b60dd426eaadc7205a46c778ed2b372434d04cf4991c57f32  ./tests/readiness/test_evidence.py
 800b0483a85db919c95e83210245c2bed491e2b76f2c77548898a0065e95b37c  ./tests/readiness/test_recovery.py

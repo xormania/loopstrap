@@ -426,6 +426,17 @@ class ContractGraph:
         if not set(controlled).issubset(cell_by_id):
             raise DecompositionError("a composite contract controls an unknown Cell")
 
+        for cell in self.cells:
+            unknown = set(cell.dependencies) - set(cell_by_id)
+            if unknown:
+                raise DecompositionError(
+                    "Cell depends on undeclared Cells: "
+                    f"{cell.cell_id} -> {sorted(unknown)}"
+                )
+
+        self._verify_containment_terminates(cell_by_id)
+        self._verify_interior_boundaries(cell_by_id)
+
         exclusive: dict[str, str] = {}
         member_guarantees: dict[str, GuaranteeContract] = {}
         for cell in self.cells:
@@ -500,6 +511,102 @@ class ContractGraph:
                     raise DecompositionError(
                         f"composite guarantee lacks support or direct verification: {guarantee.guarantee_id}"
                     )
+
+    def _verify_containment_terminates(
+        self, cell_by_id: dict[str, CellContract]
+    ) -> None:
+        """Refuse a containment recursion that never bottoms out.
+
+        A composite naming `controlling_cell_id` declares itself the interior of
+        that Cell, so containment is an edge from a Cell to the members of its
+        interior. Composition is only recursive if that relation terminates: a
+        Cell reachable from its own interior is not a decomposition, it is a
+        regress, and every consumer that walks it inherits the problem.
+
+        Unknown members are skipped rather than followed — the membership check
+        below owns that diagnostic, and reporting it as a containment cycle
+        would name the wrong defect.
+        """
+        interior = {
+            composite.controlling_cell_id: composite
+            for composite in self.composites
+            if composite.controlling_cell_id is not None
+        }
+        settled: set[str] = set()
+        on_path: list[str] = []
+
+        def descend(cell_id: str) -> None:
+            if cell_id in settled:
+                return
+            if cell_id in on_path:
+                cycle = on_path[on_path.index(cell_id):] + [cell_id]
+                raise DecompositionError(
+                    "composite containment forms a cycle: " + " -> ".join(cycle)
+                )
+            on_path.append(cell_id)
+            composite = interior.get(cell_id)
+            if composite is not None:
+                for member in composite.members:
+                    if member in cell_by_id:
+                        descend(member)
+            on_path.pop()
+            settled.add(cell_id)
+
+        for cell in self.cells:
+            descend(cell.cell_id)
+
+    def _verify_interior_boundaries(
+        self, cell_by_id: dict[str, CellContract]
+    ) -> None:
+        """Refuse an interior whose boundary is not the boundary it implements.
+
+        A composite naming `controlling_cell_id` is the interior of that Cell,
+        and a parent composite wires the Cell by the Cell's declared ports. If
+        the interior exposes a different boundary, the parent is wiring one
+        contract while a different one executes — which is the failure the whole
+        Cell-is-a-composite construction exists to prevent.
+
+        Correspondence is positional and by schema, so no new schema field is
+        needed. Subsetting is refused in both directions: a declared port the
+        interior cannot receive is a promise nothing keeps, and an exposed port
+        the Cell never declared is an entry no parent can reach.
+
+        Unresolvable references are left to the membership and port checks
+        below, which name that defect properly.
+        """
+        for composite in self.composites:
+            cell_id = composite.controlling_cell_id
+            if cell_id is None or cell_id not in cell_by_id:
+                continue
+            cell = cell_by_id[cell_id]
+            sides = (
+                ("input", cell.inputs, composite.external_inputs, "input"),
+                ("output", cell.outputs, composite.external_outputs, "output"),
+            )
+            for label, declared, exposed, accessor in sides:
+                try:
+                    schemas = [
+                        getattr(cell_by_id[reference.cell_id], accessor)(
+                            reference.port_id
+                        ).schema_ref
+                        for reference in exposed
+                    ]
+                except (KeyError, SchemaError):
+                    continue
+                if len(schemas) != len(declared):
+                    raise DecompositionError(
+                        f"interior boundary differs from the Cell it implements: "
+                        f"{composite.composite_id} is the interior of {cell_id} and "
+                        f"exposes {len(schemas)} {label}(s) against {len(declared)} declared"
+                    )
+                for index, (port, schema_ref) in enumerate(zip(declared, schemas)):
+                    if schema_ref != port.schema_ref:
+                        raise DecompositionError(
+                            f"interior boundary differs from the Cell it implements: "
+                            f"{composite.composite_id} {label} {index} exposes "
+                            f"{schema_ref}, {cell_id}.{port.port_id} declares "
+                            f"{port.schema_ref}"
+                        )
 
     def cell(self, cell_id: str) -> CellContract:
         matches = [cell for cell in self.cells if cell.cell_id == cell_id]

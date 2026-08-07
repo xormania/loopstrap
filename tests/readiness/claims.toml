@@ -38,6 +38,18 @@ id = "READY-CONTRACT-05"
 text = "The recursive work vocabulary and implementation surface use Cell and do not define a Slice type."
 
 [[claim]]
+id = "READY-CONTRACT-06"
+text = "A Cell dependency naming a Cell the graph never declares is refused, and one naming a declared Cell is admitted."
+
+[[claim]]
+id = "READY-CONTRACT-07"
+text = "Containment recursion terminates: nested composite interiors are admitted, and interiors that reach their own containing Cell are refused."
+
+[[claim]]
+id = "READY-CONTRACT-08"
+text = "A composite declared as the interior of a Cell exposes exactly that Cell's port schemas, so the Cell and its decomposition are substitutable."
+
+[[claim]]
 id = "READY-DRIVER-01"
 text = "The unattended deterministic driver recursively advances child Cells and integrates them into the root Cell."
 
