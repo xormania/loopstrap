@@ -131,6 +131,26 @@ import "list"
 			}
 		}
 	}
+	// A composite naming cell_id is the interior of that Cell, and a parent wires
+	// the Cell by the Cell's declared ports. The interior must therefore expose
+	// exactly those port schemas, positionally — list unification requires equal
+	// length and equal elements, so both subsetting directions are refused.
+	// Iterating the composite's own fields tests cell_id's presence without an
+	// existence operator.
+	_interiorBoundaries: {
+		for composite in composites
+		for key, controlling in composite
+		if key == "cell_id" {
+			"\(composite.id)": {
+				inputs: [for reference in composite.external_inputs {
+					_inputByCell[reference.cell_id][reference.port_id].schema_ref
+				}] & [for port in _cellByID[controlling].inputs {port.schema_ref}]
+				outputs: [for reference in composite.external_outputs {
+					_outputByCell[reference.cell_id][reference.port_id].schema_ref
+				}] & [for port in _cellByID[controlling].outputs {port.schema_ref}]
+			}
+		}
+	}
 	_connectionChecks: {
 		for composite in composites {
 			"\(composite.id)": {

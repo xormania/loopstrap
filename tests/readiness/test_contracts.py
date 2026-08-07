@@ -46,6 +46,10 @@ def containment_data(*, cyclic: bool) -> dict[str, Any]:
     No composite ever contains the Cell it is the interior of, so a check that
     only compares a composite's own members against its controlling Cell admits
     the cyclic graph while the recursion still never bottoms out.
+
+    Both graphs are boundary-conformant: every interior exposes exactly the port
+    schemas of the Cell it implements, so the cyclic one is refused for the cycle
+    and not for a boundary that happens to disagree.
     """
     data = contract_graph_data()
     for source, sink in (("cell.third", "cell.fourth"), ("cell.fifth", "cell.sixth")):
@@ -54,13 +58,13 @@ def containment_data(*, cyclic: bool) -> dict[str, Any]:
             minimal_cell(
                 sink,
                 input_schema="schema.analysis",
-                output_schema="schema.result",
+                output_schema="schema.analysis",
                 contract_ref=f"contract.{sink}",
             )
         )
 
     template = data["composites"][0]
-    deeper = ("cell.first", "cell.second") if cyclic else ("cell.fifth", "cell.sixth")
+    deeper = ("cell.first", "cell.fourth") if cyclic else ("cell.fifth", "cell.sixth")
     data["composites"].extend(
         [
             interior(template, "composite.inner", "cell.first", ("cell.third", "cell.fourth")),
@@ -140,6 +144,24 @@ class ContractReadiness(unittest.TestCase):
 
         with self.assertRaises(DecompositionError):
             ContractGraph.from_dict(containment_data(cyclic=True))
+
+    def test_interior_boundary_matches_the_cell_it_implements(self) -> None:
+        from loopstrap_core.contracts import ContractGraph
+        from loopstrap_core.errors import DecompositionError
+
+        ContractGraph.from_dict(containment_data(cyclic=False))
+
+        divergent = containment_data(cyclic=False)
+        cell = next(c for c in divergent["cells"] if c["id"] == "cell.first")
+        cell["inputs"][0]["schema_ref"] = "schema.unrelated"
+        with self.assertRaises(DecompositionError):
+            ContractGraph.from_dict(divergent)
+
+        extra = containment_data(cyclic=False)
+        inner = next(c for c in extra["composites"] if c["id"] == "composite.inner")
+        inner["external_inputs"].append({"cell_id": "cell.fourth", "port_id": "in"})
+        with self.assertRaises(DecompositionError):
+            ContractGraph.from_dict(extra)
 
     def test_cell_is_the_only_recursive_work_unit_name(self) -> None:
         class_names: set[str] = set()
