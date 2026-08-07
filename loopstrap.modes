@@ -87,6 +87,7 @@
 0755	artifacts/instance/tools/contract-check.sh
 0755	artifacts/instance/tools/docs-verify.sh
 0755	artifacts/instance/tools/docs_verify.py
+0644	artifacts/instance/tools/gen-seal-rules.py
 0644	artifacts/instance/tools/intent-landing-template.md
 0755	artifacts/instance/tools/launcher-args.sh
 0644	artifacts/instance/tools/probe-key.md
@@ -123,6 +124,7 @@
 0644	config/harness-profiles.v1.json
 0644	config/role-treatments.v1.json
 0644	config/roles.v1.json
+0644	config/seal.v1.json
 0644	config/workflow.v1.json
 0644	contract/README.md
 0644	contract/declaration_schema_pairs.cue

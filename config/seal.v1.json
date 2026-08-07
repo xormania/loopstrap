@@ -1,0 +1,26 @@
+{
+  "config_version": 1,
+  "purpose": "Authored source of truth for seal exclusions. Compiled into seal-tree.py and verify-tree.py by artifacts/instance/tools/gen-seal-rules.py; the compiled block is committed, and C-SEAL-001 fails if it is stale.",
+  "why_compiled": "verify-tree.py travels. land.sh ships it alone inside a courier and runs it against a tree that carries neither this config nor any shared module, so the tool must be self-contained. Compiling the authored config into the tool keeps one source of truth without giving the tool a runtime dependency — and it means a courier can never supply its own permissive exclusion policy.",
+
+  "excluded_names": [".git", "__pycache__"],
+  "excluded_names_note": "Matched at ANY depth. Version-control metadata and build artifacts legitimately appear anywhere in a tree.",
+
+  "excluded_suffixes": [".egg-info"],
+  "excluded_suffixes_note": "Directory-name suffixes, matched at any depth.",
+
+  "excluded_root_names": ["proj"],
+  "excluded_root_names_note": "Matched ONLY at the tree root. Never move an entry from here to excluded_names: a name matched at any depth is a bypass, not an exclusion — a file can be hidden from the manifest by placing it in a directory of that name inside loopstrap_core.",
+
+  "never_excludable": [
+    "loopstrap_core",
+    "spec",
+    "config",
+    "contract",
+    "tests",
+    "artifacts",
+    "tools",
+    "ops"
+  ],
+  "never_excludable_note": "A floor the generator refuses to cross. Excluding the kernel should be impossible, not merely visible in a diff."
+}

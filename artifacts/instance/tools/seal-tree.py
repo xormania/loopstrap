@@ -9,31 +9,40 @@ from pathlib import Path
 import stat
 import sys
 
-# Version-control metadata, build artifacts, and the untracked scratch directory
-# are not project content. Sealing them makes the manifest churn on every commit
-# and every import, and sealing an untracked path would make a fresh clone fail
-# verification for a file that was never committed. These rules must match
-# verify-tree.py exactly, or sealing and verification disagree.
-EXCLUDED_NAMES = frozenset({".git", "__pycache__", "proj"})
+# --- BEGIN GENERATED seal exclusions
+# Generated from config/seal.v1.json by gen-seal-rules.py. Do not edit by hand;
+# edit the config and regenerate. C-SEAL-001 fails if this block is stale.
+#
+# Matched at ANY depth.
+EXCLUDED_NAMES = frozenset({".git", "__pycache__"})
 EXCLUDED_SUFFIXES = (".egg-info",)
+# Matched ONLY at the tree root. A name matched at any depth is a bypass, not an
+# exclusion: a file can be hidden from the manifest by placing it in a directory
+# of that name inside loopstrap_core.
+EXCLUDED_ROOT_NAMES = frozenset({"proj"})
 
 
-def is_excluded(name: str) -> bool:
-    return name in EXCLUDED_NAMES or name.endswith(EXCLUDED_SUFFIXES)
+def is_excluded(name: str, *, at_root: bool) -> bool:
+    if name in EXCLUDED_NAMES or name.endswith(EXCLUDED_SUFFIXES):
+        return True
+    return at_root and name in EXCLUDED_ROOT_NAMES
+# --- END GENERATED seal exclusions
 
 
 def regular_files(root: Path) -> list[Path]:
     result: list[Path] = []
     for base, dirs, names in os.walk(root, followlinks=False):
         base_path = Path(base)
+        at_root = base_path == root
         dirs[:] = sorted(
             name
             for name in dirs
-            if not is_excluded(name) and not (base_path / name).is_symlink()
+            if not is_excluded(name, at_root=at_root)
+            and not (base_path / name).is_symlink()
         )
         for name in sorted(names):
             path = base_path / name
-            if is_excluded(path.name):
+            if is_excluded(path.name, at_root=at_root):
                 continue
             if path.name == "loopstrap.manifest" or path.is_symlink():
                 continue

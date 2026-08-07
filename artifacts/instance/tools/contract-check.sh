@@ -15,6 +15,16 @@ SCRATCH="$(mktemp -d)"
 trap 'rm -rf "$SCRATCH"' EXIT
 FACTS="$SCRATCH/facts.json"
 
+# C-SEAL-001: the exclusion rules compiled into seal-tree.py and verify-tree.py
+# must match config/seal.v1.json. Same idea as a framework checking its compiled
+# container against the authored config.
+if ! python3 "$ROOT/artifacts/instance/tools/gen-seal-rules.py" --root "$ROOT" --check >/dev/null 2>&1; then
+  echo "CONTRACT FAILED — C-SEAL-001: compiled seal rules are stale" >&2
+  python3 "$ROOT/artifacts/instance/tools/gen-seal-rules.py" --root "$ROOT" --check >&2 || true
+  echo "  fix: python3 artifacts/instance/tools/gen-seal-rules.py" >&2
+  exit 1
+fi
+
 python3 "$ROOT/artifacts/instance/tools/schema-facts.py" --root "$ROOT" --out "$FACTS"
 
 # Evaluating `diagnostics` is the whole gate. A malformed contract is a CUE
