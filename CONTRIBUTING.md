@@ -29,6 +29,22 @@ contributions that describe work rather than do it.
 Do not reformat the pasted output to look tidier. Whitespace is normalized;
 edited content is not.
 
+## If you maintain a denylist
+
+```shell
+bash ops/hooks/install.sh      # points core.hooksPath at ops/hooks
+```
+
+Two hooks then run on every commit: the message and the added lines of the
+staged diff are checked against a private denylist of terms that must not leave
+the machine. Optional, and only useful if you have such a list — the check is
+**fail-closed**, so enabling the hooks without a denylist blocks every commit.
+That is the intended behaviour: *could not check* and *checked and clean* are
+different answers.
+
+The list itself is never committed, because the list is the disclosure. See
+`skills/dev/publication-check/SKILL.md` for the failure it cannot catch.
+
 ## The tree is sealed
 
 Every file is covered by `loopstrap.manifest` with its hash and mode. Change

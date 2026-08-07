@@ -180,6 +180,9 @@
 0644	loopstrap_core/workspace.py
 0644	loopstrap_core/wrappers.py
 0755	ops/dashboard.sh
+0755	ops/hooks/commit-msg
+0755	ops/hooks/install.sh
+0755	ops/hooks/pre-commit
 0755	ops/loop-status.sh
 0755	ops/loop-watch.sh
 0755	ops/sovereign.sh
