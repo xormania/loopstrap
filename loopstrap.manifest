@@ -5,7 +5,7 @@ d3bcf833b2070730d738827c2cdbf475dc591de60633fce95bd4438ce4c5440e  ./.claude/comm
 fda93145963698d5182031c543f7ea01642d6f4ee5f9b2943c4add0b88de7f5b  ./.claude/commands/retro.md
 6c51598a1946fdfed2fbe0e15cc81a081e11aa8888a949eab02059fb6542453a  ./.claude/settings.json
 5167310148c1dca3ec9d253ac471a8af88699fc46c98f4efe15073f002834959  ./.github/pull_request_template.md
-3b7582c491beaf83eb95e8e2e82d0064ad53d98b7f6ec29ecb34ed0c028fc500  ./.github/workflows/pr.yml
+c5d3fa552212405b67d20fef48496fba679dcaab2ed967652786508505ec4fa6  ./.github/workflows/pr.yml
 6051a91dee2d25e8d5d1fab92142c04cbaec6884088a2e5e98e896be348863fc  ./.gitignore
 fb499f4759ba8e234f9f6020a7e321f3124dc0a65ec5df7e377f9e1338ae073c  ./.loopstrap-root-config.manifest
 6283ec4cbaa79d0ddc69954f9126c6cb1cfd9624a8485e2c58d70048aa66dcbf  ./.loopstrap/roles/builder-adversary.md
@@ -104,7 +104,7 @@ d43a8e5fc1368496fb16b055b7a2e9c89397f7f50454e66a7a69629e48725ea0  ./artifacts/in
 1e7f96af6b1f091629308d530b909b5206c922d4ee5f6bacb295b944b4919a41  ./artifacts/instance/tools/schema-facts.py
 4292f15a30784bf0f3553344645fa6bc1ecd010dfc1c321ea55adcaca3753070  ./artifacts/instance/tools/seal-tree.py
 8d6432ad4d153aaf608944bd72aca5c6d75bbff8a2b5ee24fd592137185e0776  ./artifacts/instance/tools/token-breaker.py
-22487b9ea36c205ee5c5e2f34d3b4b6e02f95fda181f56b36336f1fe30bcde88  ./artifacts/instance/tools/verify-tree.py
+c1d205ccfeff2bbe16b000af60bf7c293580e56f668d72b9ecd06c433a650568  ./artifacts/instance/tools/verify-tree.py
 ca8885b9a56459b16ddeb214e2c4bf322cc6375b809b99182ed774fccf96dc07  ./artifacts/intent/README.md
 1c28b29f7eeb6d02c1bed1525a5d76ecbde0dc56114f7e3f6e211535d35d266e  ./artifacts/intent/family.md
 af036d362d3eb8706b5f3a005b979ff4dddc245ade4435012d208bd48433063d  ./artifacts/members.toml
@@ -124,7 +124,7 @@ df4d221ef48dda2f3d570987da42c5c10dd412de7a9dad782c3be45c1e3e86b6  ./artifacts/me
 c99c7df87010ead6cfcbeb898aae68e74ea33e2796ff6755d57c1284b63cf741  ./artifacts/prompts/README.md
 37e35473d34d0b1e0510bde557756926110dbd9c2e23507fa2a07fab5fc15474  ./artifacts/prompts/provision-loop-user.sh
 7c660bbf91744ebcefcaa9af074118a030566294d4f0edf175d63e07737702dd  ./artifacts/prompts/serena-qa.md
-c515256bc5e04ac1c4993b529c9d34ec377aefdc274694df591f5bde415710ee  ./artifacts/registers/design-decision-register.md
+9609e6af947b7614cd5a083be38f7ce91ff28d91324dc3d0fbc03f273922da74  ./artifacts/registers/design-decision-register.md
 16e8b5f3760b12add694b3af7bb4684bbfc1cfe0491f75c9efe858e70d29f90e  ./artifacts/reports/proposals/README.md
 57f95acd300fcbee8678a91ae388e78d493092e145956115d807b6c8d9753396  ./artifacts/reports/runs/README.md
 bc7af59228689ac1f1a65d082181f7a676197957fee212a327a7c3225c40d68e  ./config/cue-tool.v1.json
@@ -147,7 +147,7 @@ b9e585ccf76f9edc7981f476bfccf300e987c70f4baf2f98a207137d76ce3448  ./contract/inv
 0a7adb5343b5e5d905ba18f5a26f5aa7d04c586cd42e6a5c61b339134474cc94  ./contract/invariant_schema.cue
 7df5588bc8c59bc8f96d163a48c769d0f6604cf9f3187ea63cf5994f4c5421e0  ./contract/schema_harness_surface.cue
 ed4c3dc68260a576828dc2aba15c753e0b4b0a8f9229438d844dfb9975010e71  ./launch-loop.sh
-182001b33e8ab59b3863c080982e9890367265f40aaf8aad8341959d471f0593  ./loopstrap.modes
+b5054699e417c883d4e0f501d533a1703eb6c86667508aa5a6dec204c5d4aeee  ./loopstrap.modes
 0a8f55ad48ab37866a7f28ae6eab03e59633a14c7c31950d3c5233be753c9bab  ./loopstrap_core/__init__.py
 21ed41b12e3222813d9ad67dfed5ba92f8235caf19674c54028811e2a278fd2b  ./loopstrap_core/artifacts.py
 383fed739af1d61836eb79f394ac3632d5b53b8091ee492f50b61b702268a2af  ./loopstrap_core/atomic.py
@@ -210,7 +210,7 @@ d90df848bf3f88d33a41035e670ee5b87c1bd42775ab2f736b11ac480b789fa6  ./spec/cue/con
 22113e0232b6ae4fe1cec4a4d8261a6a72309d8d7a03c5e01bbe13a5184598a6  ./spec/cue/evidence.cue
 c1cd8006092a66b6aebd26628b12a5c1e1de4d491bfdfa194ae87c958274ed13  ./spec/cue/project.cue
 0bf12c1c0c4d2e4209adc037f7a10ada4a33c9c5aeaa5a456f0a21acde6d4ae6  ./tests/COVERAGE.md
-416a6599f4e3fb9234bb8b227c0e9cc81495fc2703e1d98de6106b78fb5ae52d  ./tests/REGISTER-MAP.tsv
+f017d77cc0c6bb3d70f62eefc3e925954026a3b045ce2a2ab739d3bbf6ef7b34  ./tests/REGISTER-MAP.tsv
 6c4c653b81f3d25fae46ba7d023dbc6b8a37eed6cc6647fad2607d28df958666  ./tests/acceptance/FROZEN.sha256
 0c5d923511ce592932de546bcb9d5a47250b04c122c8895cb73d922f4b982963  ./tests/acceptance/REVISION-001.md
 2dd379b5532ceda4b05c391a89e15657d0f70b960b3ca47d2c4440979f48491a  ./tests/acceptance/REVISION-002.md
@@ -237,6 +237,7 @@ c30f17100504fff10ad662b1b4424ae71367bafe3f731a931276ff6c2cc23f42  ./tests/active
 0a06ca4226a74cb9d1c4cf072bc28a334421dd02f2c8b5444df8c880db113ef9  ./tests/battery.sh
 5f33fb59067b9dc9c7f79a2f7ab799fc17abf953b66064a9520d4f9c24b3daf3  ./tests/cases/audit-readonly.sh
 c2703c431694711b3d936af1e173080bab5bb933a24eecb34ffa79d79acee803  ./tests/cases/breaker-wires.sh
+944ac65fca0598c2fdd5c070b03016de0278fa0fc621d881f2b55619e59f3c36  ./tests/cases/controls-reachable.sh
 e58359984b81f4b3a6ad3eabdc0b55e6bb2424ca29ec78736d9f6b159cb12ffd  ./tests/cases/custody-sweep.sh
 9f5dbc47d168e67a1fc5de607828cb2e001c25d5f18e25a9fac5cd3bf251bc99  ./tests/cases/docs-standard.sh
 527514636de4cabbb10f36b3240c79c93900f97609a749ed458c363a7366a502  ./tests/cases/install.sh

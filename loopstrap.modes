@@ -237,6 +237,7 @@
 0755	tests/battery.sh
 0755	tests/cases/audit-readonly.sh
 0644	tests/cases/breaker-wires.sh
+0644	tests/cases/controls-reachable.sh
 0755	tests/cases/custody-sweep.sh
 0644	tests/cases/docs-standard.sh
 0644	tests/cases/install.sh

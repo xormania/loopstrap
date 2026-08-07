@@ -1,4 +1,4 @@
-name: pr
+name: 'CI: pull request'
 
 # Pull requests target dev. dev -> main is opened the same way and merged only by
 # the owner.
