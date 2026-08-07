@@ -7,6 +7,7 @@
 0644	.claude/settings.json
 0644	.claude/skills/lane-classification/SKILL.md
 0644	.claude/skills/publication-check/SKILL.md
+0644	.codex/config.toml
 0644	.github/pull_request_template.md
 0644	.github/workflows/pr.yml
 0644	.gitignore
@@ -40,6 +41,7 @@
 0644	artifacts/agent-configs/root/.claude/commands/prep.md
 0644	artifacts/agent-configs/root/.claude/commands/retro.md
 0644	artifacts/agent-configs/root/.claude/settings.json
+0644	artifacts/agent-configs/root/.codex/config.toml
 0644	artifacts/agent-configs/root/AGENTS.md
 0644	artifacts/agent-configs/root/CLAUDE.md
 0644	artifacts/agent-configs/root/README.md
