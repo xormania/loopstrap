@@ -1,0 +1,15 @@
+# Runtime roots. These are exactly the prefixes that
+# artifacts/instance/tools/verify-tree.py treats as permitted runtime extras
+# (RUNTIME_PREFIXES), so the seal and the ignore list agree by construction.
+/repos/
+/.worktrees/
+/xor/
+/scratch/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+build/
+dist/

@@ -19,6 +19,16 @@ RUNTIME_PREFIXES = (
     "scratch/",
 )
 
+# Version-control metadata and build artifacts are not project content. Sealing
+# them makes the manifest churn on every commit and every import. These rules
+# must match seal-tree.py exactly, or sealing and verification disagree.
+EXCLUDED_NAMES = frozenset({".git", "__pycache__"})
+EXCLUDED_SUFFIXES = (".egg-info",)
+
+
+def is_excluded(name: str) -> bool:
+    return name in EXCLUDED_NAMES or name.endswith(EXCLUDED_SUFFIXES)
+
 
 def safe_relative(raw: str) -> str:
     rel = raw[2:] if raw.startswith("./") else raw
@@ -78,6 +88,8 @@ def inventory(root: Path, allow_runtime: bool) -> tuple[set[str], list[str]]:
         for name in dirs:
             path = base_path / name
             rel = path.relative_to(root).as_posix()
+            if is_excluded(name):
+                continue
             if path.is_symlink():
                 if not (allow_runtime and is_allowed_runtime_extra(rel + "/")):
                     errors.append(f"link not allowed: {rel}")
@@ -87,6 +99,8 @@ def inventory(root: Path, allow_runtime: bool) -> tuple[set[str], list[str]]:
         for name in names:
             path = base_path / name
             rel = path.relative_to(root).as_posix()
+            if is_excluded(name):
+                continue
             if path.is_symlink():
                 if not (allow_runtime and is_allowed_runtime_extra(rel)):
                     errors.append(f"link not allowed: {rel}")

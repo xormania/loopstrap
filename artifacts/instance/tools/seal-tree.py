@@ -9,16 +9,30 @@ from pathlib import Path
 import stat
 import sys
 
+# Version-control metadata and build artifacts are not project content. Sealing
+# them makes the manifest churn on every commit and every import. These rules
+# must match verify-tree.py exactly, or sealing and verification disagree.
+EXCLUDED_NAMES = frozenset({".git", "__pycache__"})
+EXCLUDED_SUFFIXES = (".egg-info",)
+
+
+def is_excluded(name: str) -> bool:
+    return name in EXCLUDED_NAMES or name.endswith(EXCLUDED_SUFFIXES)
+
 
 def regular_files(root: Path) -> list[Path]:
     result: list[Path] = []
     for base, dirs, names in os.walk(root, followlinks=False):
         base_path = Path(base)
         dirs[:] = sorted(
-            name for name in dirs if not (base_path / name).is_symlink()
+            name
+            for name in dirs
+            if not is_excluded(name) and not (base_path / name).is_symlink()
         )
         for name in sorted(names):
             path = base_path / name
+            if is_excluded(path.name):
+                continue
             if path.name == "loopstrap.manifest" or path.is_symlink():
                 continue
             if path.is_file():

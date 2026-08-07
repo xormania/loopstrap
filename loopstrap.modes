@@ -4,6 +4,7 @@
 0644	.claude/commands/prep.md
 0644	.claude/commands/retro.md
 0644	.claude/settings.json
+0644	.gitignore
 0644	.loopstrap-root-config.manifest
 0644	.loopstrap/roles/builder-adversary.md
 0644	.loopstrap/roles/implementer.md
@@ -161,6 +162,7 @@
 0755	ops/steward-status.sh
 0755	preflight.sh
 0755	probe.sh
+0644	pyproject.toml
 0644	repo/plan/HALTED.md
 0755	reset.sh
 0755	serena-fleet.sh

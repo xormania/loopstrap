@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "loopstrap"
+version = "0.1.0"
+description = "Tests-first, evidence-producing agentic workflow kernel that builds software from a system contract"
+readme = "README.md"
+license = { text = "Proprietary" }
+authors = [{ name = "xormania" }]
+
+# Verified on CPython 3.12.3 only. Raise or lower deliberately, with a run of
+# tests/battery.sh on the target interpreter as the evidence.
+requires-python = ">=3.12"
+
+# Intentionally empty. The kernel imports only the standard library; the sole
+# external tool is the digest-pinned CUE binary under tools/cue/, which is
+# invoked as a subprocess and verified against config/cue-tool.v1.json rather
+# than installed as a dependency.
+dependencies = []
+
+[project.scripts]
+loopstrap = "loopstrap_core.cli:main"
+
+[tool.setuptools]
+packages = ["loopstrap_core"]
+
+# Editable install is the supported mode today:
+#     python3 -m pip install -e .
+#
+# A non-editable install does not yet carry spec/cue/, config/, or tools/cue/,
+# because loopstrap_core.profiles resolves those relative to the source tree
+# (profiles.py, root = Path(__file__).resolve().parents[1]). Every other module
+# already takes schema_root / project_root as an argument, so relocating that
+# one lookup is all that stands between this and a relocatable wheel. Until
+# that is done and proven by the battery, do not claim wheel support.

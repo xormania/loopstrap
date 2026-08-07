@@ -4,6 +4,7 @@ d3bcf833b2070730d738827c2cdbf475dc591de60633fce95bd4438ce4c5440e  ./.claude/comm
 974bf7431378e81b4b809cd24382e94d43a2e9d6cc97f6dc31a84be7c206f298  ./.claude/commands/prep.md
 fda93145963698d5182031c543f7ea01642d6f4ee5f9b2943c4add0b88de7f5b  ./.claude/commands/retro.md
 5a53e4c73eef2794fbac81b5607096a631a9bf2fc3113187ba86f7757e75124b  ./.claude/settings.json
+eaf00db4edf19c9981c43a88b5a6a140304b28cbb4f0d1a2486a359df7bea3f8  ./.gitignore
 fb499f4759ba8e234f9f6020a7e321f3124dc0a65ec5df7e377f9e1338ae073c  ./.loopstrap-root-config.manifest
 6283ec4cbaa79d0ddc69954f9126c6cb1cfd9624a8485e2c58d70048aa66dcbf  ./.loopstrap/roles/builder-adversary.md
 2c31945b5c36defa2fffbf2d4863ea1ecd6ca6a653e1b80f20f8efcfeb621fe8  ./.loopstrap/roles/implementer.md
@@ -89,9 +90,9 @@ d2e786da7034a0421878b9772857b41d8669af964b85d4f4e907a83b50b7aec1  ./artifacts/in
 cc67d0af57cb78488674588df698111fa0ced27a455c3d0d33448b174552b959  ./artifacts/instance/tools/launcher-args.sh
 2a219e95cbb67175ae49d3526f5e0a45e755ff010e567a9c0b469ffc5c8aef2c  ./artifacts/instance/tools/probe-key.md
 f4821e87eb5a7226c553074fa0d52f2191ef7273846b8d2d6e14719450151cce  ./artifacts/instance/tools/probe-questions.md
-905530d48a86026bd552cb86d796ac7f8440388363004b240fdac103cb9a123b  ./artifacts/instance/tools/seal-tree.py
+eb3fe4c9b9da5bcd1e24e9dfd6865f7e008a9a36a063c529738a9d153519719e  ./artifacts/instance/tools/seal-tree.py
 8d6432ad4d153aaf608944bd72aca5c6d75bbff8a2b5ee24fd592137185e0776  ./artifacts/instance/tools/token-breaker.py
-0eb0aa929a2c19810ea6db1feabf4c86025a04c365033e1c6f61535b168b53f5  ./artifacts/instance/tools/verify-tree.py
+c0322bd6265e35a17b860e5379aef3fe1c9276b676f5e7c32a6d43ef719fb7eb  ./artifacts/instance/tools/verify-tree.py
 ca8885b9a56459b16ddeb214e2c4bf322cc6375b809b99182ed774fccf96dc07  ./artifacts/intent/README.md
 1c28b29f7eeb6d02c1bed1525a5d76ecbde0dc56114f7e3f6e211535d35d266e  ./artifacts/intent/family.md
 af036d362d3eb8706b5f3a005b979ff4dddc245ade4435012d208bd48433063d  ./artifacts/members.toml
@@ -127,7 +128,7 @@ bdcae61d55e8d367cee6e45629d79b0d330812fb1c92ee9f9cd49ff8d215b85f  ./install-conf
 6275f8a716c65d9699dd0fd674b366818766149ef5be2f33b4db460d03ad98ed  ./land.sh
 c5a681e8d41fd4d2700d2d28a6d7003b57526d172e191d0bcd0cbf7f32f76869  ./launch-codex.sh
 ed4c3dc68260a576828dc2aba15c753e0b4b0a8f9229438d844dfb9975010e71  ./launch-loop.sh
-a683f0d58a73f7088de432f97c4f66b252dfb799a7a34a49189aaa60a89c1853  ./loopstrap.modes
+f798736eb1b3e80949d84ef71a0e530504556fd50536122786f7f982d75d01f2  ./loopstrap.modes
 0a8f55ad48ab37866a7f28ae6eab03e59633a14c7c31950d3c5233be753c9bab  ./loopstrap_core/__init__.py
 21ed41b12e3222813d9ad67dfed5ba92f8235caf19674c54028811e2a278fd2b  ./loopstrap_core/artifacts.py
 383fed739af1d61836eb79f394ac3632d5b53b8091ee492f50b61b702268a2af  ./loopstrap_core/atomic.py
@@ -161,6 +162,7 @@ afe864fd838192174fed25113dae00b3a78d86749e5f759b5bddb7c8c3f961df  ./ops/sovereig
 beff1171eceb0156b743e599c861b56bb62fbc90d4f6eaa5a6b43604ed531ada  ./ops/steward-status.sh
 045521b8eb3e2e0bbaf0a2392c91f69241c2393aa3279855948bde5a1df6bb5b  ./preflight.sh
 dd13acc688ea960987c33c313527bcfb573cf5d892ac8f05e4ba21735998522f  ./probe.sh
+a810bc9a01d1fb825b7ae03bdf096826e46ab7f876385ccf2111f556978c1675  ./pyproject.toml
 6c853251dfb8b9219369e556c29b21a06b44cb9aff54faf2d7838db77b10e59a  ./repo/plan/HALTED.md
 c7e20fc29c4db8df7bc9aa212adaa629188a4b8ff9bba993e8d875209616fc38  ./reset.sh
 a29dd852052a7a0952b7ec0202cee715e53723cce12a5362a534e4a896b0235d  ./serena-fleet.sh
