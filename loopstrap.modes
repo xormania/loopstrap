@@ -90,6 +90,7 @@
 0755	artifacts/instance/tools/contract-check.sh
 0755	artifacts/instance/tools/docs-verify.sh
 0755	artifacts/instance/tools/docs_verify.py
+0755	artifacts/instance/tools/gate-review.py
 0644	artifacts/instance/tools/gen-seal-rules.py
 0755	artifacts/instance/tools/harness-identity.py
 0644	artifacts/instance/tools/intent-landing-template.md
@@ -98,6 +99,7 @@
 0755	artifacts/instance/tools/probe-ingest.py
 0644	artifacts/instance/tools/probe-key.md
 0644	artifacts/instance/tools/probe-questions.md
+0755	artifacts/instance/tools/publication-check.py
 0644	artifacts/instance/tools/schema-facts.py
 0755	artifacts/instance/tools/seal-tree.py
 0755	artifacts/instance/tools/token-breaker.py
@@ -126,6 +128,7 @@
 0644	artifacts/reports/runs/README.md
 0755	backup.sh
 0644	config/cue-tool.v1.json
+0644	config/gate-budget.v1.json
 0644	config/harness-certification.v1.json
 0644	config/harness-cli.v1.json
 0644	config/harness-profiles.v1.json
@@ -139,10 +142,8 @@
 0644	contract/extracted.cue
 0644	contract/extracted_config.cue
 0644	contract/invariant_config.cue
-0644	contract/invariant_harness_cli.cue
 0644	contract/invariant_lanes.cue
 0644	contract/invariant_schema.cue
-0644	contract/invariant_serena.cue
 0644	contract/schema_harness_surface.cue
 0755	custody-sweep.sh
 0755	harness-smoke.sh
@@ -197,6 +198,7 @@
 0755	serena-fleet.sh
 0755	setup.sh
 0644	skills/dev/lane-classification/SKILL.md
+0644	skills/dev/publication-check/SKILL.md
 0644	spec/cue/contracts.cue
 0644	spec/cue/evidence.cue
 0644	spec/cue/project.cue

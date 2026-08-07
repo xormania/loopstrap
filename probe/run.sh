@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# vendor-probe launcher — ./probe/run.sh <claude|codex|grok>
+# probe launcher — ./probe/run.sh <claude|codex|grok>
 #
 # Interrogates a vendor CLI and produces two deliverables per run:
 #   reports/<vendor>-report.md     the human fact sheet, probe log appended

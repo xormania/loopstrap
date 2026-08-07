@@ -17,11 +17,9 @@ accepts the flags a profile passes it — that is a claim about someone else's
 program. The nearest checkable thing is a snapshot of the command-line surface,
 and then unification does the rest.
 
-An earlier generation of this system solved the same problem by grepping the
-vendor's `--help` output inside the launcher, at launch time, pinned to one
-version. That works until the grep is the only thing that knows, and it spends
-tokens to discover a flag was renamed. This moves the check to gate time and
-makes its provenance explicit.
+Checking a flag at launch time costs a run to discover a rename. This records
+the surface once, checks it at gate time, and makes the provenance of every fact
+explicit.
 
 ## Two deliverables per run
 

@@ -14,7 +14,7 @@ Then run the same inventory shape as the sibling prompts, adapted:
 3. Permission / sandbox / approval machinery and what non-interactive mode
    forces or ignores.
 4. Doctrine-file discovery (GROK.md or equivalent; any AGENTS.md/CLAUDE.md
-   cross-discovery is a finding — the family's role-split depends on files
+   cross-discovery is a finding — a role split depends on which files
    binding to one reader each).
 5. Env vars; credential handling; env passthrough to child processes (probe
    with PROBE_TOKEN only).

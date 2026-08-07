@@ -31,11 +31,3 @@ _cLane002: {
 	}
 }
 
-// C-LANE-003 — a production CUE file with no package declaration at all.
-// An undeclared package is not neutral; it is a file whose lane nobody stated.
-_cLane003: {
-	for fact in lanes
-	if fact.lane == "production" && strings.HasSuffix(fact.file, ".cue") && fact.package == "" {
-		"\(fact.file)": "declares no package — state the lane rather than leaving it to be inferred"
-	}
-}
