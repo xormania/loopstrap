@@ -84,12 +84,14 @@
 0644	artifacts/instance/process.md
 0644	artifacts/instance/terms.md
 0755	artifacts/instance/tools/audit-consistency.sh
+0755	artifacts/instance/tools/contract-check.sh
 0755	artifacts/instance/tools/docs-verify.sh
 0755	artifacts/instance/tools/docs_verify.py
 0644	artifacts/instance/tools/intent-landing-template.md
 0755	artifacts/instance/tools/launcher-args.sh
 0644	artifacts/instance/tools/probe-key.md
 0644	artifacts/instance/tools/probe-questions.md
+0644	artifacts/instance/tools/schema-facts.py
 0755	artifacts/instance/tools/seal-tree.py
 0755	artifacts/instance/tools/token-breaker.py
 0755	artifacts/instance/tools/verify-tree.py
@@ -122,6 +124,10 @@
 0644	config/role-treatments.v1.json
 0644	config/roles.v1.json
 0644	config/workflow.v1.json
+0644	contract/README.md
+0644	contract/declaration_schema_pairs.cue
+0644	contract/extracted.cue
+0644	contract/invariant_schema.cue
 0755	custody-sweep.sh
 0755	harness-smoke.sh
 0755	install-configs.sh

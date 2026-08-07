@@ -8,7 +8,7 @@ trap 'rm -rf "$STATE"' EXIT
 REC="$STATE/assertions.tsv"
 SUMMARY="$STATE/suite-summary.tsv"
 FAIL=0
-REQUIRED=(syntax suite acceptance active integration telemetry readiness certification wall audit register-map)
+REQUIRED=(syntax contract suite acceptance active integration telemetry readiness certification wall audit register-map)
 
 run_leg() {
   local name="$1"; shift
@@ -21,6 +21,7 @@ run_leg() {
 }
 
 run_leg syntax bash tests/check-syntax.sh
+run_leg contract bash artifacts/instance/tools/contract-check.sh
 run_leg suite env LS_ASSERTION_RECORD="$REC" LS_SUITE_SUMMARY="$SUMMARY" bash tests/run-tests.sh
 run_leg acceptance bash tests/run-acceptance.sh
 run_leg active bash tests/run-active.sh
@@ -49,7 +50,7 @@ if [ "$receipt_count" -ne "${#REQUIRED[@]}" ]; then
 fi
 
 if [ "$FAIL" -eq 0 ]; then
-  echo "════ BATTERY GREEN — syntax · suite · acceptance · active · integration · telemetry · readiness · certification · wall · audit · register-map (all receipts present) ════"
+  echo "════ BATTERY GREEN — syntax · contract · suite · acceptance · active · integration · telemetry · readiness · certification · wall · audit · register-map (all receipts present) ════"
   exit 0
 fi
 echo "════ BATTERY RED — failed or missing leg above ════"
