@@ -95,6 +95,7 @@
 0755	artifacts/instance/tools/harness-identity.py
 0644	artifacts/instance/tools/intent-landing-template.md
 0755	artifacts/instance/tools/launcher-args.sh
+0755	artifacts/instance/tools/pin-check.py
 0755	artifacts/instance/tools/pr-evidence-check.py
 0755	artifacts/instance/tools/probe-ingest.py
 0644	artifacts/instance/tools/probe-key.md
@@ -136,6 +137,7 @@
 0644	config/roles.v1.json
 0644	config/seal.v1.json
 0644	config/serena.v1.json
+0644	config/tools.v1.json
 0644	config/workflow.v1.json
 0644	contract/README.md
 0644	contract/declaration_schema_pairs.cue

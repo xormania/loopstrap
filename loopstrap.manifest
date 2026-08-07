@@ -95,6 +95,7 @@ d7d1af511a1df1a50e37525b36db702e783c55f302a95948dc7a202d581f7ba2  ./artifacts/in
 b01c2a84cde1bf192ffa60859ce720dc29300d83de2af42b9e0f58a82fe52ae1  ./artifacts/instance/tools/harness-identity.py
 0523b717ee837f6b5a89e786caebba5bfb175d288d91a5734ae62921e658931a  ./artifacts/instance/tools/intent-landing-template.md
 cc67d0af57cb78488674588df698111fa0ced27a455c3d0d33448b174552b959  ./artifacts/instance/tools/launcher-args.sh
+e52c47b4aea478a9e996ee59c5681a7540b1ce291f4a149f0de710a2a20c3ad3  ./artifacts/instance/tools/pin-check.py
 831011ae8a7953d62ccf1e4c9e403ad50fd35f2d4064d19a738a81edbb95ab23  ./artifacts/instance/tools/pr-evidence-check.py
 3e08a8417c06462426120f984f454a8aa3a6f40e542b1176959e2c1e674526b0  ./artifacts/instance/tools/probe-ingest.py
 2a219e95cbb67175ae49d3526f5e0a45e755ff010e567a9c0b469ffc5c8aef2c  ./artifacts/instance/tools/probe-key.md
@@ -136,6 +137,7 @@ fa59c352573a7a379021f1c2c95559d914279ca9aa20ace58bec9e798e7d340d  ./config/harne
 0a5f11cde28f6e6fcdb28f60efe0d9cf3ac8eb82211a18e8ffbbde01ad7b201e  ./config/roles.v1.json
 f780ed1d15160c1b7bf9df426e4995730020c36e1cf4d94f09f5e36838749c2b  ./config/seal.v1.json
 dfb31c93ed9abdc5ae1bff49dd32f982051327bd22193fd9954d5212be0820a6  ./config/serena.v1.json
+29b07ee2b37f631228a011ae3548b4756b878f0aa3b4a8d36e78abc3c3b805b9  ./config/tools.v1.json
 2b109d4b328af8c4f7203668794c5fa7b558cb72ba3bfdf033ff5fe693ec4bf1  ./config/workflow.v1.json
 359dbe5065e93135f31d7eeded36c30959a5c3d067f5f20214161311ecbfd2eb  ./contract/README.md
 6161045c8b7eefb63b17c2fb7e14e0daecc40fbe1639c2a298dac2225de76254  ./contract/declaration_schema_pairs.cue
@@ -151,7 +153,7 @@ bdcae61d55e8d367cee6e45629d79b0d330812fb1c92ee9f9cd49ff8d215b85f  ./install-conf
 6275f8a716c65d9699dd0fd674b366818766149ef5be2f33b4db460d03ad98ed  ./land.sh
 c5a681e8d41fd4d2700d2d28a6d7003b57526d172e191d0bcd0cbf7f32f76869  ./launch-codex.sh
 ed4c3dc68260a576828dc2aba15c753e0b4b0a8f9229438d844dfb9975010e71  ./launch-loop.sh
-0b9f4c6ef9744f10b63c64f0500446b472d2303c54e728a19e4e1ae14ee8aacc  ./loopstrap.modes
+a76604368e31f42394219ec63fea21afc90093ed0e24e32b470da09a614b1203  ./loopstrap.modes
 0a8f55ad48ab37866a7f28ae6eab03e59633a14c7c31950d3c5233be753c9bab  ./loopstrap_core/__init__.py
 21ed41b12e3222813d9ad67dfed5ba92f8235caf19674c54028811e2a278fd2b  ./loopstrap_core/artifacts.py
 383fed739af1d61836eb79f394ac3632d5b53b8091ee492f50b61b702268a2af  ./loopstrap_core/atomic.py
