@@ -1,5 +1,8 @@
 # Contributing
 
+An agent may open a **draft** pull request to `main`. Only the owner marks it
+ready and merges it. Everything else targets `dev`.
+
 Target `dev`. `dev` → `main` is a **promotion**, not a review: every commit
 reaching `dev` already carried its own evidence, so the body requirement is
 skipped on that route. The battery, the contract gate and the seal still run.
@@ -63,6 +66,29 @@ bypassed. `tests/cases/controls-reachable.sh` enforces this, and three shipped
 violations of it are named in the register.
 
 `/check` runs the seal, the gate and the battery in one step.
+
+## Harness configuration
+
+One instruction surface per meaning, and harnesses read it or get a thin adapter.
+Never a mirror — second copies drift.
+
+| harness | instructions | skills and commands | permissions |
+|---|---|---|---|
+| Claude Code | `CLAUDE.md` | `.claude/skills/`, `.claude/commands/` | `.claude/settings.json` |
+| grok | `AGENTS.md` **and** `CLAUDE.md`, natively | `./.claude/…` at **repo** priority | `.claude/settings.json` rules merged in |
+| codex | `AGENTS.md`, natively | — | `.codex/config.toml`, loaded on trust |
+
+**There is deliberately no `.grok/` directory.** Grok reads everything above
+under Claude compatibility, which is on by default. Adding one would duplicate
+the lot. If grok ever needs a genuine override, add `.grok/config.toml`
+containing *only* the override.
+
+`.codex/config.toml` is the single adapter, and it exists for one reason: codex
+reads neither `.claude/settings.json` nor `.claude/commands/`.
+
+Both `.claude/settings.json` and `.codex/config.toml` are kept byte-identical to
+their staged copies under `artifacts/agent-configs/root/`. `AGENTS.md`,
+`CLAUDE.md` and `README.md` are held that way by the consistency audit.
 
 ## If you maintain a denylist
 

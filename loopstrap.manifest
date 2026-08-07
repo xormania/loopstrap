@@ -7,6 +7,7 @@ fda93145963698d5182031c543f7ea01642d6f4ee5f9b2943c4add0b88de7f5b  ./.claude/comm
 4a4fc87cdf9fc0b79519ab3afee561ecf646041ce1e1521421600ce83486399f  ./.claude/settings.json
 7cee9294b6fe9f07b623005bc73d6cf98cea0cf0ff4b57b62b576ea21807737f  ./.claude/skills/lane-classification/SKILL.md
 ab4355cd7b4e975f881f224b5434d3642950b814788f36ec9d5beceb112d3266  ./.claude/skills/publication-check/SKILL.md
+6d1a8f2d92b7adda06f5dd0472991fc2efeb2c71164d989d4e049d198d4cda99  ./.codex/config.toml
 5167310148c1dca3ec9d253ac471a8af88699fc46c98f4efe15073f002834959  ./.github/pull_request_template.md
 c5d3fa552212405b67d20fef48496fba679dcaab2ed967652786508505ec4fa6  ./.github/workflows/pr.yml
 6051a91dee2d25e8d5d1fab92142c04cbaec6884088a2e5e98e896be348863fc  ./.gitignore
@@ -19,7 +20,7 @@ da03ecfa08a0bf7ff0cfd9a3da43bbd55f442582e15428f2fc8f1c868159b0fc  ./.loopstrap/r
 6c59ae173f6e71a08d6f3ef878f717f22b7324e7092dbbbedfa5c17724c7e1d0  ./.loopstrap/roles/planning-subagent.md
 97169fa067e287c9c7882ae1367b8784da956213aaa27365c9b678ada817854a  ./AGENTS.md
 19a96ca058fa2a7c462e1d7f9d03b6d234a735ea4747db83148495ab509868e0  ./CLAUDE.md
-063cdd524443016637bf579e83033cca8f5252794935eb783cbb1ad8b28836d1  ./CONTRIBUTING.md
+c503dc3aca5d73960791876a7aad6513d1de9e3d5d52536579694c132cbfc69c  ./CONTRIBUTING.md
 9a5ef5304a536c8b281a825e95dc731735171eafc4db8987c6cbcf9c3b5cab13  ./README.md
 188b68c87ae9becae4c5694a8cbd673d4262f385d13d5e54b663b5540f5b67d3  ./SESSION.md
 7d1d9b061cf6d81e6a6ec2048f13b41e5cfb84f6689550fc6af2cb2ce139b350  ./TELEMETRY.md
@@ -40,6 +41,7 @@ d3bcf833b2070730d738827c2cdbf475dc591de60633fce95bd4438ce4c5440e  ./artifacts/ag
 6d44a989b19d691eb079c6ddae7b1f54798bd2a8cac8ac8d96b9277b74dd56db  ./artifacts/agent-configs/root/.claude/commands/prep.md
 fda93145963698d5182031c543f7ea01642d6f4ee5f9b2943c4add0b88de7f5b  ./artifacts/agent-configs/root/.claude/commands/retro.md
 4a4fc87cdf9fc0b79519ab3afee561ecf646041ce1e1521421600ce83486399f  ./artifacts/agent-configs/root/.claude/settings.json
+6d1a8f2d92b7adda06f5dd0472991fc2efeb2c71164d989d4e049d198d4cda99  ./artifacts/agent-configs/root/.codex/config.toml
 97169fa067e287c9c7882ae1367b8784da956213aaa27365c9b678ada817854a  ./artifacts/agent-configs/root/AGENTS.md
 19a96ca058fa2a7c462e1d7f9d03b6d234a735ea4747db83148495ab509868e0  ./artifacts/agent-configs/root/CLAUDE.md
 9a5ef5304a536c8b281a825e95dc731735171eafc4db8987c6cbcf9c3b5cab13  ./artifacts/agent-configs/root/README.md
@@ -127,7 +129,7 @@ df4d221ef48dda2f3d570987da42c5c10dd412de7a9dad782c3be45c1e3e86b6  ./artifacts/me
 c99c7df87010ead6cfcbeb898aae68e74ea33e2796ff6755d57c1284b63cf741  ./artifacts/prompts/README.md
 37e35473d34d0b1e0510bde557756926110dbd9c2e23507fa2a07fab5fc15474  ./artifacts/prompts/provision-loop-user.sh
 7c660bbf91744ebcefcaa9af074118a030566294d4f0edf175d63e07737702dd  ./artifacts/prompts/serena-qa.md
-9609e6af947b7614cd5a083be38f7ce91ff28d91324dc3d0fbc03f273922da74  ./artifacts/registers/design-decision-register.md
+ec3b9f39efab68ef062bd59c8a28a446598ce4370a60b6b65a8c80294313fbd8  ./artifacts/registers/design-decision-register.md
 16e8b5f3760b12add694b3af7bb4684bbfc1cfe0491f75c9efe858e70d29f90e  ./artifacts/reports/proposals/README.md
 57f95acd300fcbee8678a91ae388e78d493092e145956115d807b6c8d9753396  ./artifacts/reports/runs/README.md
 bc7af59228689ac1f1a65d082181f7a676197957fee212a327a7c3225c40d68e  ./config/cue-tool.v1.json
@@ -150,7 +152,7 @@ b9e585ccf76f9edc7981f476bfccf300e987c70f4baf2f98a207137d76ce3448  ./contract/inv
 0a7adb5343b5e5d905ba18f5a26f5aa7d04c586cd42e6a5c61b339134474cc94  ./contract/invariant_schema.cue
 7df5588bc8c59bc8f96d163a48c769d0f6604cf9f3187ea63cf5994f4c5421e0  ./contract/schema_harness_surface.cue
 ed4c3dc68260a576828dc2aba15c753e0b4b0a8f9229438d844dfb9975010e71  ./launch-loop.sh
-cbfb2ade917439e0e8104d149916b788bb63756f5ea2a42fd49a259f5be07e0b  ./loopstrap.modes
+c7a46feea093a7f29d50a4d81d8f69939b60148238a97da838cca76483f63bed  ./loopstrap.modes
 0a8f55ad48ab37866a7f28ae6eab03e59633a14c7c31950d3c5233be753c9bab  ./loopstrap_core/__init__.py
 21ed41b12e3222813d9ad67dfed5ba92f8235caf19674c54028811e2a278fd2b  ./loopstrap_core/artifacts.py
 383fed739af1d61836eb79f394ac3632d5b53b8091ee492f50b61b702268a2af  ./loopstrap_core/atomic.py
