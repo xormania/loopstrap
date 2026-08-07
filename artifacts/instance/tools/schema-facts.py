@@ -232,6 +232,46 @@ def _cache_write(binary: Path, path: Path, answer: dict) -> None:
         pass
 
 
+DEV_PACKAGE = "contract"
+DEV_PATHS = ("contract/", "probe/", "skills/dev/", "FROZEN.sha256", "seal-tree.py")
+
+
+def lane_facts(root: Path) -> list[dict]:
+    """Which package each production CUE file declares, and any development
+    machinery a production file names.
+
+    The lane-classification skill teaches the judgement; this makes the
+    mechanical half checkable. A development package name inside spec/cue means a
+    development expectation can unify into the shipped contract surface, which is
+    invisible until something impossible happens.
+    """
+    facts: list[dict] = []
+    for path in sorted((root / "spec" / "cue").glob("*.cue")):
+        text = path.read_text(encoding="utf-8")
+        declared = ""
+        for line in text.splitlines():
+            if line.startswith("package "):
+                declared = line.split(None, 1)[1].strip()
+                break
+        facts.append({
+            "file": f"spec/cue/{path.name}",
+            "lane": "production",
+            "package": declared,
+            "references": sorted({p for p in DEV_PATHS if p in text}),
+        })
+    for path in sorted((root / "loopstrap_core").glob("*.py")):
+        text = path.read_text(encoding="utf-8")
+        hits = sorted({p for p in DEV_PATHS if p in text})
+        if hits:
+            facts.append({
+                "file": f"loopstrap_core/{path.name}",
+                "lane": "production",
+                "package": "",
+                "references": hits,
+            })
+    return facts
+
+
 def cue_facts(binary: Path, schema_root: Path) -> list[dict]:
     """Field names per closed definition, straight from the compiler.
 
@@ -288,6 +328,7 @@ def main() -> int:
     document = {
         "python": facts,
         "pythonUnresolved": unresolved,
+        "lanes": lane_facts(root),
         "cue": cue_facts(
             root / "tools" / "cue" / "v0.17.0" / "cue", root / "spec" / "cue"
         ),

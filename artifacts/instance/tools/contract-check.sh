@@ -48,6 +48,7 @@ if ! SCHEMA_DIAG="$(cd "$ROOT" && "$CUE" export \
       contract/extracted.cue \
       contract/declaration_schema_pairs.cue \
       contract/invariant_schema.cue \
+      contract/invariant_lanes.cue \
       "$FACTS" -e diagnostics --out json 2>&1)"; then
   echo "CONTRACT ABORT: the schema contract failed to evaluate" >&2
   printf '%s\n' "$SCHEMA_DIAG" >&2
@@ -105,7 +106,7 @@ fi
 [ "$FAIL" -eq 0 ] || exit 1
 
 PAIRS="$(cd "$ROOT" && "$CUE" export contract/extracted.cue contract/declaration_schema_pairs.cue \
-  contract/invariant_schema.cue "$FACTS" -e 'len(pairs)' 2>/dev/null || echo '?')"
+  contract/invariant_schema.cue contract/invariant_lanes.cue "$FACTS" -e 'len(pairs)' 2>/dev/null || echo '?')"
 FACT_COUNT="$(python3 -c 'import json,sys; print(len(json.load(open(sys.argv[1]))["python"]))' "$FACTS")"
 CONFIG_FILES="$(python3 -c 'import json,sys; print(len(json.load(open(sys.argv[1]))["configs"]))' "$CONFIGS")"
 echo "CONTRACT CLEAN — ${PAIRS} declared pairs, ${FACT_COUNT} extracted field sets, ${CONFIG_FILES} configs unified, 0 diagnostics"
