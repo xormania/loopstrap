@@ -1,0 +1,20 @@
+{
+  "config_version": 1,
+  "purpose": "A hard cap on how much this gate may grow. The point is not the number; it is that the number cannot rise by accident.",
+
+  "max_invariants": 6,
+  "max_invariants_note": "Adding an invariant means deleting one or raising this cap. Raising it is a sealed config change, visible in the loud seal delta and in review. Every check that ever suffocated a project was individually plausible; the failure is never one bad check, it is thirty reasonable ones and no mechanism that says stop.",
+
+  "rule": "An invariant earns permanence by catching a defect that actually occurred. Until then it is a guess with a diagnostic code.",
+
+  "earned": {
+    "C-SCHEMA-001": "caught spec/cue and loopstrap_core disagreeing on a field name, which made acceptance-check unsatisfiable for a week behind a green battery",
+    "C-CONFIG-001": "caught two independence-critical roles bound to a ruled-out harness, across three files where no single file was wrong",
+    "C-CONFIG-009": "locks in the removal of vendor names from Role-Treatment ids; without it the abstraction decays on the first descriptive id",
+    "C-LANE-001": "locks in a fix for a development package name reaching the shipped contract surface",
+    "C-LANE-002": "locks in a fix for production code depending on files that do not travel with it",
+    "C-SEAL-001": "locks in the compiled-versus-authored seal rules, a drift introduced when the rules became config"
+  },
+
+  "deleted_2026_08_07": "23 invariants covering dangling config references, workflow reachability, independence membership, empty version pins, the harness command-line family, and the symbolic-tooling family. All plausible, none had ever fired on anything real. The knowledge they encoded is kept in the config notes and skills; the checks come back the day a defect they would have caught actually occurs."
+}

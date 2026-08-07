@@ -127,6 +127,7 @@
 0644	artifacts/reports/runs/README.md
 0755	backup.sh
 0644	config/cue-tool.v1.json
+0644	config/gate-budget.v1.json
 0644	config/harness-certification.v1.json
 0644	config/harness-cli.v1.json
 0644	config/harness-profiles.v1.json
@@ -140,10 +141,8 @@
 0644	contract/extracted.cue
 0644	contract/extracted_config.cue
 0644	contract/invariant_config.cue
-0644	contract/invariant_harness_cli.cue
 0644	contract/invariant_lanes.cue
 0644	contract/invariant_schema.cue
-0644	contract/invariant_serena.cue
 0644	contract/schema_harness_surface.cue
 0755	custody-sweep.sh
 0755	harness-smoke.sh

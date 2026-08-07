@@ -1,97 +1,107 @@
 ---
 name: publication-check
-description: Check anything that is about to leave the machine for disclosure about work that is not this project. Use before every commit message, PR body, issue, published artifact, and — especially — before importing files from elsewhere into this tree.
+description: Check anything about to leave the machine for disclosure the operator did not choose to publish. Use before every commit message, PR body, issue, comment and published artifact, and before importing files from elsewhere into a tracked tree.
 ---
 
 # Before it leaves the machine
 
-Everything in this repository is public the moment it is pushed, and permanent
-after that. A commit message, a PR body, an issue, a code comment, a generated
-document, a CI log. Removing a name from a PR body takes a minute; removing it
-from git history takes a force-push and re-opens every downstream PR.
+An agent publishing on an operator's behalf is publishing under their name, from
+their machine, with access to material they never chose to make public. A commit
+message, a PR body, an issue, a code comment, a generated document, a CI log —
+all of it leaves, and most of it is permanent. Removing a name from a PR body
+takes a minute; removing it from git history takes a force-push and re-opens
+every downstream PR.
 
-The question is not "does this contain a secret". It is:
+The question is not "does this contain a secret". Secrets are the easy case and
+scanners already find them. The question is:
 
-> **Would a reader learn something about a project that is not this one?**
+> **Would a reader learn something about work the operator has not published?**
 
-## Three ways this fails, all observed
+## Three ways this fails
 
-**1. Naming it.** The obvious one. A private repository named in a commit
-message.
+**1. Naming it.** A private repository, an employer, a codename, a person. The
+obvious case, and the only one most people check for.
 
-**2. Describing it.** The one that survives a careful proofread. Removing the
-name does not remove the disclosure:
+**2. Describing it.** The one that survives a careful proofread, because removing
+the name does not remove the disclosure:
 
-> ~~"an earlier generation of this system ran four GitHub workflows including a
-> pinned ShellCheck"~~
+> *"an earlier generation of this system ran four CI workflows including a pinned
+> linter"*
 
-That sentence has no name in it and still tells a reader that other private
-projects exist, that they are related, roughly when, and what their CI looked
-like. **Anonymising the label does not anonymise the content.** If a sentence
-exists to say "a prior project of mine did X", delete the sentence — the change
-should justify itself on its own terms.
+No name in it. It still discloses that other private projects exist, that they
+are related, roughly when, and how they were built. **Anonymising the label is
+not anonymising the content.**
 
-**3. Importing it.** The expensive one, and the one care about your own writing
-cannot catch. Files copied in from elsewhere carry their origin's vocabulary:
-paths, project names, internal terms. A kit imported into this tree contributed
-five references across three files, and none of them was written here.
+The tell: a sentence whose only job is to say *a prior project did X*. Delete it.
+A change should justify itself on its own terms — if it cannot, the justification
+was never available to the reader anyway.
 
-**Read every file you import, in full, before committing it.** Not a diff — the
-file. If that is too much to read, it is too much to import.
+**3. Importing it.** The expensive one, and the one that care about your own
+writing cannot catch. Files copied in from elsewhere carry their origin's
+vocabulary: paths, project names, internal terms, dated decision logs. An agent
+scanning its own prose while copying someone else's wholesale will produce a
+clean-looking commit that leaks on every line it did not write.
+
+**Read every file you import, in full, before committing it.** Not the diff — the
+file. If it is too long to read, it is too long to import unreviewed.
 
 ## The check
 
-The denylist cannot live in this repository, because the list *is* the
-disclosure. It lives in `proj/private-terms.txt`, which is gitignored and
-excluded from the seal at root.
+The denylist cannot live in the repository being checked, because the list *is*
+the disclosure. It is operator-supplied and found in this order:
 
 ```
-# proj/private-terms.txt — one term per line, blank lines and # comments ignored
-# Never commit this file. It is a list of things that must not appear publicly.
-some-private-repo
-another-project
-an-internal-codename
-~/some/personal/path
+--denylist PATH
+$PUBLICATION_DENYLIST
+./proj/private-terms.txt        untracked working notes
+./.private-terms                untracked
+~/.config/publication-denylist  per-operator, all repositories
 ```
 
-Then, before anything leaves:
+The per-operator location is usually right: the same names must not leak from
+*any* repository, so the list should outlive any single project.
 
 ```shell
-# staged changes
-git diff --cached | python3 artifacts/instance/tools/publication-check.py --stdin
-
-# a commit message or PR body you are about to use
-python3 artifacts/instance/tools/publication-check.py --file /tmp/msg.txt
-
-# files you are importing, before you add them
-python3 artifacts/instance/tools/publication-check.py --paths probe/
+publication-check.py --file /tmp/commit-message.txt
+git diff --cached | publication-check.py --stdin      # scans ADDED lines only
+publication-check.py --paths imported-kit/            # before you commit an import
 ```
 
-It is deliberately a **local** check. CI cannot run it: the runner is public and
-the denylist is not.
+Two properties worth knowing:
+
+- **Fail-closed.** No denylist is exit 2, never exit 0. *"I could not check"* and
+  *"I checked and it was clean"* are different answers, and conflating them is
+  how a check becomes decorative.
+- **Diff-aware.** Removing a reference puts it in the diff as a deleted line, so
+  a raw diff scan flags the act of fixing the problem. Only additions can leak.
+
+Because the denylist is private, hosted CI generally cannot run this. Local
+preflight by design.
 
 ## What the check cannot do
 
-It catches failure 1 and it catches failure 3 when the imported text uses a known
-term. **It cannot catch failure 2** — describing a project without naming it
-produces no matching string. Nothing mechanical will.
+It catches failure 1, and failure 3 when the imported text uses a known term.
 
-So the mechanical check is the floor, not the ceiling. Before publishing, reread
-your own prose and ask of each sentence explaining *why*: does this justify the
-change, or does it justify it by appeal to work nobody can see? The second kind
-is disclosure and it belongs in `proj/`, which is exactly what that directory is
-for.
+**It cannot catch failure 2.** A description that avoids every term produces no
+match. This is not a gap to be closed later — there is no string to search for.
+
+So the scan is the floor, not the ceiling. Before publishing, reread your own
+prose and ask of every sentence that explains *why*: does this justify the change
+on its own terms, or by appeal to work the reader cannot see? The second kind is
+disclosure, and it belongs in an untracked note.
 
 ## If it already shipped
 
-Order matters and the first step is not cleanup.
+Order matters, and the first step is not cleanup.
 
-1. **Make the repository private.** One setting, immediate, reversible. Do this
-   before anything else; cleanup done under time pressure goes wrong.
-2. **Establish what actually leaked.** Names and structure are one thing;
-   credentials are another entirely. Scan for both and say which it was, plainly.
-3. **Then** decide between removing the files going forward, rewriting history,
-   or starting a clean public repository — with the archaeology kept private.
+1. **Make it private, or take it down.** One setting, immediate, reversible.
+   Before anything else — cleanup under time pressure goes wrong.
+2. **Establish what actually left.** Names and structure are one thing;
+   credentials are another entirely. Scan for both and say which it was, plainly
+   and once.
+3. **Then** choose: remove going forward, rewrite history, or start a clean
+   public repository with the history kept private.
 
-Do not narrate the contents of the leak while fixing it. Repeating a private name
-to explain that you should not have said it is still saying it.
+And while fixing it: **do not narrate the contents.** Repeating a private name to
+explain that it should not have been said is still saying it. Report counts,
+paths and severity — not quotes.
