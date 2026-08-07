@@ -129,6 +129,8 @@
 0644	contract/README.md
 0644	contract/declaration_schema_pairs.cue
 0644	contract/extracted.cue
+0644	contract/extracted_config.cue
+0644	contract/invariant_config.cue
 0644	contract/invariant_schema.cue
 0755	custody-sweep.sh
 0755	harness-smoke.sh
