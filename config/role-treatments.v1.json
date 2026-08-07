@@ -2,7 +2,7 @@
   "version": 1,
   "role_treatments": [
     {
-      "id": "planner-claude-code-fable-ultracode-v1",
+      "id": "planner-v1",
       "role": "planner",
       "harness": "claude-code",
       "model_route": {
@@ -66,7 +66,7 @@
         },
         "subagents": {
           "mode": "planning",
-          "role_treatment": "planning-subagent-claude-code-fable-ultracode-v1",
+          "role_treatment": "planning-subagent-v1",
           "forward_transcript": true
         },
         "invocation_overrides": []
@@ -82,7 +82,7 @@
       ]
     },
     {
-      "id": "planning-subagent-claude-code-fable-ultracode-v1",
+      "id": "planning-subagent-v1",
       "role": "planning-subagent",
       "harness": "claude-code",
       "model_route": {
@@ -160,7 +160,7 @@
       ]
     },
     {
-      "id": "implementer-codex-gpt56sol-ultra-v1",
+      "id": "implementer-v1",
       "role": "implementer",
       "harness": "codex",
       "model_route": {
@@ -241,7 +241,7 @@
       ]
     },
     {
-      "id": "builder-adversary-codex-gpt56sol-ultra-v1",
+      "id": "builder-adversary-v1",
       "role": "builder-adversary",
       "harness": "codex",
       "model_route": {
@@ -323,7 +323,7 @@
       ]
     },
     {
-      "id": "independent-adversary-grok-build-grok45-high-v1",
+      "id": "independent-adversary-v1",
       "role": "independent-adversary",
       "harness": "grok-build",
       "model_route": {
@@ -403,7 +403,7 @@
       ]
     },
     {
-      "id": "independent-reviewer-grok-build-grok45-high-v1",
+      "id": "independent-reviewer-v1",
       "role": "independent-reviewer",
       "harness": "grok-build",
       "model_route": {

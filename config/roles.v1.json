@@ -2,7 +2,7 @@
   "version": 2,
   "roles": {
     "planner": {
-      "role_treatment": "planner-claude-code-fable-ultracode-v1",
+      "role_treatment": "planner-v1",
       "requires": [
         "json",
         "planning",
@@ -10,14 +10,14 @@
       ]
     },
     "planning-subagent": {
-      "role_treatment": "planning-subagent-claude-code-fable-ultracode-v1",
+      "role_treatment": "planning-subagent-v1",
       "requires": [
         "json",
         "planning-report"
       ]
     },
     "implementer": {
-      "role_treatment": "implementer-codex-gpt56sol-ultra-v1",
+      "role_treatment": "implementer-v1",
       "requires": [
         "json",
         "workspace_write",
@@ -26,7 +26,7 @@
       ]
     },
     "builder-adversary": {
-      "role_treatment": "builder-adversary-codex-gpt56sol-ultra-v1",
+      "role_treatment": "builder-adversary-v1",
       "requires": [
         "json",
         "workspace_write",
@@ -35,7 +35,7 @@
       ]
     },
     "independent-adversary": {
-      "role_treatment": "independent-adversary-grok-build-grok45-high-v1",
+      "role_treatment": "independent-adversary-v1",
       "requires": [
         "json",
         "review",
@@ -43,7 +43,7 @@
       ]
     },
     "independent-reviewer": {
-      "role_treatment": "independent-reviewer-grok-build-grok45-high-v1",
+      "role_treatment": "independent-reviewer-v1",
       "requires": [
         "json",
         "review"

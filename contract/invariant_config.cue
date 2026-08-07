@@ -145,6 +145,31 @@ _cConfig008: {
 // silently: a deferred finding that nobody prints is a waiver with extra steps.
 deferred: {
 	for subject, reason in _deferred001 {"C-CONFIG-001 \(subject)": reason}
+	for subject, reason in _deferredCli005 {"C-CLI-005 \(subject)": reason}
+}
+
+// C-CONFIG-009 — a Role-Treatment id must not encode which vendor or model
+// serves it. Ids like "independent-adversary-grok-build-grok45-high-v1" mean a
+// role knows its vendor by name, so swapping one touches every file that names
+// the id. The binding belongs in exactly one place: this table's harness and
+// model_route fields.
+//
+// Without this check the abstraction decays the first time someone writes a
+// descriptive id, and nothing complains. With it, the old shape is unwritable.
+_cConfig009: {
+	for id, treatment in _treatments
+	for harness, _ in _harnesses
+	if strings.Contains(id, harness) {
+		"\(id)": "Role-Treatment id encodes the harness name '\(harness)' — put the binding in the harness field, not the id"
+	}
+}
+
+_cConfig009b: {
+	for id, treatment in _treatments
+	let selector = strings.ToLower(treatment.model_route.selector)
+	if selector != "" && strings.Contains(strings.ToLower(id), selector) {
+		"\(id)": "Role-Treatment id encodes the model selector '\(treatment.model_route.selector)' — put it in model_route, not the id"
+	}
 }
 
 diagnostics: {
@@ -157,4 +182,11 @@ diagnostics: {
 	for subject, reason in _cConfig006b {"C-CONFIG-006 \(subject)": reason}
 	for subject, reason in _cConfig007 {"C-CONFIG-007 \(subject)": reason}
 	for subject, reason in _cConfig008 {"C-CONFIG-008 \(subject)": reason}
+	for subject, reason in _cConfig009 {"C-CONFIG-009 \(subject)": reason}
+	for subject, reason in _cConfig009b {"C-CONFIG-009 \(subject)": reason}
+	for subject, reason in _cCli001 {"C-CLI-001 \(subject)": reason}
+	for subject, reason in _cCli002 {"C-CLI-002 \(subject)": reason}
+	for subject, reason in _cCli003 {"C-CLI-003 \(subject)": reason}
+	for subject, reason in _cCli004 {"C-CLI-004 \(subject)": reason}
+	for subject, reason in _cCli005 {"C-CLI-005 \(subject)": reason}
 }
