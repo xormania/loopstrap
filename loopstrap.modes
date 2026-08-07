@@ -125,6 +125,7 @@
 0755	backup.sh
 0644	config/cue-tool.v1.json
 0644	config/harness-certification.v1.json
+0644	config/harness-cli.v1.json
 0644	config/harness-profiles.v1.json
 0644	config/role-treatments.v1.json
 0644	config/roles.v1.json
@@ -135,6 +136,7 @@
 0644	contract/extracted.cue
 0644	contract/extracted_config.cue
 0644	contract/invariant_config.cue
+0644	contract/invariant_harness_cli.cue
 0644	contract/invariant_schema.cue
 0755	custody-sweep.sh
 0755	harness-smoke.sh

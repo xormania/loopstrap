@@ -448,7 +448,7 @@ env_mut 'printf "\n# post-freeze drift\n" >> tests/certification/claims.toml' \
   "frozen certification claim drifted" certification sig \
   "CERTIFICATION FREEZE FAILURE: drift: tests/certification/claims.toml"
 mut config/roles.v1.json \
-  '0,/"role_treatment": "planner-claude-code-fable-ultracode-v1"/s//"role_treatment": "implementer-codex-gpt56sol-ultra-v1"/' \
+  '0,/"role_treatment": "planner-v1"/s//"role_treatment": "implementer-v1"/' \
   "owner role assignment guessed" active sig \
   "test_role_policy_uses_owner_assignments_and_keeps_independence_rules"
 mut config/roles.v1.json \

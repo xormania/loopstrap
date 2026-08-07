@@ -20,6 +20,7 @@ package contract
 	id:      string
 	role:    string
 	harness: string
+	model_route: {selector: string, ...}
 	...
 }
 
@@ -57,6 +58,18 @@ configs: {
 	workflow: data: {
 		initial: string
 		phases: [string]: #Phase
+		...
+	}
+
+	"harness-cli": data: {
+		harnesses: [string]: {
+			version:       string
+			provenance:    "declared" | "probed"
+			probed_at:     string | null
+			binary_sha256: string | null
+			flags: [...{name: string, takes_value: bool, ...}]
+			...
+		}
 		...
 	}
 
