@@ -9,7 +9,7 @@
 # line, and flagging the act of fixing the problem is how a check gets disabled.
 #
 # It cannot catch a description that avoids every term. Nothing can. Reread your
-# own prose for that — see skills/dev/publication-check/SKILL.md.
+# own prose for that — see .claude/skills/publication-check/SKILL.md.
 set -euo pipefail
 
 root="$(git rev-parse --show-toplevel)"
