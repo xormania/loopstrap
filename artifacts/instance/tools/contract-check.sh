@@ -74,6 +74,7 @@ for expression in diagnostics deferred; do
         contract/extracted_config.cue \
         contract/invariant_config.cue \
         contract/invariant_harness_cli.cue \
+        contract/invariant_serena.cue \
         "$CONFIGS" -e "$expression" --out json 2>&1)"; then
     echo "CONTRACT ABORT: the config contract failed to evaluate ($expression)" >&2
     printf '%s\n' "$OUT" >&2

@@ -132,6 +132,7 @@
 0644	config/role-treatments.v1.json
 0644	config/roles.v1.json
 0644	config/seal.v1.json
+0644	config/serena.v1.json
 0644	config/workflow.v1.json
 0644	contract/README.md
 0644	contract/declaration_schema_pairs.cue
@@ -140,6 +141,7 @@
 0644	contract/invariant_config.cue
 0644	contract/invariant_harness_cli.cue
 0644	contract/invariant_schema.cue
+0644	contract/invariant_serena.cue
 0644	contract/schema_harness_surface.cue
 0755	custody-sweep.sh
 0755	harness-smoke.sh

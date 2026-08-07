@@ -189,4 +189,13 @@ diagnostics: {
 	for subject, reason in _cCli003 {"C-CLI-003 \(subject)": reason}
 	for subject, reason in _cCli004 {"C-CLI-004 \(subject)": reason}
 	for subject, reason in _cCli005 {"C-CLI-005 \(subject)": reason}
+	for subject, reason in _cSerena001 {"C-SERENA-001 \(subject)": reason}
+	for subject, reason in _cSerena001b {"C-SERENA-001 \(subject)": reason}
+	for subject, reason in _cSerena002 {"C-SERENA-002 \(subject)": reason}
+	for subject, reason in _cSerena003 {"C-SERENA-003 \(subject)": reason}
+	for subject, reason in _cSerena004 {"C-SERENA-004 \(subject)": reason}
+	for subject, reason in _cSerena005 {"C-SERENA-005 \(subject)": reason}
+	for subject, reason in _cSerena005b {"C-SERENA-005 \(subject)": reason}
+	for subject, reason in _cSerena006 {"C-SERENA-006 \(subject)": reason}
+	for subject, reason in _cSerena007 {"C-SERENA-007 \(subject)": reason}
 }
