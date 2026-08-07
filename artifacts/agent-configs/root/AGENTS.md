@@ -1,5 +1,8 @@
 # Loopstrap implementation surface
 
+**New here?** `.agents/README.md` is a three-file welcome mat: what is live
+versus legacy, where everything is, and the exact commands for the usual jobs.
+
 This directory is the Loopstrap source root. The active deterministic kernel is
 `loopstrap_core`; versioned runtime selections live under `config/`.
 
