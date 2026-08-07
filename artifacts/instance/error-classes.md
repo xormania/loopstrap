@@ -25,7 +25,7 @@ statement about the context; say which.
 established. *Instances (three in one night):* sed "patched" unchanged bytes
 across three estate rounds; audit silently PASSing a missing manifest;
 exit-code trust on gh (see below). *Guard:* every write re-read and
-byte-asserted before PASS is printed — now the standard in every tool we ship. *Worst instance (2026-07-19, D64):* reset.sh's header promised "c1 residue dies structurally by fresh clones" — false; clones re-import origin's refs. A false claim in a shipped header, blessed by a sim whose fixture lacked the very refs at issue.
+byte-asserted before PASS is printed — now the standard in every tool we ship. *Worst instance (2026-07-19, D64):* ops/reset.sh's header promised "c1 residue dies structurally by fresh clones" — false; clones re-import origin's refs. A false claim in a shipped header, blessed by a sim whose fixture lacked the very refs at issue.
 
 ## Minted 2026-07-19 (run-2 arming night)
 
@@ -62,7 +62,7 @@ design names BOTH lists; smoke exercises both directions.
 
 **courier-divergence** — hand-patching the live tree so it drifts from the
 sealed courier. *Instance:* the whole night's fix-scripts. *Guard:* D47 —
-code alters in the design lane only; `land.sh` is the sole update path; live
+code alters in the design lane only; `ops/land.sh` is the sole update path; live
 divergence is drift, reported then landed away.
 
 **interface-cost** — spending xor's hands, attention, or trust to save the

@@ -1,0 +1,39 @@
+{
+  "config_version": 1,
+  "purpose": "Tools this repository invokes but does not hold. Recorded so that 'the battery was green' names the versions that produced it; a green run against unrecorded tooling is not a reproducible claim.",
+
+  "why_no_digest": "A sha256 of /usr/bin/git identifies one machine's build, not a version, so recording one would report drift on every machine that is not this one. Vendored tools are different and ARE digest-pinned: see cue-tool.v1.json, where we hold the binary and can hold it to a hash. artifacts/instance/tools/harness-identity.py takes a digest at preflight for the run at hand, which is the right scope for one.",
+
+  "not_enforced": "artifacts/instance/tools/pin-check.py reports drift; nothing fails a build on it. This is data and a check, not a gate invariant — the gate is at 6/6 and no incident here has occurred. Promoting it costs a deletion or a deliberate cap raise, and that is the right price.",
+
+  "tools": {
+    "gh": {
+      "version_command": ["gh", "--version"],
+      "version_pattern": "gh version ([0-9][0-9.]*)",
+      "recorded": "2.96.0",
+      "upstream": "cli/cli",
+      "used_for": "pull requests, the releases API in pin-check.py, and auth at the arm gate"
+    },
+    "git": {
+      "version_command": ["git", "--version"],
+      "version_pattern": "git version ([0-9][0-9.]*)",
+      "recorded": "2.43.0",
+      "upstream": null,
+      "used_for": "everything; also the hooks in ops/hooks, which need core.hooksPath (git >= 2.9)"
+    },
+    "python3": {
+      "version_command": ["python3", "--version"],
+      "version_pattern": "Python ([0-9][0-9.]*)",
+      "recorded": "3.12.3",
+      "upstream": null,
+      "used_for": "the kernel and every tool. pyproject.toml requires >= 3.12; tomllib is why"
+    },
+    "serena": {
+      "version_command": ["serena", "--version"],
+      "version_pattern": "Serena ([0-9][0-9.a-z]*)",
+      "recorded": "1.6.2.dev0",
+      "upstream": "oraios/serena",
+      "used_for": "dev-lane symbolic navigation. A .dev0 build is not a release, so the recorded value pins nothing upstream can confirm — replace it with a release version when one is installed"
+    }
+  }
+}

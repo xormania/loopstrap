@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-# wall.sh — THE WALL, executable (D87). Deterministic lane-collapse tripwire.
+# ops/wall.sh — THE WALL, executable (D87). Deterministic lane-collapse tripwire.
 # Loopstrap (the engine) and its members (the deliverables) are never the
 # same thing. This filter fires — loudly — on defined collision signatures, in
 # either direction. Same input, same verdict, every time.
 #
-#   wall.sh <file...>                      lane auto-detected by path
-#   wall.sh --sweep                        courier dev-spine + runtime contracts
-#   wall.sh --lane dev|runtime <file...>   force direction
-#   cat text | wall.sh -                   stdin (defaults dev — this chat IS dev)
+#   ops/wall.sh <file...>                      lane auto-detected by path
+#   ops/wall.sh --sweep                        courier dev-spine + runtime contracts
+#   ops/wall.sh --lane dev|runtime <file...>   force direction
+#   cat text | ops/wall.sh -                   stdin (defaults dev — this chat IS dev)
 #
 # FP-12 law: every hit is a QUESTION routed to reasoning, never a verdict alone.
 # A clean pass is BOUNDED evidence (these rules, these lines) — never proof.
@@ -23,13 +23,13 @@ while [ $# -gt 0 ]; do case "$1" in
 esac; done
 [ -z "$LANE" ] || [ "$LANE" = dev ] || [ "$LANE" = runtime ] \
   || { echo "wall: invalid lane '$LANE'" >&2; exit 2; }
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 if [ "$SWEEP" = "1" ]; then
   while IFS= read -r f; do FILES+=("$f"); done < <(
     { find "$ROOT/artifacts" -name '*.md' -type f 2>/dev/null
       ls "$ROOT"/*.md 2>/dev/null; } | sort )   # full corpus (2026-07-23 scan: partial sweep was silent)
 fi
-[ ${#FILES[@]} -gt 0 ] || { echo "usage: wall.sh <file...> | --sweep"; exit 2; }
+[ ${#FILES[@]} -gt 0 ] || { echo "usage: ops/wall.sh <file...> | --sweep"; exit 2; }
 
 # Members derive from parsed TOML and are regex-escaped before interpolation.
 MEMBERS="$(python3 - "$ROOT/artifacts/members.toml" <<'PY' 2>/dev/null
@@ -42,7 +42,7 @@ PY
 DEVMACH='loop|conductor|campaign|courier|breaker|preflight|judges?|backlog|kickoff|steward'
 OUT="$(mktemp)"; trap 'rm -f "$OUT" "$OUT.g" "$OUT.sup"' EXIT
 
-ALLOW="${WALL_ALLOW:-$ROOT/wall-allow.txt}"; SUP=0
+ALLOW="${WALL_ALLOW:-$ROOT/ops/wall-allow.txt}"; SUP=0
 allowed(){ # exact TSV: rule-id<TAB>fixed line marker<TAB>L-citation
   [ -f "$ALLOW" ] || return 1
   while IFS=$'\t' read -r rule marker citation extra; do

@@ -33,9 +33,9 @@ echo "  payload verified ($(wc -l < "$TMP/loopstrap.manifest") files)"
 say "1 · LAND"
 mkdir -p "$F" || die "cannot create Loopstrap root"
 cd "$F" || die "cannot enter Loopstrap root"
-unzip -o -q "$ZIP" land.sh || die "cannot bootstrap land.sh"
-chmod 0755 land.sh || die "cannot make land.sh executable"
-./land.sh "$ZIP" || die "landing"
+unzip -o -q "$ZIP" ops/land.sh || die "cannot bootstrap ops/land.sh"
+chmod 0755 ops/land.sh || die "cannot make ops/land.sh executable"
+./ops/land.sh "$ZIP" || die "landing"
 
 say "2 · CLONE registered member repos"
 gh auth setup-git >/dev/null 2>&1 || true
@@ -56,7 +56,7 @@ while IFS=$'\t' read -r member slug; do
 done < "$TMP/members.tsv"
 
 say "3 · INSTALL"
-./install-configs.sh || die "install-configs"
+./ops/install-configs.sh || die "install-configs"
 
 say "4 · ARCHIVE the consumed courier"
 mv -- "$ZIP" "$UPD/consumed/" || die "could not archive $(basename "$ZIP")"

@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# preflight.sh — run before every counted pass (process.md §11). Verifies the
+# ops/preflight.sh — run before every counted pass (process.md §11). Verifies the
 # machine honors containment and the run's inputs are what the plan pinned.
 # Cheap: a red preflight costs seconds, not a pass. Read-only; mutates nothing.
-#   ./preflight.sh <member> [campaign-id]      (default CID: <member>-c2)
+#   ./ops/preflight.sh <member> [campaign-id]      (default CID: <member>-c2)
 #   exit 0 = clear to run · nonzero = a wall; the message names it
 set -uo pipefail
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-m="${1:-}"; [ -n "$m" ] || { echo "usage: ./preflight.sh <member> [campaign-id]"; exit 2; }
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+m="${1:-}"; [ -n "$m" ] || { echo "usage: ./ops/preflight.sh <member> [campaign-id]"; exit 2; }
 CID="${2:-${m}-c2}"
 REPO="$ROOT/repos/$m"
 CAMP="$ROOT/artifacts/campaigns/$CID"
@@ -85,7 +85,7 @@ fi
 gh auth status >/dev/null 2>&1 && ok "gh authenticated" || no "gh auth status failed"
 
 # ── staging drift ──
-if "$ROOT/install-configs.sh" --check >/dev/null 2>&1; then ok "staging drift-free"; else no "staging drift — run install-configs.sh"; fi
+if "$ROOT/ops/install-configs.sh" --check >/dev/null 2>&1; then ok "staging drift-free"; else no "staging drift — run ops/install-configs.sh"; fi
 
 echo "----"
 [ "$F" = "0" ] && echo "PREFLIGHT CLEAR — $m/$CID may run" || echo "PREFLIGHT: $F wall(s) — resolve before a counted pass"

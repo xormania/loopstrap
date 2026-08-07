@@ -1,6 +1,6 @@
 <!--
   PLANTED FILE — DO NOT EDIT HERE.
-  Source: artifacts/agent-configs/lsp_math/CLAUDE.md  (edit the template + regenerate, then ./install-configs.sh)
+  Source: artifacts/agent-configs/lsp_math/CLAUDE.md  (edit the template + regenerate, then ./ops/install-configs.sh)
   Excluded from git (.git/info/exclude); never committed.
 -->
 # lsp_math — the Conductor (Loopstrap runner doctrine)

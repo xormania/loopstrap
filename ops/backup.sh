@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# backup.sh — the replaceability leg for disk-only state (D39).
+# ops/backup.sh — the replaceability leg for disk-only state (D39).
 # Everything on this machine must be replaceable: code ⇒ remotes · corpus ⇒ couriers ·
 # machine ⇒ provision.sh · DISK-ONLY STATE ⇒ this script. Assembles one dated,
 # hash-manifested, self-verifying tarball of everything that exists nowhere else:
@@ -13,9 +13,9 @@
 # act — this script only assembles and verifies; move the tarball somewhere that
 # is not this disk.
 #
-# Usage: ./backup.sh [dest-dir]        default dest: xor/backups
+# Usage: ./ops/backup.sh [dest-dir]        default dest: xor/backups
 set -euo pipefail
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 fail() { echo "REFUSE  $*" >&2; exit 1; }
 
 DEST="${1:-$ROOT/xor/backups}"; mkdir -p "$DEST"

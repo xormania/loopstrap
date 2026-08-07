@@ -187,6 +187,24 @@ def main() -> int:
     if errors:
         for error in errors:
             print(f"VERIFY FAIL: {error}", file=sys.stderr)
+        # One instrument, two jobs. In a courier this failure means the tree is
+        # not what was shipped. In the working tree it usually means files were
+        # added and the seal was not regenerated, which is a chore with one
+        # answer — and a red whose remedy is invisible costs a moment of "is
+        # this serious" every time (L48).
+        #
+        # Named only when EVERY error is an unlisted addition. A hash mismatch,
+        # a missing manifested path or a mode change can mean something other
+        # than "you forgot", and pointing at seal-tree.py there would be advice
+        # to overwrite the evidence.
+        if all(error.startswith("unlisted static file: ") for error in errors):
+            print(
+                f"\nAll {len(errors)} error(s) are unlisted additions, so the tree was\n"
+                "extended and not resealed. If those files are meant to be in the tree:\n"
+                "    python3 artifacts/instance/tools/seal-tree.py .\n"
+                "and read the delta it prints before committing it.",
+                file=sys.stderr,
+            )
         return 1
     print("TREE VERIFIED — hashes, exhaustive paths, regular-file types, and modes")
     return 0

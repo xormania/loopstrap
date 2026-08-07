@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-# custody-sweep.sh — immutable, self-contained plan/ custody snapshot.
+# ops/custody-sweep.sh — immutable, self-contained plan/ custody snapshot.
 # Every invocation gets a unique directory; later sweeps cannot overwrite any
 # byte named by an earlier manifest.
 set -euo pipefail
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 fail() { echo "REFUSE  $*" >&2; exit 1; }
 
 m="${1:-}"; CID="${2:-}"
-[[ -n "$m" && -n "$CID" ]] || fail "usage: ./custody-sweep.sh <member> <campaign-id>"
+[[ -n "$m" && -n "$CID" ]] || fail "usage: ./ops/custody-sweep.sh <member> <campaign-id>"
 SRC="$ROOT/repos/$m/plan"
 [[ -d "$SRC" ]] || fail "no run state: repos/$m/plan/ absent — nothing to sweep"
 find "$SRC" -type f -print -quit | grep -q . \

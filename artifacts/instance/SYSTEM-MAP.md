@@ -73,21 +73,21 @@ dev→main at campaign close.
 | Script | Run from | Does |
 |---|---|---|
 | **`launch-loop.sh <member> [cid]`** | root | opens the Conductor in the member repo, kickoff on stdin, bounded; refuses while spec-less |
-| **`install-configs.sh [--check]`** | root | plants staged `agent-configs/` into the repo; `--check` = drift report |
-| **`preflight.sh lsp_math [cid]`** | root | pre-pass wall battery |
-| **`land.sh <courier.zip>`** | root | the ONLY update path: converge the tree to a courier by `lsp_math.manifest` |
-| **`reset.sh [courier.zip]`** | root | scorched-earth: backup-verified → nuke → fresh land + clone + install |
+| **`ops/install-configs.sh [--check]`** | root | plants staged `agent-configs/` into the repo; `--check` = drift report |
+| **`ops/preflight.sh lsp_math [cid]`** | root | pre-pass wall battery |
+| **`ops/land.sh <courier.zip>`** | root | the ONLY update path: converge the tree to a courier by `lsp_math.manifest` |
+| **`ops/reset.sh [courier.zip]`** | root | scorched-earth: backup-verified → nuke → fresh land + clone + install |
 | **`token-breaker.py`** | instance/tools | the live tripwire battery; spawned by the launcher every run |
-| **`custody-sweep.sh lsp_math <cid>`** | root | plan/ → reports custody, hash-manifested |
-| **`backup.sh [dest]`** | root | disk-only state → dated self-verifying tarball; move a copy OFF-machine |
-| `serena-fleet.sh` · `probe.sh` · `wall.sh` · `ops/*` | root | fleet warm · comprehension probe · lane wall · operator console |
+| **`ops/custody-sweep.sh lsp_math <cid>`** | root | plan/ → reports custody, hash-manifested |
+| **`ops/backup.sh [dest]`** | root | disk-only state → dated self-verifying tarball; move a copy OFF-machine |
+| `ops/serena-fleet.sh` · `ops/probe.sh` · `ops/wall.sh` · `ops/*` | root | fleet warm · comprehension probe · lane wall · operator console |
 | `agent-configs/shared/regen-doctrine.sh` | root | regenerates the member's CLAUDE.md+AGENTS.md from templates |
 
 ## 7 · The run sequence (from a clean machine to the first campaign)
 
 1. Stand up the Conductor user (loop-user-plan.md) · provision (verify table green)
-2. Land the courier (`land.sh`) · member clones from the registry · `install-configs.sh`
-3. `serena-fleet.sh` · `probe.sh` · `install-configs.sh --check` clean
+2. Land the courier (`ops/land.sh`) · member clones from the registry · `ops/install-configs.sh`
+3. `ops/serena-fleet.sh` · `ops/probe.sh` · `ops/install-configs.sh --check` clean
 4. **Author + ratify a member's doc set** into `contracts/<member>/` — that member's launch key
 5. Segment map + per-segment guidance memos (L6) — derived from the ratified clauses; backlog spine
 6. First campaign: prep → xor arms → `launch-loop.sh <member> <member>-c1` → sweep → promote

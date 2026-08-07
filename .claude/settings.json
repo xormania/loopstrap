@@ -16,7 +16,7 @@
       "Bash(gh run view:*)",
       "Bash(gh repo view:*)",
       "Bash(gh repo list:*)",
-      "Bash(./install-configs.sh --check)",
+      "Bash(./ops/install-configs.sh --check)",
       "Bash(sha256sum:*)",
       "Bash(ls:*)",
       "Bash(cat:*)",
@@ -27,12 +27,12 @@
       "Bash(find:*)",
       "Bash(diff:*)",
       "Bash(wc:*)",
-      "Bash(./install-configs.sh:*)",
-      "Bash(./wall.sh:*)",
-      "Bash(./preflight.sh:*)",
-      "Bash(./serena-fleet.sh)",
-      "Bash(./backup.sh:*)",
-      "Bash(./custody-sweep.sh:*)",
+      "Bash(./ops/install-configs.sh:*)",
+      "Bash(./ops/wall.sh:*)",
+      "Bash(./ops/preflight.sh:*)",
+      "Bash(./ops/serena-fleet.sh)",
+      "Bash(./ops/backup.sh:*)",
+      "Bash(./ops/custody-sweep.sh:*)",
       "Bash(./launch-loop.sh:*)",
       "Bash(bash tests/run-tests.sh)",
       "Bash(bash artifacts/instance/tools/audit-consistency.sh)",
@@ -69,8 +69,8 @@
       "Bash(echo:*)",
       "Bash(zip:*)",
       "Bash(unzip:*)",
-      "Bash(./land.sh:*)",
-      "Bash(./reset.sh:*)"
+      "Bash(./ops/land.sh:*)",
+      "Bash(./ops/reset.sh:*)"
     ],
     "defaultMode": "bypassPermissions"
   }
