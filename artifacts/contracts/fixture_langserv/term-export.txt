@@ -1,0 +1,144 @@
+CANON LanguageServerFixture
+CANON fixture server
+CANON fixture language
+CANON fixture corpus
+CANON expectation record
+CANON corpus baseline
+CANON subject under test
+CANON assertion suite
+CANON launch harness
+CANON transcript
+CANON CI gate
+CANON server lifetime
+CANON ratify
+CANON pin
+CANON launch
+CANON emit
+CANON withhold
+CANON abort
+CANON retire
+CANON terminate externally
+CANON reap
+CANON record
+CANON adjudicate
+CANON enforce
+CANON scenario
+CANON baseline scenario
+CANON perturbation scenario
+CANON fault scenario
+CANON protocol-permitted perturbation
+CANON injected fault
+CANON injected delay
+CANON notification burst
+CANON response reordering
+CANON error-response substitution
+CANON malformed emission
+CANON invocation ordinal
+CANON subject timeout
+CANON protocol request
+CANON protocol notification
+CANON protocol response
+CANON protocol error response
+CANON protocol shutdown sequence
+CANON wire position
+CANON name range
+CANON declaration range
+CANON document version
+CANON fixture declaration
+CANON corpus declaration path
+CANON occurrence
+CANON defining occurrence
+CANON referencing occurrence
+CANON symbol emission
+CANON normalized symbol
+CANON tool result
+CANON conforming outcome
+CANON non-conforming outcome
+CANON subject finding
+CANON fixture defect
+CANON baseline defect
+CANON launch-harness defect
+CANON assertion-suite defect
+CANON determinism guarantee
+CANON reproduction
+CANON assurance tier
+CANON self-check
+CANON suite-assurance adjudication
+CANON support registration
+CANON test-only routing
+QUALIFY fixture
+QUALIFY server
+QUALIFY client
+QUALIFY test
+QUALIFY symbol
+QUALIFY reference
+QUALIFY definition
+QUALIFY declaration
+QUALIFY declaration path
+QUALIFY position
+QUALIFY offset
+QUALIFY index
+QUALIFY range
+QUALIFY version
+QUALIFY module
+QUALIFY namespace
+QUALIFY state
+QUALIFY result
+QUALIFY error
+QUALIFY harness
+QUALIFY environment
+QUALIFY baseline
+QUALIFY corpus
+QUALIFY lifetime
+QUALIFY Pin
+QUALIFY closed
+BANNED mock
+BANNED stub
+BANNED fake
+BANNED dummy
+BANNED test double
+BANNED shim
+BANNED simulator
+BANNED emulator
+BANNED oracle
+BANNED golden file
+BANNED snapshot
+BANNED approved output
+BANNED hang
+BANNED freeze
+BANNED wedge
+BANNED stall
+BANNED deadlock
+BANNED crash
+BANNED kill
+BANNED teardown
+BANNED cleanup
+BANNED healthy
+BANNED unhealthy
+BANNED broken
+BANNED flaky
+BANNED intermittent
+BANNED unstable
+BANNED chaos
+BANNED fuzz
+BANNED deploy
+BANNED ship
+BANNED publish
+BANNED roll out
+BANNED source of truth
+BANNED SerenaLanguageServerFixture
+BANNED SerenaFixtureLangServ
+BANNED SLSF
+BANNED LSF
+BANNED arm
+BANNED armed
+BANNED loop
+REVIEW reference server
+REVIEW the integration
+REVIEW exit
+REVIEW in-file declaration path
+REVIEW release
+REVIEW perturbation
+REVIEW SUT
+REVIEW expected symbol graph
+REVIEW fixture LSP server

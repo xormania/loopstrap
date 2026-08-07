@@ -1,0 +1,239 @@
+# judges.yml — the deterministic judge set, on every pull request (D70: PR-only;
+# the unit lane's trailer/attribution judges scope to PRs targeting run/**).
+# PRODUCT CONTENT (the repo's own quality gate), committed — NOT a harness plant.
+# Embodies process.md §10: the four cargo judges + join-key (I2) + the
+# refusal/failure-vocabulary property (I4). Fixture families found from the
+# ratified lsp_math docs' MUST/MUST NOT at founding; the universal property (refusal ⇒ exit 1 ⇒
+# nothing changed) is the first family.
+#
+# Deployment: this template is committed into each member repo at creation as
+# .github/workflows/judges.yml. Updating the template updates the gate for
+# FUTURE repos; existing repos take the change as a normal committed unit
+# (CI is product content, not an install-plant).
+name: judges
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  # ── join-key judge (I2): record↔commit join, no toolchain needed, runs first/fast ──
+  join-keys:
+    if: github.event.pull_request.base.ref == 'dev'   # unit-lane judges scope to the dev integration line (ruled 2026-07-21, L2); owner PRs to main are not units
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 0   # need the PR's commit range
+      - name: Unit/Pass/Brief/Config trailers present + brief hash resolves
+        shell: bash
+        run: |
+          set -euo pipefail
+          # commit range: PR = base..head; push = the pushed range (before..after)
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            base="${{ github.event.pull_request.base.sha }}"
+            head="${{ github.event.pull_request.head.sha }}"
+            range="$base..$head"
+          else
+            base="${{ github.event.before }}"
+            head="${{ github.sha }}"
+            # first push to a branch has an all-zero before — grade only the tip then
+            case "$base" in 0000000000000000000000000000000000000000) range="$head -1";; *) range="$base..$head";; esac
+          fi
+          fail=0
+          for c in $(git rev-list $range); do
+            # merge commits are exempt (they carry no unit work)
+            [ "$(git rev-list --parents -n1 "$c" | wc -w)" -gt 2 ] && continue
+            body="$(git log -1 --format=%B "$c")"
+            for k in Unit Pass Brief Config; do
+              echo "$body" | grep -qE "^$k:" || { echo "::error::$c missing trailer $k:"; fail=1; }
+            done
+            # Brief: <hash> — the hash must name a real brief file if plan/ is present in the tree
+            bh="$(echo "$body" | sed -nE 's/^Brief:[[:space:]]*([0-9a-f]{7,64}).*/\1/p' | head -1)"
+            if [ -n "$bh" ] && ls plan/ >/dev/null 2>&1; then
+              grep -rlq "$bh" plan/ 2>/dev/null || echo "::warning::$c Brief hash $bh not found under plan/ (join unverifiable in-tree)"
+            fi
+          done
+          [ "$fail" = "0" ] && echo "join-keys: all unit commits carry Unit/Pass/Brief/Config" || exit 1
+
+      - name: attribution — author/committer is xormania, never xor-machine
+        shell: bash
+        env:
+          EXPECT_AUTHOR: ${{ vars.EXPECT_AUTHOR || 'xormania' }}
+          FORBID_AUTHOR: ${{ vars.FORBID_AUTHOR || 'xor-machine' }}
+          EXPECT_AUTHOR_EMAIL: ${{ vars.EXPECT_AUTHOR_EMAIL }}
+        run: |
+          set -euo pipefail
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            range="${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}"
+          else
+            base="${{ github.event.before }}"; head="${{ github.sha }}"
+            case "$base" in 0000000000000000000000000000000000000000) range="$head -1";; *) range="$base..$head";; esac
+          fi
+          fail=0
+          for c in $(git rev-list $range); do
+            [ "$(git rev-list --parents -n1 "$c" | wc -w)" -gt 2 ] && continue   # merges exempt
+            an="$(git log -1 --format=%an "$c")"; ae="$(git log -1 --format=%ae "$c")"
+            cn="$(git log -1 --format=%cn "$c")"; ce="$(git log -1 --format=%ce "$c")"
+            # author + committer name must equal expected
+            [ "$an" = "$EXPECT_AUTHOR" ] || { echo "::error::$c author '$an' != '$EXPECT_AUTHOR'"; fail=1; }
+            [ "$cn" = "$EXPECT_AUTHOR" ] || { echo "::error::$c committer '$cn' != '$EXPECT_AUTHOR'"; fail=1; }
+            # machine identity must never appear as author or committer (name or email)
+            case "$an$ae$cn$ce" in *"$FORBID_AUTHOR"*) echo "::error::$c carries forbidden identity '$FORBID_AUTHOR'"; fail=1;; esac
+            # co-author / generated-with trailers are banned (no agent attribution, D23)
+            body="$(git log -1 --format=%B "$c")"
+            echo "$body" | grep -qiE '^Co-authored-by:|generated with|on behalf of' && { echo "::error::$c carries attribution trailer (banned)"; fail=1; }
+            # email, only if an expectation is configured
+            if [ -n "${EXPECT_AUTHOR_EMAIL:-}" ]; then
+              [ "$ae" = "$EXPECT_AUTHOR_EMAIL" ] || { echo "::error::$c author email '$ae' != '$EXPECT_AUTHOR_EMAIL'"; fail=1; }
+            fi
+          done
+          [ "$fail" = "0" ] && echo "attribution: all unit commits authored+committed by $EXPECT_AUTHOR, no $FORBID_AUTHOR, no attribution trailers" || exit 1
+
+  # ── cargo judges + refusal property, toolchain-pinned, cached ──
+  judges:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.2.2
+
+      - id: crate
+        shell: bash
+        run: |
+          if [ -f Cargo.toml ]; then echo "exists=true" >> "$GITHUB_OUTPUT"
+          else echo "exists=false" >> "$GITHUB_OUTPUT"; echo "no crate yet — judges skip (noted, not silent)"; fi
+
+      # toolchain assertion: the runner must honor rust-toolchain.toml, not drift
+      # to a different compiler than the loop judged against (family pin, D22.4).
+      - if: steps.crate.outputs.exists == 'true'
+        name: assert toolchain pin
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -f rust-toolchain.toml ]; then
+            want="$(sed -nE 's/^channel[[:space:]]*=[[:space:]]*"([^"]+)".*/\1/p' rust-toolchain.toml | head -1)"
+            got="$(rustc --version)"
+            echo "pin wants channel: ${want:-<none>}"; echo "runner rustc: $got"
+            [ -n "$want" ] && case "$got" in *"$want"*) :;; *) echo "::warning::runner rustc does not visibly match pinned channel '$want' — rustup should resolve on first cargo call";; esac
+          else
+            echo "::warning::no rust-toolchain.toml — family pin (D22.4) expects one"
+          fi
+
+      - if: steps.crate.outputs.exists == 'true'
+        uses: Swatinem/rust-cache@v2
+        with:
+          cache-all-crates: true
+
+      # fmt first: cheapest + most common failure ⇒ fail fast before the expensive jobs
+      - if: steps.crate.outputs.exists == 'true'
+        name: fmt --check
+        run: cargo fmt --check
+
+      - if: steps.crate.outputs.exists == 'true'
+        name: check
+        run: cargo check --all-targets --message-format=json > check.json || { cat check.json | tail -40; exit 1; }
+
+      - if: steps.crate.outputs.exists == 'true'
+        name: clippy -D warnings
+        run: cargo clippy --all-targets --message-format=json -- -D warnings > clippy.json || { cat clippy.json | tail -40; exit 1; }
+
+      - if: steps.crate.outputs.exists == 'true'
+        name: test (json where available)
+        shell: bash
+        run: |
+          set -uo pipefail
+          # structured output for the loop to parse; falls back to human output on older toolchains
+          if cargo test -- -Z unstable-options --format json >/dev/null 2>&1; then
+            cargo test -- -Z unstable-options --format json | tee test.json
+          else
+            cargo test
+          fi
+
+      # refusal/failure-vocabulary property (I4): the first fixture family.
+      # Guarded like the empty-crate check — runs once the fixture lands, so the
+      # gate is READY at the first campaign rather than retrofitted. Binary members:
+      # exit-code snapshot; the fixture family is founded from the ratified docs.
+      - if: steps.crate.outputs.exists == 'true'
+        name: refusal property (I4) — if fixture present
+        shell: bash
+        run: |
+          set -uo pipefail
+          if [ -d tests/refusal ] || ls tests/*refusal* >/dev/null 2>&1; then
+            echo "refusal fixtures present — running as part of cargo test above; asserting snapshot dir clean"
+            # snapshot fixtures (insta-style or committed .snap) must not have pending changes
+            if git status --porcelain -- 'tests/**/*.snap' 'tests/**/*.snap.new' 2>/dev/null | grep -q .; then
+              echo "::error::refusal snapshot drift — pending .snap changes"; exit 1
+            fi
+            echo "refusal property: fixtures ran, snapshots clean"
+          else
+            echo "refusal fixture not present yet — property judge dormant (I4 activates at C1; noted, not silent)"
+          fi
+
+      # ── runtime-neutrality (intent rule): the contract surface carries no
+      # async, no runtime types. THE interface-cell invariant — a runtime choice
+      # never travels through the contract. Grep the public surface; hard gate.
+      # Scoped to the contract crate by an opt-in marker file so binary members
+      # (which legitimately use async) are unaffected.
+      - if: steps.crate.outputs.exists == 'true'
+        name: runtime-neutrality (contract surface)
+        shell: bash
+        run: |
+          set -uo pipefail
+          # opt-in: only crates declaring themselves runtime-neutral are gated.
+          # a crate opts in by shipping `.runtime-neutral` at its root; none does yet.
+          if [ ! -f .runtime-neutral ]; then
+            echo "not a runtime-neutral crate (no .runtime-neutral marker) — check skipped"
+            exit 0
+          fi
+          fail=0
+          # public async fns/traits anywhere in src/
+          if grep -rnE '^[[:space:]]*pub[[:space:]].*\basync\b|^[[:space:]]*pub[[:space:]]+async[[:space:]]+fn' src/ 2>/dev/null; then
+            echo "::error::public async in the contract surface (runtime-neutrality)"; fail=1
+          fi
+          # runtime crates named anywhere in the crate (deps or use)
+          if grep -rnE '\b(tokio|async_std|futures|smol|async_trait)\b' src/ Cargo.toml 2>/dev/null; then
+            echo "::error::runtime crate referenced in the contract crate (runtime-neutrality)"; fail=1
+          fi
+          [ "$fail" = "0" ] && echo "runtime-neutrality: contract surface is async-free and runtime-free" || exit 1
+
+      # ── phones-home lint (intent rule): no network at runtime unless the spec
+      # grants that exact egress. Blunt by nature ⇒ WARNING-tier: flags for the
+      # finder, never blocks. A crate that legitimately needs egress declares it
+      # in `.egress-granted` (one line per allowed crate) to silence the warning.
+      - if: steps.crate.outputs.exists == 'true'
+        name: phones-home lint (warning)
+        shell: bash
+        run: |
+          set -uo pipefail
+          hits="$(grep -rnE '\b(reqwest|hyper|ureq|curl|isahc|TcpStream|UdpSocket|reqwest::|std::net::)\b' src/ 2>/dev/null || true)"
+          if [ -n "$hits" ]; then
+            granted=""; [ -f .egress-granted ] && granted="$(cat .egress-granted)"
+            echo "$hits" | while IFS= read -r line; do
+              echo "::warning::possible runtime network use — verify a spec grant: $line"
+            done
+            echo "phones-home: network symbols present (warning only; finder verifies against the spec grant)"
+          else
+            echo "phones-home: no network symbols in src/"
+          fi
+
+  # ── license gate (intent rule): admissible licenses only; GPL-family never ──
+  licenses:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.2.2
+      - id: crate
+        shell: bash
+        run: |
+          if [ -f Cargo.toml ]; then echo "exists=true" >> "$GITHUB_OUTPUT"
+          else echo "exists=false" >> "$GITHUB_OUTPUT"; echo "no crate — license gate skipped"; fi
+      - if: steps.crate.outputs.exists == 'true'
+        uses: Swatinem/rust-cache@v2
+      - if: steps.crate.outputs.exists == 'true'
+        name: cargo-deny (licenses)
+        run: |
+          set -euo pipefail
+          cargo install cargo-deny --locked >/dev/null 2>&1 || cargo install cargo-deny --locked
+          # deny.toml is committed at repo root (product content); if absent, the
+          # check fails LOUD rather than passing permissively.
+          [ -f deny.toml ] || { echo "::error::deny.toml missing — license policy unenforced"; exit 1; }
+          cargo deny check licenses

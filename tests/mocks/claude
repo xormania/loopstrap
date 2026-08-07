@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# Contract-strict Claude mock: unknown or malformed invocations fail.
+set -uo pipefail
+if [ "$#" = 1 ] && [ "$1" = "--version" ]; then echo "2.1.216 (MOCK Claude Code)"; exit 0; fi
+if [ "$#" = 1 ] && [ "$1" = "--help" ]; then
+  echo "--permission-mode --output-format --allowedTools --add-dir --max-budget-usd --max-turns"
+  exit 0
+fi
+seen_prompt=0
+while [ "$#" -gt 0 ]; do
+  case "$1" in
+    -p) seen_prompt=1; shift ;;
+    --verbose) shift ;;
+    --permission-mode|--max-turns|--output-format|--add-dir|--allowedTools|--max-budget-usd)
+      [ "$#" -ge 2 ] || { echo "mock claude: $1 requires a value" >&2; exit 64; }
+      shift 2 ;;
+    *) echo "mock claude: unsupported argument $1" >&2; exit 64 ;;
+  esac
+done
+[ "$seen_prompt" = 1 ] || { echo "mock claude: only -p runner invocations are supported" >&2; exit 64; }
+cat >/dev/null
+MODE="${MOCK_CLAUDE_MODE:-clean}"
+e(){ printf '%s\n' "$1"; }
+e '{"type":"system","subtype":"init","session_id":"mock-sess-001"}'
+case "$MODE" in
+  clean)
+    e '{"type":"assistant","message":{"id":"m1","content":[{"type":"text","text":"working"}],"usage":{"input_tokens":50000,"output_tokens":800}}}'
+    e '{"type":"assistant","message":{"id":"m2","content":[{"type":"tool_use","name":"Bash","input":{}}],"usage":{"input_tokens":40000,"output_tokens":600}}}'
+    e '{"type":"result","subtype":"success","total_cost_usd":0.42,"permission_denials":[]}' ;;
+  denials)
+    for _ in 1 2 3 4 5 6 7; do
+      e '{"type":"assistant","message":{"id":"md","content":[{"type":"tool_use","name":"Edit","input":{}}],"usage":{"input_tokens":1000,"output_tokens":50}}}'
+    done
+    e '{"type":"result","subtype":"success","total_cost_usd":0.10,"permission_denials":[{"tool":"Edit"},{"tool":"Edit"},{"tool":"Edit"},{"tool":"Edit"},{"tool":"Edit"},{"tool":"Edit"},{"tool":"Edit"}]}' ;;
+  bigtokens)
+    e '{"type":"assistant","message":{"id":"mb","usage":{"input_tokens":9000000,"output_tokens":900000}}}'
+    e '{"type":"result","subtype":"success","total_cost_usd":50.0,"permission_denials":[]}' ;;
+  error)
+    e '{"type":"result","subtype":"error","is_error":true,"total_cost_usd":0.01}'
+    exit 1 ;;
+  *) echo "mock claude: unknown MOCK_CLAUDE_MODE=$MODE" >&2; exit 64 ;;
+esac

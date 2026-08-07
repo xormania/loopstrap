@@ -1,0 +1,109 @@
+# tests/REGISTER-MAP.tsv — assertion-level register mapping
+# case<TAB>runtime assertion label<TAB>register ids
+# The checker proves execution/cardinality/id existence. It deliberately does
+# not claim that a citation is semantically apt; that remains review work.
+audit-readonly	audit: a real run leaves every source byte and mode untouched	L43 L44 L46 L47
+audit-readonly	audit: returns a normalized verdict code	L43 L44 L46 L47
+breaker-wires	tally: processed tokens	L22 L40
+breaker-wires	tally: output tokens	L22 L40
+breaker-wires	summary: duplicate message snapshots count once	L22 L43 L46 L47
+breaker-wires	summary: turns count unique assistant message ids	L22 L43 L46 L47
+breaker-wires	summary: permission denials are reported	L22 L42 L46 L47
+breaker-wires	override path: breaker consumes sovereign's canonical file	L22 L42 L46 L47
+breaker-wires	tokens wire: trips (rc=3) when 1.005M > cap 500k	L22 L40
+breaker-wires	tokens wire: wrote sticky HALT	L22 L43
+breaker-wires	HALT names the tripped wire	L22 L43
+breaker-wires	forgery-proof: same-uid override ignored (no HALT)	L23 L40 L42
+breaker-wires	forgery-proof: breaker exits clean, not tripped	L23 L40 L42
+breaker-wires	tokens-out wire: trips (rc=3) when 5000 output > cap 4000	L22 L40
+breaker-wires	tokens-out HALT names the tripped wire	L22 L43
+breaker-wires	budget wire: trips (rc=3) when stream cost exceeds USD cap	L22 L40 L46 L47
+breaker-wires	budget HALT names the tripped wire	L22 L43 L46 L47
+breaker-wires	strict mock: codex rejects unsupported invocation	L44 L46 L47
+breaker-wires	strict mock: claude rejects unsupported invocation	L44 L46 L47
+breaker-wires	strict mock: gh rejects unsupported invocation	L44 L46 L47
+breaker-wires	strict mock: serena rejects unsupported invocation	L44 L46 L47
+custody-sweep	custody: first sweep exits 0	L5 L41 L46 L47
+custody-sweep	custody: snapshot contains state and trace bytes	L5 L41 L46 L47
+custody-sweep	custody: first snapshot manifest verifies	L5 L41 L46 L47
+custody-sweep	custody: second sweep exits 0	L5 L41 L46 L47
+custody-sweep	custody: successive sweeps use distinct snapshot directories	L5 L41 L46 L47
+custody-sweep	custody: later sweep cannot overwrite first signed trace	L5 L41 L46 L47
+custody-sweep	custody: first manifest still verifies after later sweep	L5 L41 L46 L47
+docs-standard	docs-standard: a conformant set verifies (exit 0)	L26 L28
+docs-standard	docs-standard: hash drift FAILS via the hash check	L26 L28
+docs-standard	docs-standard: an unindexed clause FAILS the bijection (hashes true — decontaminated)	L26 L28
+docs-standard	docs-standard: real judge profile (rust) verifies	L32 L33
+docs-standard	docs-standard: named-but-missing profile FAILS (L33)	L33
+docs-standard	docs-standard: undeclared index party FAILS	L26 L28 L46 L47
+docs-standard	docs-standard: omitted required manifest entry FAILS	L26 L28 L46 L47
+docs-standard	docs-standard: duplicate clause id FAILS	L26 L28 L46 L47
+docs-standard	docs-standard: profile traversal FAILS	L26 L28 L33 L46 L47
+docs-standard	docs-standard: every tier term must appear in lexicon	L26 L28 L46 L47
+install	install: first plant exits 0	L31 L36
+install	install: __ROOT__ rendered to the live root (L35)	L35
+install	install: agent-config manifest written	L31 L36
+install	install: root signpost planted	L36 L38
+install	install: --check clean right after plant (exit 0)	L13 L36
+install	install: second run idempotent (exit 0)	L31 L36
+install	install: idempotent run refusal-free	L31 L36
+install	install: --check detects planted-file drift (exit 1)	L13 L36
+install	install: re-plant heals drift (--check exit 0)	L13 L36
+install	install: foreign collision refused (exit 1)	L36 L40
+install	install: refused file left untouched	L36 L40
+install	install: --check fails when a registered repo is absent	L31 L35 L36 L46 L47
+install	install: normal mode fails instead of claiming all configs installed	L31 L35 L36 L46 L47
+landing	landing: exhaustive courier A lands clean (exit 0)	L31 L43 L46 L47
+landing	landing: post-landing exhaustive verification ran	L31 L43 L46 L47
+landing	landing: installed file is byte-exact	L31 L43
+landing	landing: manifested executable mode applied	L31 L43 L46 L47
+landing	landing: courier B converges clean (exit 0)	L31 L43 L46 L47
+landing	landing: stale regular file removed	L31 L43 L46 L47
+landing	landing: changed file converged to courier bytes	L31 L43
+landing	landing: declared runtime custody path preserved	L31 L40 L46 L47
+landing	landing: stale file→directory refuses loudly	L31 L40 L46 L47
+landing	landing: refusal does not recursively delete unmanifested contents	L31 L40 L46 L47
+landing	landing: preflight refusal occurs before new bytes install	L31 L43 L46 L47
+landing	landing: unmanifested courier entry refused	L31 L43 L46 L47
+landing	landing: archive traversal entry refused before extraction	L31 L40 L46 L47
+landing	landing: duplicate archive entry refused	L31 L43 L46 L47
+landing	landing: hash-tampered courier refused	L31 L43
+landing	landing: manifest-less courier refused	L31 L43
+reset-boundary	reset: refuses HOME as destructive target	L35 L40 L46 L47
+reset-boundary	reset: refuses a target outside account HOME	L35 L40 L46 L47
+reset-boundary	reset: accepts a non-symlink descendant of HOME	L35 L40 L46 L47
+reset-boundary	reset: refuses a symlink target	L35 L40 L46 L47
+sovereign-walls	sovereign walls off: backup created beside guard	L22 L42
+sovereign-walls	sovereign walls off: member deny emptied	L22 L42
+sovereign-walls	sovereign walls on: guard restored byte-exact	L22 L42
+sovereign-walls	sovereign walls on: backup consumed	L22 L42
+sovereign-walls	sovereign MAYDAY walls-only exits 0	L22 L23 L42 L46 L47
+sovereign-walls	sovereign MAYDAY empties the member guard	L22 L23 L42 L46 L47
+sovereign-walls	sovereign MAYDAY reports the selected action truthfully	L22 L42 L46 L47
+sovereign-walls	sovereign MAYDAY stand-down restores member guard byte-exact	L22 L42 L46 L47
+sovereign-walls	sovereign stop: selected campaign command exits 0	L22 L42 L46 L47
+sovereign-walls	sovereign stop: kills only the matching campaign pair	L22 L42 L46 L47
+sovereign-walls	sovereign stop: reports the matched process count truthfully	L22 L42 L46 L47
+sovereign-walls	sovereign stop: writes the canonical override path	L22 L42 L46 L47
+sovereign-walls	sovereign malformed guard refuses nonzero	L22 L42 L46 L47
+sovereign-walls	sovereign malformed refusal leaves no backup/banner or byte mutation	L22 L42 L46 L47
+status-smoke	steward-status: banner renders	L36 L38
+status-smoke	steward-status: registry section renders	L31 L36 L38
+status-truth	status: processed tokens use snapshot-deduplicated accounting	L22 L36 L46 L47
+status-truth	status: turns and denials come from canonical summary	L22 L36 L46 L47
+status-truth	status: HALTED guidance names the real owner ARM action	L23 L36 L38 L46 L47
+status-truth	status: read-only run leaves fixture bytes unchanged	L36 L38 L46 L47
+wall-filter	wall R2 fires (member-as-actor)	L18 L31
+wall-filter	wall R3 fires (product-builds-itself)	L18 L31
+wall-filter	wall R4 fires (runtime-doc-as-authority)	L18 L25
+wall-filter	wall R5 fires (dev-inside-product)	L18 L31
+wall-filter	wall R6 fires (dev-vocab-in-contract)	L18 L25
+wall-filter	wall holds on legit mentions + the wall's own text (FP-12 regression)	L18
+wall-filter	wall-allow suppresses ruled exception	L19
+wall-filter	suppression is audited in output	L19
+wall-filter	wall-allow is scoped to its named rule	L18 L19 L46 L47
+wall-filter	wall-allow rejects malformed uncited entries	L18 L19 L46 L47
+wall-filter	wall refuses missing requested inputs	L18 L46 L47
+wall-filter	wall refuses an invalid lane	L18 L46 L47
+wall-filter	wall escapes registry names before regex interpolation	L18 L31 L46 L47
+wall-filter	wall does not broaden metacharacter-bearing member names	L18 L31 L46 L47

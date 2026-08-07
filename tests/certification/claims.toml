@@ -1,0 +1,106 @@
+version = 1
+status = "preimplementation-harness-certification"
+
+[[claim]]
+id = "CERT-IDENT-01"
+text = "Owner enablement and machine-derived Role-Treatment certification are separate states; configuration cannot declare itself certified."
+
+[[claim]]
+id = "CERT-IDENT-02"
+text = "Certification binds the complete Role-Treatment identity and exact wrapper and executable bytes, so Role, harness, provider/model route, reasoning, orchestration, configuration, command, wrapper, or executable drift invalidates it."
+
+[[claim]]
+id = "CERT-RECEIPT-01"
+text = "A certification receipt is machine-owned, canonical, immutable, digest-addressed, and cites primary evidence separately from any model-authored report."
+
+[[claim]]
+id = "CERT-RECEIPT-02"
+text = "PASS is derived only when every required certification layer passes; FAIL, BLOCKED, WARN, INFO, and SKIP cannot be promoted to PASS."
+
+[[claim]]
+id = "CERT-ROUTER-01"
+text = "Role routing requires both owner enablement and a valid receipt matching the exact Role-Treatment; it never falls back to an uncertified Role-Treatment."
+
+[[claim]]
+id = "CERT-ADAPTER-01"
+text = "Codex, Claude Code, and Grok Build implement one certification adapter contract while retaining distinct vendor command and configuration surfaces."
+
+[[claim]]
+id = "CERT-RUNNER-01"
+text = "Each certification run uses a unique private disposable workspace outside any existing repository and refuses ambiguous or unsafe roots."
+
+[[claim]]
+id = "CERT-RUNNER-02"
+text = "The runner uses an explicit environment allowlist and records names and digests without writing credential values into evidence."
+
+[[claim]]
+id = "CERT-RUNNER-03"
+text = "Machine-owned probe evidence records exact argv, executable identity, bounds, exit outcome, and immutable stdout/stderr references independently of a narrative report."
+
+[[claim]]
+id = "CERT-RUNNER-04"
+text = "Certification protects external state by capturing a baseline, refusing unsafe collisions, running idempotency and negative paths, and verifying cleanup or restoration."
+
+[[claim]]
+id = "CERT-METHOD-01"
+text = "All three harnesses are evaluated against the same versioned mechanical obligations even when their native commands differ."
+
+[[claim]]
+id = "CERT-METHOD-02"
+text = "Mechanical certification covers launch, protocol, structured output, permissions, timeouts, malformed results, usage, state preservation, and cleanup."
+
+[[claim]]
+id = "CERT-METHOD-03"
+text = "Inference certification executes the complete T0 through T8 task contract with fresh context lineage and machine-owned per-task call, retry, friction, and outcome evidence."
+
+[[claim]]
+id = "CERT-METHOD-04"
+text = "A mutation task is accepted only when the mutation was independently observed, verification ran, and final state was restored to the captured baseline."
+
+[[claim]]
+id = "CERT-CONFORM-01"
+text = "A bounded certification project passes through Loopstrap dispatch, structured response parsing, workspace mutation, raw-output custody, usage charging, evidence, and Cell/root acceptance."
+
+[[claim]]
+id = "CERT-CONFORM-02"
+text = "Timeout, interruption, output overflow, and process failure retain safe partial stdout/stderr evidence and cannot create a completed harness result."
+
+[[claim]]
+id = "CERT-CONFORM-03"
+text = "Restart after a completed certification dispatch reuses the recorded job without invoking or charging the harness twice."
+
+[[claim]]
+id = "CERT-CONFORM-04"
+text = "A Role-Treatment receipt cannot become valid until mechanical, inference, and Loopstrap conformance layers all pass against the same identity and contract."
+
+[[claim]]
+id = "CERT-ARM-01"
+text = "Mock certification cannot arm the shipped live Role-Treatments, and owner role assignments remain the separate final authorization boundary."
+
+[[claim]]
+id = "CERT-ROLE-TREATMENT-01"
+text = "A Role-Treatment binds one Role to a harness-specific realization while keeping harness, model provider and route, reasoning control, orchestration, wrapper, and role configuration separate and explicit."
+
+[[claim]]
+id = "CERT-ROLE-TREATMENT-02"
+text = "Every identity-bearing Role-Treatment field changes its certification identity, and unsupported fallback policy is refused."
+
+[[claim]]
+id = "CERT-ROLE-TREATMENT-03"
+text = "A Role-Treatment cannot be assigned to a different Role."
+
+[[claim]]
+id = "CERT-ROLE-TREATMENT-04"
+text = "Different Roles remain different receipt units even when they use the same harness, provider, model, and reasoning control."
+
+[[claim]]
+id = "CERT-WRAPPER-01"
+text = "Codex, Claude Code, and Grok Build share one wrapper contract but compile distinct harness-native launch interfaces."
+
+[[claim]]
+id = "CERT-WRAPPER-02"
+text = "A wrapper excludes hidden user configuration and refuses every invocation override not explicitly present in the certified Role-Treatment."
+
+[[claim]]
+id = "CERT-WRAPPER-03"
+text = "Launch evidence separates requested, sent, and observed state and refuses fallback, hidden configuration, unapproved model substitution, or unproved reasoning."

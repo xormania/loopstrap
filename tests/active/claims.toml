@@ -1,0 +1,42 @@
+version = 1
+status = "preimplementation-extension"
+
+[[claim]]
+id = "ACTIVE-01"
+text = "The shipped workflow definition is versioned data and validates through the production parser."
+
+[[claim]]
+id = "ACTIVE-02"
+text = "The first-run Role-Treatment registry contains the exact six owner-selected Role, harness, provider/model, and reasoning configurations, leaves owner enablement off, and contains no self-certification field."
+
+[[claim]]
+id = "ACTIVE-03"
+text = "The shipped role policy contains the owner's six first-run Role assignments and retains enforceable cross-Role-Treatment and context-lineage independence rules."
+
+[[claim]]
+id = "ACTIVE-04"
+text = "The operator CLI validates workflow, treatment, and role-policy files without starting a model."
+
+[[claim]]
+id = "ACTIVE-05"
+text = "The operator CLI verifies and replays a run ledger for status rather than inventing healthy state."
+
+[[claim]]
+id = "ACTIVE-06"
+text = "Root agent instructions and the README identify the new kernel and frozen tests and do not activate lsp_math-specific, fixed-cap, or persistent-Conductor doctrine."
+
+[[claim]]
+id = "ACTIVE-07"
+text = "The old launch entry point fails closed as unarmed until governing inputs, owner role assignments, and live treatment certification exist."
+
+[[claim]]
+id = "ACTIVE-08"
+text = "The consistency audit checks the new kernel, frozen suites, configuration, source inventory, and active entry point without certifying legacy Conductor doctrine."
+
+[[claim]]
+id = "ACTIVE-09"
+text = "The battery owns separate receipts for frozen core acceptance and active-surface acceptance."
+
+[[claim]]
+id = "ACTIVE-10"
+text = "The production kernel contains no member name, selected model name, fixed recursion depth, fixed child count, or fixed invocation cap."

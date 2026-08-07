@@ -1,0 +1,86 @@
+version = 1
+status = "preimplementation-readiness"
+
+[[claim]]
+id = "READY-SPEC-01"
+text = "Loopstrap verifies the exact pinned CUE executable by version and SHA-256 before using it."
+
+[[claim]]
+id = "READY-SPEC-02"
+text = "The CUE specification compiler rejects cross-document references that do not resolve."
+
+[[claim]]
+id = "READY-SPEC-03"
+text = "A concrete project package compiles to canonical immutable bytes with a stable digest."
+
+[[claim]]
+id = "READY-SPEC-04"
+text = "A run and its root Cell are bound to the exact compiled specification digest."
+
+[[claim]]
+id = "READY-CONTRACT-01"
+text = "A Cell contract requires typed inputs, outputs, guarantees, failures, effects, invariants, and verification obligations."
+
+[[claim]]
+id = "READY-CONTRACT-02"
+text = "A composite Cell contract rejects a connection whose source output cannot satisfy the target input."
+
+[[claim]]
+id = "READY-CONTRACT-03"
+text = "Every composite guarantee names valid supporting member guarantees or an explicit composite-only verification obligation."
+
+[[claim]]
+id = "READY-CONTRACT-04"
+text = "Shared and supporting responsibilities may overlap, while duplicate exclusive responsibility is rejected."
+
+[[claim]]
+id = "READY-CONTRACT-05"
+text = "The recursive work vocabulary and implementation surface use Cell and do not define a Slice type."
+
+[[claim]]
+id = "READY-DRIVER-01"
+text = "The unattended deterministic driver recursively advances child Cells and integrates them into the root Cell."
+
+[[claim]]
+id = "READY-DRIVER-02"
+text = "The driver cannot dispatch implementation before the Cell test basis and pre-decomposition review are complete."
+
+[[claim]]
+id = "READY-DRIVER-03"
+text = "A missing or malformed role result blocks the driver and records a parked state instead of guessing."
+
+[[claim]]
+id = "READY-RECOVERY-01"
+text = "Opening an interrupted run reconstructs its specification binding, complete Cell graph, and completed jobs from verified ledger state."
+
+[[claim]]
+id = "READY-RECOVERY-02"
+text = "Resume reuses a deterministic completed dispatch instead of invoking the harness twice."
+
+[[claim]]
+id = "READY-RECOVERY-03"
+text = "Competing candidate promotions are serialized; a stale contender is rejected and the conflict is ledgered."
+
+[[claim]]
+id = "READY-RECOVERY-04"
+text = "Pause, halt, owner-authorized resume, and intervention are explicit replayable run states that block dispatch while inactive."
+
+[[claim]]
+id = "READY-EVIDENCE-01"
+text = "Evidence binds the specification digest, Cell revision, treatment, producer class, obligations, execution record, and implementation artifacts."
+
+[[claim]]
+id = "READY-EVIDENCE-02"
+text = "Evidence cannot satisfy an independence obligation when its producer also authored the subject under test."
+
+[[claim]]
+id = "READY-EVIDENCE-03"
+text = "Cell, composite Cell, and root-system acceptance obligations require evidence at their own scope."
+
+[[claim]]
+id = "READY-EVIDENCE-04"
+text = "Safe raw stdout and stderr are retained as immutable evidence after credential-shaped values are redacted."
+
+[[claim]]
+id = "READY-EVIDENCE-05"
+text = "Wrong specification digests, stale Cell revisions, missing obligations, and unresolved findings block acceptance."

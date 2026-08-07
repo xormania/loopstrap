@@ -1,0 +1,190 @@
+version = 1
+status = "preimplementation"
+
+[[claim]]
+id = "AUTH-01"
+text = "The Conductor receives compact control-plane state without source, patches, full logs, transcripts, prompts, or credentials."
+
+[[claim]]
+id = "AUTH-02"
+text = "A Conductor authorization may coordinate dispatch, advancement, parking, or reopening, but cannot authorize filesystem, Git, artifact, or canonical-state writes."
+
+[[claim]]
+id = "AUTH-03"
+text = "Only the deterministic executor can promote an isolated result into authoritative candidate state."
+
+[[claim]]
+id = "AUTH-04"
+text = "Authorizations bind to an exact run, cell, state revision, role, and treatment and become stale when any binding changes."
+
+[[claim]]
+id = "FLOW-01"
+text = "The workflow is loaded from a versioned data definition rather than fixed role, language, member, model, depth, or child-count constants."
+
+[[claim]]
+id = "FLOW-02"
+text = "A cell cannot enter planning until obligation-mapped tests have been materialized and frozen."
+
+[[claim]]
+id = "FLOW-03"
+text = "The test-writing context excludes implementation artifacts, candidate diffs, and implementation transcripts."
+
+[[claim]]
+id = "FLOW-04"
+text = "Changing frozen tests creates a revision event and reopens downstream work; it cannot silently replace the test basis."
+
+[[claim]]
+id = "FLOW-05"
+text = "Pre-decomposition review is required before a cell may become a leaf or create children."
+
+[[claim]]
+id = "FLOW-06"
+text = "A decomposition covers every parent obligation, assigns every child an owner, and rejects a child that merely reproduces the complete parent scope."
+
+[[claim]]
+id = "FLOW-07"
+text = "Recursion has no fixed depth limit; progress and closure evidence determine whether decomposition continues."
+
+[[claim]]
+id = "FLOW-08"
+text = "A leaf is ready only when obligations, tests, responsibilities, ownership, executable checks, seams, and pre-review evidence are complete."
+
+[[claim]]
+id = "FLOW-09"
+text = "A composite cannot close until all children close, integration evidence is green, and post-result adversarial review completes."
+
+[[claim]]
+id = "FLOW-10"
+text = "A newly exposed seam or ancestor-scoped defect can reverse leaf classification and reopen the nearest affected ancestor."
+
+[[claim]]
+id = "CLAIM-01"
+text = "A reproduced counterexample creates a verified blocking claim; approvals cannot outvote it."
+
+[[claim]]
+id = "CLAIM-02"
+text = "Unsupported suspicion is retained as evidence but does not block closure."
+
+[[claim]]
+id = "CLAIM-03"
+text = "A verified claim remains blocking until a cited resolution is itself verified."
+
+[[claim]]
+id = "TREAT-01"
+text = "A Role-Treatment identifies its Role, harness, independent model provider and route, native reasoning and orchestration control, wrapper, configuration, capabilities, owner enablement, and command."
+
+[[claim]]
+id = "TREAT-02"
+text = "Role routing is versioned configuration and cannot silently substitute another Role-Treatment."
+
+[[claim]]
+id = "TREAT-03"
+text = "Declared independent review requires a different Role-Treatment and context lineage from the work it reviews."
+
+[[claim]]
+id = "TREAT-04"
+text = "An owner-disabled or uncertified required Role-Treatment parks or fails the work explicitly rather than degrading the independence requirement."
+
+[[claim]]
+id = "TREAT-05"
+text = "Harness dispatch uses an argument vector, bounded output, explicit timeout, isolated working directory, and an allowlisted environment."
+
+[[claim]]
+id = "TREAT-06"
+text = "Malformed, empty, duplicate, stale, mismatched, or configuration-drifted harness responses are refused."
+
+[[claim]]
+id = "TREAT-07"
+text = "Requested Role-Treatment identity and wrapper-attested sent and observed launch state, prompt identity, context manifest, cache lineage, usage, latency, and outcome are recorded without guessing unavailable fields."
+
+[[claim]]
+id = "TREAT-08"
+text = "Live harness execution requires an explicit opt-in; deterministic mocks are the default test path."
+
+[[claim]]
+id = "EVID-01"
+text = "The event ledger is append-only, sequence-numbered, hash-chained, and detects byte or order tampering."
+
+[[claim]]
+id = "EVID-02"
+text = "Event idempotency accepts an exact retry once and rejects reuse of an idempotency key for different content."
+
+[[claim]]
+id = "EVID-03"
+text = "A partial final ledger record is detected and may be quarantined without changing earlier verified records."
+
+[[claim]]
+id = "EVID-04"
+text = "Concurrent appenders produce one valid total order without lost or duplicate sequence numbers."
+
+[[claim]]
+id = "EVID-05"
+text = "Artifacts are content-addressed, immutable, and referenced by digest rather than mutable path alone."
+
+[[claim]]
+id = "EVID-06"
+text = "Credential-shaped fields and values are rejected from evidence payloads."
+
+[[claim]]
+id = "EVID-07"
+text = "Canonical state can be rebuilt from the ledger and content-addressed artifacts."
+
+[[claim]]
+id = "WORK-01"
+text = "An agent may write only inside its isolated disposable workspace; the source snapshot and current candidate remain unchanged before promotion."
+
+[[claim]]
+id = "WORK-02"
+text = "Workspace creation rejects traversal, absolute targets, and symlinks that escape the captured source."
+
+[[claim]]
+id = "WORK-03"
+text = "Promotion is a compare-and-swap against the expected candidate revision and rejects stale results."
+
+[[claim]]
+id = "WORK-04"
+text = "Failed, timed-out, malformed, or unverified work cannot be promoted."
+
+[[claim]]
+id = "WORK-05"
+text = "Immutable snapshots plus an atomic pointer make interrupted promotion recoverable without a half-authoritative tree."
+
+[[claim]]
+id = "REC-01"
+text = "A duplicate dispatch after recovery reuses the original idempotency identity rather than creating two jobs."
+
+[[claim]]
+id = "REC-02"
+text = "A response for a superseded cell revision is retained as evidence and rejected as state input."
+
+[[claim]]
+id = "REC-03"
+text = "Replaying the same verified event ledger yields the same control state."
+
+[[claim]]
+id = "BUD-01"
+text = "Budgeting accounts separately for money, tokens, latency, compute, retries, risk, and human attention."
+
+[[claim]]
+id = "BUD-02"
+text = "Hard authority and resource limits override economic optimization."
+
+[[claim]]
+id = "BUD-03"
+text = "A configurable marginal-value policy may continue work only when expected loss reduction exceeds marginal cost under the declared shadow prices."
+
+[[claim]]
+id = "CORP-01"
+text = "Corpus evidence packets identify and hash sources, citations, retrieval time, supported propositions, and conflicts."
+
+[[claim]]
+id = "CORP-02"
+text = "Corpus sufficiency is a versioned policy seam rather than an unrecorded model judgment."
+
+[[claim]]
+id = "CORP-03"
+text = "Corpus-grounded convention may resolve an interior implementation choice but cannot change observable contract behavior, authority, ownership, or guarantees."
+
+[[claim]]
+id = "CORP-04"
+text = "Conflicting or insufficient corpus evidence blocks automatic resolution and routes the question to the nearest capable ancestor."

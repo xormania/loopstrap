@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# Contract-strict Codex mock.
+set -uo pipefail
+if [ "$#" = 1 ] && [ "$1" = "--version" ]; then echo "codex-cli 0.144.6 (MOCK)"; exit 0; fi
+[ "${1:-}" = "exec" ] || { echo "mock codex: unsupported invocation" >&2; exit 64; }
+shift
+while [ "$#" -gt 0 ]; do
+  case "$1" in
+    --ephemeral|--json) shift ;;
+    --sandbox)
+      [ "$#" -ge 2 ] || { echo "mock codex: --sandbox requires a value" >&2; exit 64; }
+      shift 2 ;;
+    -) shift ;;
+    --*) echo "mock codex: unsupported argument $1" >&2; exit 64 ;;
+    *) shift ;;
+  esac
+done
+MODE="${MOCK_CODEX_MODE:-clean}"
+emit(){ printf '%s\n' "$1"; }
+case "$MODE" in
+  clean)
+    emit '{"type":"turn.started"}'
+    emit '{"type":"turn.completed","usage":{"input_tokens":300000,"output_tokens":4000}}'
+    emit '{"type":"turn.completed","usage":{"input_tokens":335362,"output_tokens":4389}}' ;;
+  malformed) emit '{"type":"turn.completed","usage":{"input_tokens":"NaN"' ;;
+  empty) ;;
+  fail) emit '{"type":"error","message":"mock generator failure"}'; exit 1 ;;
+  *) echo "mock codex: unknown MOCK_CODEX_MODE=$MODE" >&2; exit 64 ;;
+esac

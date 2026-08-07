@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "comment": "The harness invocation seam. argv = the certified wrapper skeleton (change requires re-certification); smoke_argv = assumed-basic usage for harness-smoke.sh. Edit here to track vendor CLI drift (machines.md, D38). Tokens: {vendor_executable} {model_selector} {reasoning_control} {reasoning_requested} {schema_file} {workspace_dir} {prompt_file} {state_dir}; @native@ expands certified native arguments.",
+  "harnesses": {
+    "codex": {
+      "version_pin": "0.144.6",
+      "basis": "assumed-basic 2026-07-30; certified argv 0.144.1; D38 re-verify pending",
+      "smoke_argv": [
+        "{vendor_executable}",
+        "exec",
+        "--json",
+        "-"
+      ],
+      "argv": [
+        "{vendor_executable}",
+        "exec",
+        "--model",
+        "{model_selector}",
+        "-c",
+        "{reasoning_control}=\"{reasoning_requested}\"",
+        "--json",
+        "--output-schema",
+        "{schema_file}",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--strict-config",
+        "--cd",
+        "{workspace_dir}",
+        "@native@",
+        "-"
+      ],
+      "stdin": "prompt",
+      "environment": {}
+    },
+    "claude-code": {
+      "version_pin": "2.1.216",
+      "basis": "assumed-basic 2026-07-30; certified argv 2.1.215; D38 re-verify pending",
+      "smoke_argv": [
+        "{vendor_executable}",
+        "-p",
+        "--output-format",
+        "stream-json",
+        "--verbose"
+      ],
+      "argv": [
+        "{vendor_executable}",
+        "-p",
+        "--model",
+        "{model_selector}",
+        "--effort",
+        "{reasoning_requested}",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--include-partial-messages",
+        "--forward-subagent-text",
+        "--json-schema",
+        "{schema_file}",
+        "--strict-mcp-config",
+        "@native@"
+      ],
+      "stdin": "prompt",
+      "environment": {
+        "CLAUDE_CONFIG_DIR": "{state_dir}"
+      },
+      "state_subdir": "claude-state"
+    },
+    "grok-build": {
+      "version_pin": "ruled-out",
+      "basis": "L4 ruling 2026-07-21; wrapper retained for registry completeness",
+      "argv": [
+        "{vendor_executable}",
+        "--prompt-file",
+        "{prompt_file}",
+        "--verbatim",
+        "--model",
+        "{model_selector}",
+        "--effort",
+        "{reasoning_requested}",
+        "--output-format",
+        "streaming-json",
+        "--cwd",
+        "{workspace_dir}",
+        "--no-auto-update",
+        "--no-memory",
+        "@native@"
+      ],
+      "stdin": "none",
+      "environment": {
+        "GROK_CONFIG_DIR": "{state_dir}"
+      },
+      "state_subdir": "grok-state"
+    }
+  }
+}

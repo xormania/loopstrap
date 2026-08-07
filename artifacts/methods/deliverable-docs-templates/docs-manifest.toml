@@ -1,0 +1,11 @@
+member = "<member>"
+version = "1"
+ratified = "YYYY-MM-DD"
+[files]
+[law]
+[judges]
+profile = "rust"                       # the default — best judge surface for agentic loops (L32)
+local = []
+failure_vocab = "refusal=1 halt=2 fault=3 success=0"
+fixture_corpus = "none"
+[deferrals]

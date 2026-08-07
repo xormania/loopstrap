@@ -1,0 +1,36 @@
+# project-budget.toml — the budget schema, two beasts, tiered (ruled file, D50/D53/D54/D55)
+# TWO CURRENCIES, NEVER SUMMED (D54). Ruled values override derived; changing a
+# formula is the only ruling act and travels the courier (D47/D53).
+
+# ── CLAUDE (the orchestrator / loop) ─────────────────────────────────────────
+[claude]
+family_tokens = 2400000000    # INTERIM (D55): was xor's "everything" number, kept
+                              # as a safe Claude-side ceiling until he re-rules it
+family_usd = 1000             # liberal, xor's standing license
+
+[claude.per_repo]
+# Optional per-repo Claude caps (D55). Absent member ⇒ tier dormant; family binds.
+# lsp_math = <OUTPUT-token cap>   # xor rules per member; basis is OUTPUT tokens (D57)
+
+# ── CODEX (the generator) ────────────────────────────────────────────────────
+[codex]
+[codex.per_repo]
+# lsp_math = <OUTPUT-token cap>   # xor rules per member; basis is OUTPUT tokens (D57).
+# ENFORCEMENT AUTO-ARMS at S1: the launch gate sums the ledger's numeric gen_tokens
+# (NA lines skipped), so it bites the moment the field-map verifies.
+
+# family_tokens =             # AWAITING: S1 verifies the token field-map, then
+                              # xor's number (or the derive formula) fills this
+# Per-chunk Codex caps carry NO hand numbers by design (D55): the serial
+# campaign is the experiment — C1 runs unwalled at chunk grain (gen-runaway +
+# codex family + all Claude walls protect), its actuals calibrate the formula
+# below, walls activate from C2 on, each chunk tightening the next.
+
+[derive]
+# D53 — intent-as-formula. DORMANT until first real records. Launcher seals
+# formula+inputs+values into the launch record when active.
+active = false
+# claude_campaign = "p95(pass_loop_tokens) * pass_budget * k"
+# codex_family    = "sum(chunk_est) * k_family"
+# codex_chunk     = "sum(unit_est(class) for unit in chunk) * k   # unit_est from completed-chunk actuals; C1 seeds"
+# outlier_pass    = "median(pass_tokens) * OUTLIER_K"

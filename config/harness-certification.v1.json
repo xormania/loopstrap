@@ -1,0 +1,116 @@
+{
+  "version": 1,
+  "issuer": "loopstrap-certifier-v1",
+  "required_layers": [
+    "mechanical",
+    "inference",
+    "loopstrap"
+  ],
+  "statuses": [
+    "PASS",
+    "FAIL",
+    "BLOCKED",
+    "WARN",
+    "INFO",
+    "SKIP"
+  ],
+  "mechanical_obligations": [
+    {
+      "id": "binary_identity",
+      "description": "Resolve and hash the exact adapter and harness executables and record their versions."
+    },
+    {
+      "id": "headless_launch",
+      "description": "Start the configured non-interactive surface in the disposable workspace."
+    },
+    {
+      "id": "structured_protocol",
+      "description": "Validate request, event, response, and exit shapes at the real wire boundary."
+    },
+    {
+      "id": "permission_boundary",
+      "description": "Prove configured permissions allow required acts and refuse forbidden acts."
+    },
+    {
+      "id": "timeout",
+      "description": "Terminate a bounded overrun and retain its partial execution evidence."
+    },
+    {
+      "id": "malformed_output",
+      "description": "Reject empty, malformed, duplicate, stale, or identity-drifted output."
+    },
+    {
+      "id": "usage_reporting",
+      "description": "Record reported usage without inventing unavailable values."
+    },
+    {
+      "id": "state_preservation",
+      "description": "Capture external state before mutation and detect any unowned change."
+    },
+    {
+      "id": "cleanup",
+      "description": "Restore and verify the exact external-state baseline after success or failure."
+    },
+    {
+      "id": "idempotency_negative_paths",
+      "description": "Exercise idempotent re-entry and a deliberately invalid request."
+    }
+  ],
+  "inference_tasks": [
+    {
+      "id": "T0",
+      "objective": "Orient to the fixture, doctrine, and requested outcome without mutation.",
+      "mutation": false
+    },
+    {
+      "id": "T1",
+      "objective": "Locate a named definition using the harness-appropriate navigation surface.",
+      "mutation": false
+    },
+    {
+      "id": "T2",
+      "objective": "Trace references and distinguish symbolic from textual matches.",
+      "mutation": false
+    },
+    {
+      "id": "T3",
+      "objective": "Select native and connected tools according to their actual strengths.",
+      "mutation": false
+    },
+    {
+      "id": "T4",
+      "objective": "Perform one bounded source mutation after retrieving the exact target.",
+      "mutation": true
+    },
+    {
+      "id": "T5",
+      "objective": "Re-read the changed target and verify the intended source state.",
+      "mutation": false
+    },
+    {
+      "id": "T6",
+      "objective": "Run focused behavioral verification and report the observed result.",
+      "mutation": false
+    },
+    {
+      "id": "T7",
+      "objective": "Exercise one negative or invalid path and refuse to convert it into success.",
+      "mutation": false
+    },
+    {
+      "id": "T8",
+      "objective": "Restore the captured baseline and verify byte-identical final state.",
+      "mutation": true
+    }
+  ],
+  "conformance_obligations": [
+    "dispatch_completed",
+    "structured_response_valid",
+    "workspace_mutated",
+    "execution_ref",
+    "usage_charged",
+    "cell_accepted",
+    "root_accepted",
+    "restart_reused"
+  ]
+}

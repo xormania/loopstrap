@@ -1,0 +1,10 @@
+# PLANTED FILE — DO NOT EDIT HERE. Edit artifacts/agent-configs/lsp_math/.serena/project.yml, re-run install.
+# Keys per oraios/serena @ ad2e83e2 (dev/serena-multiproject-handoff.md) — re-verify on serena upgrades.
+languages: [rust]
+read_only: true  # spec TO AUTHOR — editing tools stripped (incl. shell) until it ratifies
+# memories are doctrine — agents read them, never rewrite them.
+# NOTE (register D26): these are REGEXES, re.fullmatch against the memory name — plain
+# names match exactly; NEVER use glob '*' (invalid regex; breaks MemoryManager init).
+read_only_memory_patterns: ["conventions", "task_completion", "suggested_commands", "serena_usage"]
+# default_modes deliberately NOT set — project [] would kill global defaults (resolution rule).
+# never set base_modes here — deprecated in project.yml, ignored with a warning (D26).

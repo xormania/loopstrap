@@ -1,0 +1,73 @@
+{
+  "version": 2,
+  "roles": {
+    "planner": {
+      "role_treatment": "planner-claude-code-fable-ultracode-v1",
+      "requires": [
+        "json",
+        "planning",
+        "subagents"
+      ]
+    },
+    "planning-subagent": {
+      "role_treatment": "planning-subagent-claude-code-fable-ultracode-v1",
+      "requires": [
+        "json",
+        "planning-report"
+      ]
+    },
+    "implementer": {
+      "role_treatment": "implementer-codex-gpt56sol-ultra-v1",
+      "requires": [
+        "json",
+        "workspace_write",
+        "tests",
+        "integration"
+      ]
+    },
+    "builder-adversary": {
+      "role_treatment": "builder-adversary-codex-gpt56sol-ultra-v1",
+      "requires": [
+        "json",
+        "workspace_write",
+        "tests",
+        "fault-injection"
+      ]
+    },
+    "independent-adversary": {
+      "role_treatment": "independent-adversary-grok-build-grok45-high-v1",
+      "requires": [
+        "json",
+        "review",
+        "fault-injection"
+      ]
+    },
+    "independent-reviewer": {
+      "role_treatment": "independent-reviewer-grok-build-grok45-high-v1",
+      "requires": [
+        "json",
+        "review"
+      ]
+    }
+  },
+  "independence": [
+    {
+      "role": "implementer",
+      "from_role": "builder-adversary",
+      "different_role_treatment": true,
+      "different_context_lineage": true
+    },
+    {
+      "role": "independent-adversary",
+      "from_role": "planner",
+      "different_role_treatment": true,
+      "different_context_lineage": true
+    },
+    {
+      "role": "independent-reviewer",
+      "from_role": "implementer",
+      "different_role_treatment": true,
+      "different_context_lineage": true
+    }
+  ]
+}

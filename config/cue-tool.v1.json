@@ -1,0 +1,10 @@
+{
+  "config_version": 1,
+  "tool": "cue",
+  "version": "v0.17.0",
+  "platform": "linux_amd64",
+  "binary_path": "tools/cue/v0.17.0/cue",
+  "release_url": "https://github.com/cue-lang/cue/releases/download/v0.17.0/cue_v0.17.0_linux_amd64.tar.gz",
+  "archive_sha256": "e22219a1cb520ab3d660a486ed2222bb7b8e9cb9502a951ce6b8ac668695713f",
+  "binary_sha256": "7c9bd2c4978b53ab0e614cd76e9fc3d566485bd0082e37cb3c6d27809af8fbd4"
+}

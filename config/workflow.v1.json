@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "initial": "contract_basis",
+  "phases": {
+    "contract_basis": {
+      "kind": "contract",
+      "role": "independent-adversary",
+      "on": {
+        "accepted": "tests_before_plan"
+      }
+    },
+    "tests_before_plan": {
+      "kind": "tests",
+      "role": "builder-adversary",
+      "on": {
+        "frozen": "planning"
+      }
+    },
+    "planning": {
+      "kind": "plan",
+      "role": "planner",
+      "on": {
+        "planned": "decomposition_attack"
+      }
+    },
+    "decomposition_attack": {
+      "kind": "pre_review",
+      "role": "independent-adversary",
+      "on": {
+        "leaf": "implementation",
+        "composite": "children"
+      }
+    },
+    "children": {
+      "kind": "children",
+      "role": null,
+      "on": {
+        "integrated": "integration"
+      }
+    },
+    "implementation": {
+      "kind": "implementation",
+      "role": "implementer",
+      "on": {
+        "verified": "result_attack"
+      }
+    },
+    "integration": {
+      "kind": "integration",
+      "role": "implementer",
+      "on": {
+        "verified": "result_attack"
+      }
+    },
+    "result_attack": {
+      "kind": "post_review",
+      "role": "independent-reviewer",
+      "on": {
+        "accepted": "closed"
+      }
+    },
+    "closed": {
+      "kind": "closed",
+      "role": null,
+      "on": {}
+    },
+    "parked": {
+      "kind": "parked",
+      "role": null,
+      "on": {
+        "reopen": "contract_basis"
+      }
+    }
+  }
+}

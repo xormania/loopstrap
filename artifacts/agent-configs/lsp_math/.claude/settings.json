@@ -1,0 +1,30 @@
+{
+  "_comment": "LOOP wall (member repo) \u2014 PLANTED; edit artifacts/agent-configs/shared/_settings-loop.json + regen, then install. W3 (Claude Code 2.1.215): headless -p IGNORES committed allow rules (no workspace trust); only DENY and ASK always bind, and DENY overrides allow, --allowedTools, and bypass mode. So the wall is DENY, not allow. permissionMode is set by the launcher (dontAsk). Source-write denial uses Edit(...)/Read(...) \u2014 Write(...)/NotebookEdit(...)/Glob(...) rules never match file checks (warn since 2.1.210). Re-verify grammar at install on other versions. D46: the chartered ALLOW surface is granted per-launch on the CLI (--allowedTools/--add-dir, launcher-owned); DENY here overrides that grant \u2014 the wall is unchanged by it. D63 (2.1.215 parser, live): Edit(path) covers ALL file-editing tools incl Write/NotebookEdit; Write(path) rules are inert for file checks; MultiEdit is not a tool \u2014 deny list is Edit-canonical.",
+  "attribution": {
+    "coAuthoredBy": false,
+    "prAttribution": false
+  },
+  "permissions": {
+    "deny": [
+      "Edit(src/**)",
+      "Edit(tests/**)",
+      "Edit(benches/**)",
+      "Edit(examples/**)",
+      "Edit(build.rs)",
+      "Edit(Cargo.toml)",
+      "Edit(Cargo.lock)",
+      "Edit(rust-toolchain.toml)",
+      "Edit(__ROOT__/artifacts/**)",
+      "Bash(git init:*)",
+      "Bash(git config --global:*)",
+      "Bash(git submodule:*)",
+      "Bash(git reset --hard:*)",
+      "Bash(git clean:*)",
+      "Bash(git rebase:*)",
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(git branch -D:*)",
+      "Bash(gh pr merge:* --admin:*)"
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+# PLANTED FILE — DO NOT EDIT HERE. Edit artifacts/agent-configs/lsp_math/.codex/config.toml, re-run install.
+# Verified against developers.openai.com/codex on 2026-07-11. Loaded ONLY when xor trusts
+# this repo (first-run prompt). Machine-local keys (model_provider, profiles, notify, otel, ...)
+# cannot live in project config by Codex's own design — they stay in ~/.codex/config.toml.
+
+# SPEC TO AUTHOR — this member's code work is out of scope until its spec ratifies.
+default_permissions = ":read-only"      # built-in read-only permission profile
+approval_policy = "on-request"
+
+
+[features]
+codex_git_commit = true
+
+# Serena, project-scoped (one instance per repo root — dev/serena-multiproject-handoff.md).
+# VERIFY the context name against your serena version (`serena start-mcp-server --help`);
+# if no codex context exists, author one per the packet's custom-context path.
+[mcp_servers.serena]
+command = "serena"
+args = ["start-mcp-server", "--context", "codex", "--project-from-cwd"]

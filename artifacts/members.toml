@@ -1,0 +1,11 @@
+# members.toml — the Loopstrap member registry (L31). One table per member;
+# the engine derives from this file: wall patterns, clone legs, ops defaults,
+# audit checks. Adding a member = one table here + one staging dir. Judge
+# bindings live in the member's docs-manifest once its docs ratify.
+[lsp_math]
+repo = "uscient/lsp_math"
+int_branch = "dev"
+
+[fixture_langserv]
+repo = "xormania/fixture_langserv"
+int_branch = "main"

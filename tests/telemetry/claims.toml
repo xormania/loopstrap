@@ -1,0 +1,46 @@
+version = 1
+status = "preimplementation-telemetry"
+
+[[claim]]
+id = "TEL-01"
+text = "Each run has a standard-library SQLite observation mirror with a versioned schema, WAL journaling, foreign-key checks, and no authority over execution, replay, recovery, acceptance, or promotion."
+
+[[claim]]
+id = "TEL-02"
+text = "Telemetry events preserve canonical raw payload and context copies, UTC and monotonic timing, collection order, source order and hashes, typed run/Cell/work-unit/attempt identity, and explicit parent and cause relationships."
+
+[[claim]]
+id = "TEL-03"
+text = "An exact repeated observation is idempotent, conflicting reuse refuses, and stored events, measurements, paths, relationships, identities, references, blobs, snapshots, and snapshot entries reject update and deletion."
+
+[[claim]]
+id = "TEL-04"
+text = "Known usage and cost fields are recorded individually as observed or unavailable without converting absence to zero, while unanticipated vendor usage fields remain present in both raw and normalized form."
+
+[[claim]]
+id = "TEL-05"
+text = "Every observed Role-Treatment copy retains its complete effective and static identity and normalized Role, harness, provider, model selector, reasoning, orchestration, wrapper, and configuration dimensions."
+
+[[claim]]
+id = "TEL-06"
+text = "Every digest-shaped reference and observable path is retained with its relationship, point-in-time availability, type, mode, size, and timestamps; available artifact, raw-trace, snapshot-manifest, and snapshot-file bytes are copied once by content digest."
+
+[[claim]]
+id = "TEL-07"
+text = "Concurrent collectors serialize append operations into a gap-free per-run collection order without dropping or overwriting observations."
+
+[[claim]]
+id = "TEL-08"
+text = "Credential-shaped telemetry is refused before persistence, while raw harness streams enter telemetry only through the existing redacted execution-custody artifact."
+
+[[claim]]
+id = "TEL-09"
+text = "The System mirrors every complete control-ledger record in ledger order and records harness start, completion, and failure attempts with exact bindings, commands, paths, bounds, process trace, usage, latency, raw custody, and causal lineage."
+
+[[claim]]
+id = "TEL-10"
+text = "Deleting the observation mirror cannot alter or prevent authoritative recovery; reopening rebuilds the mirror from the ledger, artifacts, and snapshots without using telemetry as state input."
+
+[[claim]]
+id = "TEL-11"
+text = "Deterministic verification telemetry retains every command receipt, digest, exit verdict, byte count, duration, aggregate duration, report artifact, workspace path, and relationship to the producing attempt."

@@ -1,0 +1,1 @@
+F1 fail loud · F2 append-only, never erase · F3 one boundary, one owner · F4 (reserved — assigned when the lsp_math docs ratify) · F5 declaration, not placement · F6 compose loudly, degrade loudly · F7 no silent loss.

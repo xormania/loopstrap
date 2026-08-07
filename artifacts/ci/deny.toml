@@ -1,0 +1,27 @@
+# deny.toml — license policy for the lsp_math tree (product content, committed at
+# each crate's root). Encodes xor's ruled license policy (donor ruling 2026-07-14,
+# carried forward): admissible = MIT, Apache-2.0, BSD-2/3-Clause, ISC, Zlib,
+# Unicode-DFS; MPL-2.0 by xor's per-crate grant only; GPL-family never.
+# The CI license job runs `cargo deny check licenses` against this.
+
+[licenses]
+# every dependency's license must be on this list — anything else fails.
+allow = [
+  "MIT",
+  "Apache-2.0",
+  "Apache-2.0 WITH LLVM-exception",
+  "BSD-2-Clause",
+  "BSD-3-Clause",
+  "ISC",
+  "Zlib",
+  "Unicode-DFS-2016",
+  "Unicode-3.0",
+]
+# MPL-2.0 is deliberately NOT in allow — it enters only by xor's per-crate
+# grant, which is recorded by adding it here in that crate's deny.toml with a
+# dated comment naming the grant. GPL/LGPL/AGPL never appear here.
+confidence-threshold = 0.9
+
+# unlicensed or unclear crates fail rather than pass permissively.
+[licenses.private]
+ignore = false

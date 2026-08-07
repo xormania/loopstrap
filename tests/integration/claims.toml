@@ -1,0 +1,42 @@
+version = 1
+status = "preimplementation-integration"
+
+[[claim]]
+id = "SYS-01"
+text = "Only an authorization whose act is dispatch can start a harness process."
+
+[[claim]]
+id = "SYS-02"
+text = "Role-Treatment and independence configuration rejects truthy strings and malformed container types instead of coercing them."
+
+[[claim]]
+id = "SYS-03"
+text = "A decomposition is an exact obligation partition; overlapping child ownership is rejected even when the set union covers the parent."
+
+[[claim]]
+id = "SYS-04"
+text = "A refused pre-decomposition review is transactional and leaves the cell unchanged."
+
+[[claim]]
+id = "SYS-05"
+text = "When review roles are configured, pre- and post-review acceptance must cite completed reviewer jobs, and the post-review workspace is based on the verified candidate."
+
+[[claim]]
+id = "SYS-06"
+text = "A verified blocking claim prevents candidate promotion, not only final closure."
+
+[[claim]]
+id = "SYS-07"
+text = "The system facade supports recursive decomposition, child execution, parent integration, and closure with replayable ledger events."
+
+[[claim]]
+id = "SYS-08"
+text = "The deterministic verifier executes a digest-bound visible and holdout test plan in the candidate workspace and records bounded receipts before verification advances."
+
+[[claim]]
+id = "SYS-09"
+text = "Structured artifacts and claims returned by a harness are retained in content-addressed response evidence and the hash-chained completion event."
+
+[[claim]]
+id = "SYS-10"
+text = "Budget usage, limits, expected losses, and shadow prices reject negative, non-finite, mistyped, or unknown resource values."

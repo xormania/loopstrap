@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Contract-strict Serena mock.
+set -uo pipefail
+if [ "$#" = 1 ] && [ "$1" = "--version" ]; then echo "serena 0.1 (MOCK)"; exit 0; fi
+case "${1:-} ${2:-}" in
+  "project index"|"project generate-yml"|"project health-check") exit 0 ;;
+  start-mcp-server*) exit 0 ;;
+  *) echo "mock serena: unsupported invocation: $*" >&2; exit 64 ;;
+esac

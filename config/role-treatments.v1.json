@@ -1,0 +1,484 @@
+{
+  "version": 1,
+  "role_treatments": [
+    {
+      "id": "planner-claude-code-fable-ultracode-v1",
+      "role": "planner",
+      "harness": "claude-code",
+      "model_route": {
+        "provider": "anthropic",
+        "selector": "Fable",
+        "allowed_resolved_models": [
+          "Fable"
+        ],
+        "fallback_policy": "deny"
+      },
+      "reasoning": {
+        "control": "effort",
+        "requested": "ultracode",
+        "expected_wire": "xhigh",
+        "orchestration": "dynamic-workflows",
+        "proof_sources": [
+          "runtime_event",
+          "certified_binary_mapping"
+        ]
+      },
+      "wrapper": {
+        "id": "loopstrap-harness-claude-code",
+        "version": "1",
+        "vendor_executable": "claude"
+      },
+      "configuration": {
+        "user_config_policy": "exclude",
+        "arguments": [
+          "--permission-mode",
+          "plan"
+        ],
+        "settings": {
+          "role": "planner",
+          "writes": "deny"
+        },
+        "tools": {
+          "allow": [
+            "read",
+            "search",
+            "planning-subagent"
+          ],
+          "deny": [
+            "write",
+            "promote",
+            "accept"
+          ]
+        },
+        "permissions": {
+          "mode": "plan",
+          "workspace_write": false
+        },
+        "doctrine": {
+          "files": [
+            "CLAUDE.md",
+            ".loopstrap/roles/planner.md"
+          ]
+        },
+        "session": {
+          "fresh": true,
+          "resume": false
+        },
+        "subagents": {
+          "mode": "planning",
+          "role_treatment": "planning-subagent-claude-code-fable-ultracode-v1",
+          "forward_transcript": true
+        },
+        "invocation_overrides": []
+      },
+      "capabilities": [
+        "json",
+        "planning",
+        "subagents"
+      ],
+      "enabled": false,
+      "command": [
+        "loopstrap-harness-claude-code"
+      ]
+    },
+    {
+      "id": "planning-subagent-claude-code-fable-ultracode-v1",
+      "role": "planning-subagent",
+      "harness": "claude-code",
+      "model_route": {
+        "provider": "anthropic",
+        "selector": "Fable",
+        "allowed_resolved_models": [
+          "Fable"
+        ],
+        "fallback_policy": "deny"
+      },
+      "reasoning": {
+        "control": "effort",
+        "requested": "ultracode",
+        "expected_wire": "xhigh",
+        "orchestration": "bounded-subagent",
+        "proof_sources": [
+          "runtime_event",
+          "certified_binary_mapping"
+        ]
+      },
+      "wrapper": {
+        "id": "loopstrap-harness-claude-code",
+        "version": "1",
+        "vendor_executable": "claude"
+      },
+      "configuration": {
+        "user_config_policy": "exclude",
+        "arguments": [
+          "--permission-mode",
+          "plan"
+        ],
+        "settings": {
+          "role": "planning-subagent",
+          "writes": "deny"
+        },
+        "tools": {
+          "allow": [
+            "read",
+            "search"
+          ],
+          "deny": [
+            "write",
+            "spawn-subagent",
+            "promote",
+            "accept"
+          ]
+        },
+        "permissions": {
+          "mode": "plan",
+          "workspace_write": false
+        },
+        "doctrine": {
+          "files": [
+            "CLAUDE.md",
+            ".loopstrap/roles/planning-subagent.md"
+          ]
+        },
+        "session": {
+          "fresh": true,
+          "resume": false
+        },
+        "subagents": {
+          "mode": "disabled",
+          "forward_transcript": true
+        },
+        "invocation_overrides": []
+      },
+      "capabilities": [
+        "json",
+        "planning-report"
+      ],
+      "enabled": false,
+      "command": [
+        "loopstrap-harness-claude-code"
+      ]
+    },
+    {
+      "id": "implementer-codex-gpt56sol-ultra-v1",
+      "role": "implementer",
+      "harness": "codex",
+      "model_route": {
+        "provider": "openai",
+        "selector": "GPT56Sol",
+        "allowed_resolved_models": [
+          "GPT56Sol"
+        ],
+        "fallback_policy": "deny"
+      },
+      "reasoning": {
+        "control": "model_reasoning_effort",
+        "requested": "ultra",
+        "expected_wire": "ultra",
+        "orchestration": "single-agent",
+        "proof_sources": [
+          "runtime_event",
+          "certified_binary_mapping"
+        ]
+      },
+      "wrapper": {
+        "id": "loopstrap-harness-codex",
+        "version": "1",
+        "vendor_executable": "codex"
+      },
+      "configuration": {
+        "user_config_policy": "exclude",
+        "arguments": [
+          "--sandbox",
+          "workspace-write",
+          "--ask-for-approval",
+          "never"
+        ],
+        "settings": {
+          "role": "implementer",
+          "tests_first": true
+        },
+        "tools": {
+          "allow": [
+            "read",
+            "search",
+            "write",
+            "test"
+          ],
+          "deny": [
+            "promote",
+            "accept"
+          ]
+        },
+        "permissions": {
+          "mode": "workspace-write",
+          "outside_workspace": false
+        },
+        "doctrine": {
+          "files": [
+            "AGENTS.md",
+            ".loopstrap/roles/implementer.md"
+          ]
+        },
+        "session": {
+          "fresh": true,
+          "resume": false
+        },
+        "subagents": {
+          "mode": "disabled"
+        },
+        "invocation_overrides": []
+      },
+      "capabilities": [
+        "json",
+        "workspace_write",
+        "tests",
+        "integration"
+      ],
+      "enabled": false,
+      "command": [
+        "loopstrap-harness-codex"
+      ]
+    },
+    {
+      "id": "builder-adversary-codex-gpt56sol-ultra-v1",
+      "role": "builder-adversary",
+      "harness": "codex",
+      "model_route": {
+        "provider": "openai",
+        "selector": "GPT56Sol",
+        "allowed_resolved_models": [
+          "GPT56Sol"
+        ],
+        "fallback_policy": "deny"
+      },
+      "reasoning": {
+        "control": "model_reasoning_effort",
+        "requested": "ultra",
+        "expected_wire": "ultra",
+        "orchestration": "single-agent",
+        "proof_sources": [
+          "runtime_event",
+          "certified_binary_mapping"
+        ]
+      },
+      "wrapper": {
+        "id": "loopstrap-harness-codex",
+        "version": "1",
+        "vendor_executable": "codex"
+      },
+      "configuration": {
+        "user_config_policy": "exclude",
+        "arguments": [
+          "--sandbox",
+          "workspace-write",
+          "--ask-for-approval",
+          "never"
+        ],
+        "settings": {
+          "role": "builder-adversary",
+          "repair": "deny"
+        },
+        "tools": {
+          "allow": [
+            "read",
+            "search",
+            "write-disposable-mutations",
+            "test"
+          ],
+          "deny": [
+            "repair",
+            "promote",
+            "accept"
+          ]
+        },
+        "permissions": {
+          "mode": "disposable-workspace-write",
+          "candidate_write": false
+        },
+        "doctrine": {
+          "files": [
+            "AGENTS.md",
+            ".loopstrap/roles/builder-adversary.md"
+          ]
+        },
+        "session": {
+          "fresh": true,
+          "resume": false
+        },
+        "subagents": {
+          "mode": "disabled"
+        },
+        "invocation_overrides": []
+      },
+      "capabilities": [
+        "json",
+        "workspace_write",
+        "tests",
+        "fault-injection"
+      ],
+      "enabled": false,
+      "command": [
+        "loopstrap-harness-codex"
+      ]
+    },
+    {
+      "id": "independent-adversary-grok-build-grok45-high-v1",
+      "role": "independent-adversary",
+      "harness": "grok-build",
+      "model_route": {
+        "provider": "xai",
+        "selector": "Grok4.5",
+        "allowed_resolved_models": [
+          "Grok4.5"
+        ],
+        "fallback_policy": "deny"
+      },
+      "reasoning": {
+        "control": "effort",
+        "requested": "high",
+        "expected_wire": "high",
+        "orchestration": "single-agent",
+        "proof_sources": [
+          "runtime_event",
+          "certified_binary_mapping"
+        ]
+      },
+      "wrapper": {
+        "id": "loopstrap-harness-grok-build",
+        "version": "1",
+        "vendor_executable": "grok"
+      },
+      "configuration": {
+        "user_config_policy": "exclude",
+        "arguments": [
+          "--sandbox",
+          "workspace-write"
+        ],
+        "settings": {
+          "role": "independent-adversary",
+          "repair": "deny"
+        },
+        "tools": {
+          "allow": [
+            "read",
+            "search",
+            "write-disposable-mutations",
+            "test"
+          ],
+          "deny": [
+            "repair",
+            "promote",
+            "accept"
+          ]
+        },
+        "permissions": {
+          "mode": "disposable-workspace-write",
+          "candidate_write": false
+        },
+        "doctrine": {
+          "files": [
+            ".grok/",
+            ".loopstrap/roles/independent-adversary.md"
+          ]
+        },
+        "session": {
+          "fresh": true,
+          "resume": false
+        },
+        "subagents": {
+          "mode": "disabled"
+        },
+        "invocation_overrides": []
+      },
+      "capabilities": [
+        "json",
+        "workspace_write",
+        "review",
+        "fault-injection"
+      ],
+      "enabled": false,
+      "command": [
+        "loopstrap-harness-grok-build"
+      ]
+    },
+    {
+      "id": "independent-reviewer-grok-build-grok45-high-v1",
+      "role": "independent-reviewer",
+      "harness": "grok-build",
+      "model_route": {
+        "provider": "xai",
+        "selector": "Grok4.5",
+        "allowed_resolved_models": [
+          "Grok4.5"
+        ],
+        "fallback_policy": "deny"
+      },
+      "reasoning": {
+        "control": "effort",
+        "requested": "high",
+        "expected_wire": "high",
+        "orchestration": "single-agent",
+        "proof_sources": [
+          "runtime_event",
+          "certified_binary_mapping"
+        ]
+      },
+      "wrapper": {
+        "id": "loopstrap-harness-grok-build",
+        "version": "1",
+        "vendor_executable": "grok"
+      },
+      "configuration": {
+        "user_config_policy": "exclude",
+        "arguments": [
+          "--sandbox",
+          "read-only"
+        ],
+        "settings": {
+          "role": "independent-reviewer",
+          "repair": "deny"
+        },
+        "tools": {
+          "allow": [
+            "read",
+            "search",
+            "test-readonly"
+          ],
+          "deny": [
+            "write",
+            "repair",
+            "promote",
+            "accept"
+          ]
+        },
+        "permissions": {
+          "mode": "read-only",
+          "workspace_write": false
+        },
+        "doctrine": {
+          "files": [
+            ".grok/",
+            ".loopstrap/roles/independent-reviewer.md"
+          ]
+        },
+        "session": {
+          "fresh": true,
+          "resume": false
+        },
+        "subagents": {
+          "mode": "disabled"
+        },
+        "invocation_overrides": []
+      },
+      "capabilities": [
+        "json",
+        "review"
+      ],
+      "enabled": false,
+      "command": [
+        "loopstrap-harness-grok-build"
+      ]
+    }
+  ]
+}

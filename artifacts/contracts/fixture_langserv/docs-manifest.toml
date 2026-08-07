@@ -1,0 +1,29 @@
+member = "fixture_langserv"
+version = "1"
+ratified = ""                          # by the owner's hand — pending
+
+[files]
+"fixture_langserv-lexicon.md" = "a7272e285f9fecdbd55427c64478aa110d27a82cf6ac03618114190624dc3a95"
+"fixture_langserv-contracts.md" = "9dbb41382513f01d71f49670c7728e41c72064a9fcfced7dea42d28d9efd4c71"
+"fixture_langserv-experience.md" = "cd17e55c412b1bd4ce247033d4410efe745ee976c45296e25f2c1c8e57da10c6"
+"clause-index.txt" = "76c413b9bb705781f8d8c08392d9e1cc50e50480fe8fc08014a0de6ab2175dd3"
+"term-export.txt" = "d3309a8c00773f16ba674ad4f8e04e72c6ee4c63b9e7d2fb777612c232ad6ccf"
+"parties.txt" = "e070c43286c3d8b7f170b8fadb0be17b451b9d6441c902d374b9c713cfbcf879"
+
+[law]
+# F-slot lines land here once the docs name them.
+
+[judges]
+profile = "rust"
+local = []
+failure_vocab = "refusal=1 halt=2 fault=3 success=0"
+fixture_corpus = "none"
+
+[deferrals]
+"D-1" = "before corpus-baseline ratification: the fixture language's proper name and file extension"
+"D-2" = "before corpus-baseline ratification: the fixture-language assertion keyword"
+"D-3" = "the first guarantee that materially depends on a numeric bound"
+"D-4" = "before the CI gate first enforces a cross-platform reproduction adjudication: the supported operating-system set"
+"D-5" = "a scenario requiring invalid message framing is proposed"
+"D-6" = "stale work enters scope with the exact version relation stated"
+"D-7" = "before the CI gate's enforcement is switched on: the persistent form of adjudicated outcomes"
