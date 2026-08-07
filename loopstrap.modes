@@ -4,6 +4,8 @@
 0644	.claude/commands/prep.md
 0644	.claude/commands/retro.md
 0644	.claude/settings.json
+0644	.github/pull_request_template.md
+0644	.github/workflows/pr.yml
 0644	.gitignore
 0644	.loopstrap-root-config.manifest
 0644	.loopstrap/roles/builder-adversary.md
@@ -14,6 +16,7 @@
 0644	.loopstrap/roles/planning-subagent.md
 0644	AGENTS.md
 0644	CLAUDE.md
+0644	CONTRIBUTING.md
 0644	README.md
 0644	SESSION.md
 0644	TELEMETRY.md
@@ -90,6 +93,7 @@
 0644	artifacts/instance/tools/gen-seal-rules.py
 0644	artifacts/instance/tools/intent-landing-template.md
 0755	artifacts/instance/tools/launcher-args.sh
+0755	artifacts/instance/tools/pr-evidence-check.py
 0644	artifacts/instance/tools/probe-key.md
 0644	artifacts/instance/tools/probe-questions.md
 0644	artifacts/instance/tools/schema-facts.py

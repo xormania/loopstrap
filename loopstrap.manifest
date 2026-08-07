@@ -4,6 +4,8 @@ d3bcf833b2070730d738827c2cdbf475dc591de60633fce95bd4438ce4c5440e  ./.claude/comm
 974bf7431378e81b4b809cd24382e94d43a2e9d6cc97f6dc31a84be7c206f298  ./.claude/commands/prep.md
 fda93145963698d5182031c543f7ea01642d6f4ee5f9b2943c4add0b88de7f5b  ./.claude/commands/retro.md
 5a53e4c73eef2794fbac81b5607096a631a9bf2fc3113187ba86f7757e75124b  ./.claude/settings.json
+5167310148c1dca3ec9d253ac471a8af88699fc46c98f4efe15073f002834959  ./.github/pull_request_template.md
+ae2341f17bdb5f4204a93b1a49f6599d54cc9573143887c4e41f4b79931f9b61  ./.github/workflows/pr.yml
 9a5f9487be01fd1b19c2ccb0d07ba4fd30b625453f9b99c74c2851cf0d866bb9  ./.gitignore
 fb499f4759ba8e234f9f6020a7e321f3124dc0a65ec5df7e377f9e1338ae073c  ./.loopstrap-root-config.manifest
 6283ec4cbaa79d0ddc69954f9126c6cb1cfd9624a8485e2c58d70048aa66dcbf  ./.loopstrap/roles/builder-adversary.md
@@ -14,6 +16,7 @@ da03ecfa08a0bf7ff0cfd9a3da43bbd55f442582e15428f2fc8f1c868159b0fc  ./.loopstrap/r
 6c59ae173f6e71a08d6f3ef878f717f22b7324e7092dbbbedfa5c17724c7e1d0  ./.loopstrap/roles/planning-subagent.md
 97169fa067e287c9c7882ae1367b8784da956213aaa27365c9b678ada817854a  ./AGENTS.md
 19a96ca058fa2a7c462e1d7f9d03b6d234a735ea4747db83148495ab509868e0  ./CLAUDE.md
+229cd1fc996473f04de1ae53755ada1cd84a3aa69222f9749f537033da37eb11  ./CONTRIBUTING.md
 9a5ef5304a536c8b281a825e95dc731735171eafc4db8987c6cbcf9c3b5cab13  ./README.md
 a61808d689a36e9d6cf7c664fb7dc859344491a2fb652e3c47083c36f968f9e5  ./SESSION.md
 7d1d9b061cf6d81e6a6ec2048f13b41e5cfb84f6689550fc6af2cb2ce139b350  ./TELEMETRY.md
@@ -90,6 +93,7 @@ d2e786da7034a0421878b9772857b41d8669af964b85d4f4e907a83b50b7aec1  ./artifacts/in
 8d363f908538e557083cc25961049c78448f0b1b5c83553518d8b7069db18607  ./artifacts/instance/tools/gen-seal-rules.py
 0523b717ee837f6b5a89e786caebba5bfb175d288d91a5734ae62921e658931a  ./artifacts/instance/tools/intent-landing-template.md
 cc67d0af57cb78488674588df698111fa0ced27a455c3d0d33448b174552b959  ./artifacts/instance/tools/launcher-args.sh
+831011ae8a7953d62ccf1e4c9e403ad50fd35f2d4064d19a738a81edbb95ab23  ./artifacts/instance/tools/pr-evidence-check.py
 2a219e95cbb67175ae49d3526f5e0a45e755ff010e567a9c0b469ffc5c8aef2c  ./artifacts/instance/tools/probe-key.md
 f4821e87eb5a7226c553074fa0d52f2191ef7273846b8d2d6e14719450151cce  ./artifacts/instance/tools/probe-questions.md
 76e537c3f0c799dbfea373d0c7411db4e382a1bc0102e8ee99539d433f963730  ./artifacts/instance/tools/schema-facts.py
@@ -138,7 +142,7 @@ bdcae61d55e8d367cee6e45629d79b0d330812fb1c92ee9f9cd49ff8d215b85f  ./install-conf
 6275f8a716c65d9699dd0fd674b366818766149ef5be2f33b4db460d03ad98ed  ./land.sh
 c5a681e8d41fd4d2700d2d28a6d7003b57526d172e191d0bcd0cbf7f32f76869  ./launch-codex.sh
 ed4c3dc68260a576828dc2aba15c753e0b4b0a8f9229438d844dfb9975010e71  ./launch-loop.sh
-ec2f7ad47cbd1ba7724afd87d697a5696d0fbc7f0b1f172272f6c505b39aa3db  ./loopstrap.modes
+c0d2e11d6e0d7c3dce18401c2ac86a9d96617777e2654ae18855bbb73189d27d  ./loopstrap.modes
 0a8f55ad48ab37866a7f28ae6eab03e59633a14c7c31950d3c5233be753c9bab  ./loopstrap_core/__init__.py
 21ed41b12e3222813d9ad67dfed5ba92f8235caf19674c54028811e2a278fd2b  ./loopstrap_core/artifacts.py
 383fed739af1d61836eb79f394ac3632d5b53b8091ee492f50b61b702268a2af  ./loopstrap_core/atomic.py
