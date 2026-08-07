@@ -6,6 +6,11 @@
 /xor/
 /scratch/
 
+# Untracked working notes. Also excluded from the seal by EXCLUDED_NAMES in
+# seal-tree.py and verify-tree.py: a path that is sealed but never committed
+# would fail verify-tree on a fresh clone.
+/proj/
+
 # Python
 __pycache__/
 *.py[cod]

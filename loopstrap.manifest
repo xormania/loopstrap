@@ -4,7 +4,7 @@ d3bcf833b2070730d738827c2cdbf475dc591de60633fce95bd4438ce4c5440e  ./.claude/comm
 974bf7431378e81b4b809cd24382e94d43a2e9d6cc97f6dc31a84be7c206f298  ./.claude/commands/prep.md
 fda93145963698d5182031c543f7ea01642d6f4ee5f9b2943c4add0b88de7f5b  ./.claude/commands/retro.md
 5a53e4c73eef2794fbac81b5607096a631a9bf2fc3113187ba86f7757e75124b  ./.claude/settings.json
-eaf00db4edf19c9981c43a88b5a6a140304b28cbb4f0d1a2486a359df7bea3f8  ./.gitignore
+9a5f9487be01fd1b19c2ccb0d07ba4fd30b625453f9b99c74c2851cf0d866bb9  ./.gitignore
 fb499f4759ba8e234f9f6020a7e321f3124dc0a65ec5df7e377f9e1338ae073c  ./.loopstrap-root-config.manifest
 6283ec4cbaa79d0ddc69954f9126c6cb1cfd9624a8485e2c58d70048aa66dcbf  ./.loopstrap/roles/builder-adversary.md
 2c31945b5c36defa2fffbf2d4863ea1ecd6ca6a653e1b80f20f8efcfeb621fe8  ./.loopstrap/roles/implementer.md
@@ -92,9 +92,9 @@ cc67d0af57cb78488674588df698111fa0ced27a455c3d0d33448b174552b959  ./artifacts/in
 2a219e95cbb67175ae49d3526f5e0a45e755ff010e567a9c0b469ffc5c8aef2c  ./artifacts/instance/tools/probe-key.md
 f4821e87eb5a7226c553074fa0d52f2191ef7273846b8d2d6e14719450151cce  ./artifacts/instance/tools/probe-questions.md
 76e537c3f0c799dbfea373d0c7411db4e382a1bc0102e8ee99539d433f963730  ./artifacts/instance/tools/schema-facts.py
-bbc499b60ec3d1904ae55660264ed4de9b23b3ddf77e016aa58d9b0082e7e535  ./artifacts/instance/tools/seal-tree.py
+04d24190bda22bdd5194349c41bae6a0ce1521548e88c04ba76fd277b060c0cf  ./artifacts/instance/tools/seal-tree.py
 8d6432ad4d153aaf608944bd72aca5c6d75bbff8a2b5ee24fd592137185e0776  ./artifacts/instance/tools/token-breaker.py
-c0322bd6265e35a17b860e5379aef3fe1c9276b676f5e7c32a6d43ef719fb7eb  ./artifacts/instance/tools/verify-tree.py
+58ec71817849b710520d0522285660d6b7645f0e19631ebc5973d8f6420e75eb  ./artifacts/instance/tools/verify-tree.py
 ca8885b9a56459b16ddeb214e2c4bf322cc6375b809b99182ed774fccf96dc07  ./artifacts/intent/README.md
 1c28b29f7eeb6d02c1bed1525a5d76ecbde0dc56114f7e3f6e211535d35d266e  ./artifacts/intent/family.md
 af036d362d3eb8706b5f3a005b979ff4dddc245ade4435012d208bd48433063d  ./artifacts/members.toml

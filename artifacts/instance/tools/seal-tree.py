@@ -9,10 +9,12 @@ from pathlib import Path
 import stat
 import sys
 
-# Version-control metadata and build artifacts are not project content. Sealing
-# them makes the manifest churn on every commit and every import. These rules
-# must match verify-tree.py exactly, or sealing and verification disagree.
-EXCLUDED_NAMES = frozenset({".git", "__pycache__"})
+# Version-control metadata, build artifacts, and the untracked scratch directory
+# are not project content. Sealing them makes the manifest churn on every commit
+# and every import, and sealing an untracked path would make a fresh clone fail
+# verification for a file that was never committed. These rules must match
+# verify-tree.py exactly, or sealing and verification disagree.
+EXCLUDED_NAMES = frozenset({".git", "__pycache__", "proj"})
 EXCLUDED_SUFFIXES = (".egg-info",)
 
 
