@@ -1,0 +1,91 @@
+name: pr
+
+# Pull requests target dev. dev -> main is opened the same way and merged only by
+# the owner.
+on:
+  pull_request:
+    branches: [dev, main]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  battery:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Refuse cross-repository pull requests
+        if: github.event.pull_request.head.repo.full_name != github.repository
+        run: |
+          echo "Cross-repository pull requests are not accepted." >&2
+          echo "The battery runs committed tools, including a 24MB pinned CUE" >&2
+          echo "binary, against a sealed tree. Ask for a branch." >&2
+          exit 1
+
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Tree verifies as sealed
+        run: python3 artifacts/instance/tools/verify-tree.py .
+
+      - name: Seal is regenerated and unchanged
+        id: seal
+        run: |
+          # If this reports anything but UNCHANGED, the author edited files and
+          # did not re-seal, so the manifest does not describe the tree.
+          out="$(python3 artifacts/instance/tools/seal-tree.py .)"
+          printf '%s\n' "$out"
+          line="$(printf '%s\n' "$out" | grep -E 'UNCHANGED|SEAL CHANGED' || true)"
+          if ! printf '%s' "$line" | grep -q 'UNCHANGED'; then
+            echo "::error::the committed seal does not match the tree — run seal-tree.py and commit" >&2
+            exit 1
+          fi
+          {
+            echo "line<<EOF"
+            printf '%s\n' "$out" | grep -E '^SEALED' || true
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Contract gate
+        id: contract
+        run: |
+          out="$(bash artifacts/instance/tools/contract-check.sh)"
+          printf '%s\n' "$out"
+          {
+            echo "line<<EOF"
+            printf '%s\n' "$out" | grep -E '^CONTRACT CLEAN' || true
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Battery
+        id: battery
+        run: |
+          out="$(bash tests/battery.sh 2>&1)"
+          printf '%s\n' "$out"
+          clean="$(printf '%s\n' "$out" | sed 's/\x1b\[[0-9;]*m//g')"
+          {
+            echo "line<<EOF"
+            printf '%s\n' "$clean" | grep -E '^[[:space:]]*[0-9]+ PASS' | head -1 | sed 's/^[[:space:]]*//'
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Pull request body carries artifacts of the work
+        env:
+          BODY: ${{ github.event.pull_request.body }}
+          SEAL: ${{ steps.seal.outputs.line }}
+          CONTRACT: ${{ steps.contract.outputs.line }}
+          BATTERY: ${{ steps.battery.outputs.line }}
+        run: |
+          printf '%s' "$BODY" > /tmp/pr-body.md
+          git fetch --quiet origin "${{ github.event.pull_request.base.ref }}"
+          mapfile -t changed < <(git diff --name-only \
+            "origin/${{ github.event.pull_request.base.ref }}...HEAD")
+          python3 artifacts/instance/tools/pr-evidence-check.py \
+            --body-file /tmp/pr-body.md \
+            --seal "$SEAL" \
+            --contract "$CONTRACT" \
+            --battery "$BATTERY" \
+            --changed "${changed[@]}"
