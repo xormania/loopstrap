@@ -1,0 +1,35 @@
+{
+  "acceptance_id": "acceptance.fixture",
+  "specification_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+  "current_revisions": { "cell.producer": 1 },
+  "obligations": [
+    {
+      "id": "verify.producer",
+      "scope_kind": "cell",
+      "scope_id": "cell.producer",
+      "eligible_producer_classes": ["mechanical"],
+      "minimum_evidence": 1,
+      "independent": false
+    }
+  ],
+  "evidence": [
+    {
+      "id": "evidence.producer.1",
+      "specification_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "cell_id": "cell.producer",
+      "cell_revision": 1,
+      "scope_kind": "cell",
+      "scope_id": "cell.producer",
+      "role_treatment_id": "role-treatment.mechanical",
+      "producer_id": "producer.mechanical.1",
+      "producer_class": "mechanical",
+      "subject_producer_ids": ["producer.subject.1"],
+      "obligation_ids": ["verify.producer"],
+      "execution_ref": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+      "artifact_refs": ["sha256:3333333333333333333333333333333333333333333333333333333333333333"],
+      "observation": { "outcome": "pass" },
+      "finding_ids": []
+    }
+  ],
+  "unresolved_finding_ids": []
+}

@@ -11,6 +11,8 @@ ROOT = HERE.parents[1]
 FROZEN = HERE / "FROZEN.sha256"
 INVENTORY = {
     "tests/readiness/claims.toml",
+    "tests/readiness/fixtures/acceptance-request.json",
+    "tests/readiness/fixtures/contract-graph.json",
     "tests/readiness/fixtures/project/contracts.cue",
     "tests/readiness/fixtures/project/cue.mod/module.cue",
     "tests/readiness/fixtures/project/lexicon.cue",
@@ -19,6 +21,7 @@ INVENTORY = {
     "tests/readiness/map.tsv",
     "tests/readiness/run.py",
     "tests/readiness/support.py",
+    "tests/readiness/test_cli_bridge.py",
     "tests/readiness/test_contracts.py",
     "tests/readiness/test_driver.py",
     "tests/readiness/test_evidence.py",

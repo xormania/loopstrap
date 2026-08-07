@@ -84,3 +84,19 @@ text = "Safe raw stdout and stderr are retained as immutable evidence after cred
 [[claim]]
 id = "READY-EVIDENCE-05"
 text = "Wrong specification digests, stale Cell revisions, missing obligations, and unresolved findings block acceptance."
+
+[[claim]]
+id = "READY-CLI-01"
+text = "The operator CLI compiles a project package end to end, proving the CUE schema and the Python compiler admit the same document."
+
+[[claim]]
+id = "READY-CLI-02"
+text = "The operator CLI validates a Cell and composite contract graph end to end, including connection port-schema agreement."
+
+[[claim]]
+id = "READY-CLI-03"
+text = "The operator CLI accepts evidence that satisfies its obligation, so a kernel that refuses every input cannot pass as healthy."
+
+[[claim]]
+id = "READY-CLI-04"
+text = "The emitted acceptance record conforms to the shipped CUE acceptance definition and carries exactly the declared field set."

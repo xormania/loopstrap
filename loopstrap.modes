@@ -256,7 +256,10 @@
 0644	tests/readiness/REVISION-005.md
 0644	tests/readiness/REVISION-006.md
 0644	tests/readiness/REVISION-007.md
+0644	tests/readiness/REVISION-008.md
 0644	tests/readiness/claims.toml
+0644	tests/readiness/fixtures/acceptance-request.json
+0644	tests/readiness/fixtures/contract-graph.json
 0644	tests/readiness/fixtures/project/contracts.cue
 0644	tests/readiness/fixtures/project/cue.mod/module.cue
 0644	tests/readiness/fixtures/project/lexicon.cue
@@ -265,6 +268,7 @@
 0644	tests/readiness/map.tsv
 0644	tests/readiness/run.py
 0644	tests/readiness/support.py
+0644	tests/readiness/test_cli_bridge.py
 0644	tests/readiness/test_contracts.py
 0644	tests/readiness/test_driver.py
 0644	tests/readiness/test_evidence.py

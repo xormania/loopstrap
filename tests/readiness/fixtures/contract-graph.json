@@ -1,0 +1,92 @@
+{
+  "version": 1,
+  "specification_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "root_composite_id": "composite.root",
+  "cells": [
+    {
+      "id": "cell.producer",
+      "contract_refs": ["C-1"],
+      "inputs": [{ "id": "in.request", "schema_ref": "fixture/request/v1" }],
+      "outputs": [{ "id": "out.result", "schema_ref": "fixture/result/v1" }],
+      "guarantees": [
+        {
+          "id": "guarantee.producer",
+          "responsibility": "exclusive",
+          "contract_refs": ["C-1"],
+          "verification_obligation_ids": ["verify.producer"]
+        }
+      ],
+      "failures": ["A malformed request is refused without emitting a result."],
+      "owned_effects": ["Writes the result."],
+      "dependencies": [],
+      "invariants": ["Every emitted result carries the request identity."],
+      "verification_obligations": [
+        {
+          "id": "verify.producer",
+          "scope_kind": "cell",
+          "eligible_producer_classes": ["mechanical"],
+          "minimum_evidence": 1
+        }
+      ]
+    },
+    {
+      "id": "cell.consumer",
+      "contract_refs": ["C-2"],
+      "inputs": [{ "id": "in.result", "schema_ref": "fixture/result/v1" }],
+      "outputs": [{ "id": "out.report", "schema_ref": "fixture/report/v1" }],
+      "guarantees": [
+        {
+          "id": "guarantee.consumer",
+          "responsibility": "exclusive",
+          "contract_refs": ["C-2"],
+          "verification_obligation_ids": ["verify.consumer"]
+        }
+      ],
+      "failures": ["A result that fails its schema is refused, not summarized."],
+      "owned_effects": ["Writes the report."],
+      "dependencies": ["cell.producer"],
+      "invariants": ["No report is emitted without a conforming result."],
+      "verification_obligations": [
+        {
+          "id": "verify.consumer",
+          "scope_kind": "cell",
+          "eligible_producer_classes": ["mechanical"],
+          "minimum_evidence": 1
+        }
+      ]
+    }
+  ],
+  "composites": [
+    {
+      "id": "composite.root",
+      "members": ["cell.producer", "cell.consumer"],
+      "connections": [
+        {
+          "source": { "cell_id": "cell.producer", "port_id": "out.result" },
+          "target": { "cell_id": "cell.consumer", "port_id": "in.result" }
+        }
+      ],
+      "external_inputs": [{ "cell_id": "cell.producer", "port_id": "in.request" }],
+      "external_outputs": [{ "cell_id": "cell.consumer", "port_id": "out.report" }],
+      "guarantees": [
+        {
+          "id": "guarantee.root",
+          "responsibility": "composite",
+          "contract_refs": ["C-3"],
+          "verification_obligation_ids": ["verify.root"],
+          "supported_by": ["guarantee.producer", "guarantee.consumer"]
+        }
+      ],
+      "failures": ["A connection whose port schemas disagree fails the composition."],
+      "invariants": ["Every connected port pair agrees on its schema reference."],
+      "verification_obligations": [
+        {
+          "id": "verify.root",
+          "scope_kind": "composite",
+          "eligible_producer_classes": ["mechanical"],
+          "minimum_evidence": 1
+        }
+      ]
+    }
+  ]
+}
