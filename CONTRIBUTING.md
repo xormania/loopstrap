@@ -29,6 +29,41 @@ contributions that describe work rather than do it.
 Do not reformat the pasted output to look tidier. Whitespace is normalized;
 edited content is not.
 
+## Working in this tree
+
+Five rules. The first one is the common way to get a confusing red.
+
+**1. Reseal after every change.** `loopstrap.manifest` lists every file with a
+sha256 and a mode, and it is *exhaustive* — an unlisted file is an error, not an
+omission. Run `python3 artifacts/instance/tools/seal-tree.py .` and read the
+delta it prints. If the battery reports `sealed source: tree verification failed`
+and every error is an unlisted addition, that is all this is.
+
+**2. Know which lane you are in.** Production is the sealed kernel:
+`loopstrap_core/`, `spec/cue/`, `config/*.v1.json`, `tests/`. Dev-lane is the
+machinery that develops it: `contract/` (package `contract`),
+`artifacts/instance/tools/`, `.claude/skills/`, the gate. Both are CUE in places.
+They are not the same thing, and dev-lane must never gate production into
+rigidity. See `.claude/skills/lane-classification/SKILL.md`.
+
+**3. Frozen suites need a revision.** `tests/readiness/` and five sibling suites
+are pinned by `FROZEN.sha256` with a strict `claims.toml`/`map.tsv` bijection.
+Changing one requires a `REVISION-NNN.md` stating the *defect* — not the diff —
+plus regenerated manifests. `REVISION-008.md` is the model.
+
+**4. The gate has a budget and it is full.** Six invariants against a cap of six
+in `config/gate-budget.v1.json`. Adding one costs a deletion or a deliberate cap
+raise, and the cap is sealed, so raising it shows in the seal delta.
+`gate-review.py` ranks candidates by whether they have ever fired.
+
+**5. Every control has a path from red to green** (`L48`). Not that some good
+input passes — that from a red state the documented remedy *reaches* green. A
+check that refuses correct work is the defect, not the work: it gets fixed, never
+bypassed. `tests/cases/controls-reachable.sh` enforces this, and three shipped
+violations of it are named in the register.
+
+`/check` runs the seal, the gate and the battery in one step.
+
 ## If you maintain a denylist
 
 ```shell
@@ -43,7 +78,7 @@ That is the intended behaviour: *could not check* and *checked and clean* are
 different answers.
 
 The list itself is never committed, because the list is the disclosure. See
-`skills/dev/publication-check/SKILL.md` for the failure it cannot catch.
+`.claude/skills/publication-check/SKILL.md` for the failure it cannot catch.
 
 ## The tree is sealed
 

@@ -1,9 +1,12 @@
 0644	.claude/commands/board.md
 0644	.claude/commands/campaign.md
+0644	.claude/commands/check.md
 0644	.claude/commands/halt.md
 0644	.claude/commands/prep.md
 0644	.claude/commands/retro.md
 0644	.claude/settings.json
+0644	.claude/skills/lane-classification/SKILL.md
+0644	.claude/skills/publication-check/SKILL.md
 0644	.github/pull_request_template.md
 0644	.github/workflows/pr.yml
 0644	.gitignore
@@ -204,8 +207,6 @@
 0644	pyproject.toml
 0644	repo/plan/HALTED.md
 0755	setup.sh
-0644	skills/dev/lane-classification/SKILL.md
-0644	skills/dev/publication-check/SKILL.md
 0644	spec/cue/contracts.cue
 0644	spec/cue/evidence.cue
 0644	spec/cue/project.cue

@@ -18,7 +18,7 @@ production        what loopstrap BUILDS with, and ships
 development       what loopstrap is BUILT with, and never ships
   contract/       C-SCHEMA, C-CONFIG, C-CLI, C-SERENA invariants
   probe/          vendor interrogation
-  skills/dev/     this file
+  .claude/skills/  this file
   tests/          the battery
 ```
 
