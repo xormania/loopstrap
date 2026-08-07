@@ -90,6 +90,7 @@
 0755	artifacts/instance/tools/contract-check.sh
 0755	artifacts/instance/tools/docs-verify.sh
 0755	artifacts/instance/tools/docs_verify.py
+0755	artifacts/instance/tools/gate-review.py
 0644	artifacts/instance/tools/gen-seal-rules.py
 0755	artifacts/instance/tools/harness-identity.py
 0644	artifacts/instance/tools/intent-landing-template.md

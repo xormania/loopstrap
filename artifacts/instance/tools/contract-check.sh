@@ -116,6 +116,24 @@ CONFIG_COUNT="$(count_json < "$SCRATCH/config-diagnostics.json")"
 DEFERRED_TOTAL="$(count_json < "$SCRATCH/config-deferred.json")"
 
 if [ "$SCHEMA_COUNT" -ne 0 ] || [ "$CONFIG_COUNT" -ne 0 ]; then
+  # Record every firing. A passing run writes nothing, so the file is a log of
+  # what these checks have actually done — the only non-judgement input to
+  # whether a detective invariant deserves its slot. Untracked and unsealed:
+  # it changes when something breaks, not on every run.
+  mkdir -p "$ROOT/proj"
+  { printf '%s' "$SCHEMA_DIAG"; cat "$SCRATCH/config-diagnostics.json"; } \
+    | python3 -c '
+import json, sys, datetime
+stamp = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
+for blob in sys.stdin.read().split("}{"):
+    text = blob if blob.startswith("{") else "{" + blob
+    text = text if text.endswith("}") else text + "}"
+    try: rows = json.loads(text)
+    except ValueError: continue
+    for subject in rows:
+        print(json.dumps({"at": stamp, "invariant": subject.split()[0]}))
+' >> "$ROOT/proj/gate-firings.jsonl" 2>/dev/null || true
+
   echo "CONTRACT FAILED — $((SCHEMA_COUNT + CONFIG_COUNT)) diagnostic(s)" >&2
   printf '%s' "$SCHEMA_DIAG" | print_rows "  " >&2
   print_rows "  " < "$SCRATCH/config-diagnostics.json" >&2

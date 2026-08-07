@@ -1,20 +1,94 @@
 {
   "config_version": 1,
   "purpose": "A hard cap on how much this gate may grow. The point is not the number; it is that the number cannot rise by accident.",
-
   "max_invariants": 6,
   "max_invariants_note": "Adding an invariant means deleting one or raising this cap. Raising it is a sealed config change, visible in the loud seal delta and in review. Every check that ever suffocated a project was individually plausible; the failure is never one bad check, it is thirty reasonable ones and no mechanism that says stop.",
-
   "rule": "An invariant earns permanence by catching a defect that actually occurred. Until then it is a guess with a diagnostic code.",
-
-  "earned": {
-    "C-SCHEMA-001": "caught spec/cue and loopstrap_core disagreeing on a field name, which made acceptance-check unsatisfiable for a week behind a green battery",
-    "C-CONFIG-001": "caught two independence-critical roles bound to a ruled-out harness, across three files where no single file was wrong",
-    "C-CONFIG-009": "locks in the removal of vendor names from Role-Treatment ids; without it the abstraction decays on the first descriptive id",
-    "C-LANE-001": "locks in a fix for a development package name reaching the shipped contract surface",
-    "C-LANE-002": "locks in a fix for production code depending on files that do not travel with it",
-    "C-SEAL-001": "locks in the compiled-versus-authored seal rules, a drift introduced when the rules became config"
+  "deleted_2026_08_07": "23 invariants covering dangling config references, workflow reachability, independence membership, empty version pins, the harness command-line family, and the symbolic-tooling family. All plausible, none had ever fired on anything real. The knowledge they encoded is kept in the config notes and skills; the checks come back the day a defect they would have caught actually occurs.",
+  "utility": {
+    "note": "Two kinds of invariant, two signals. Firing count is the wrong measure for half of them: a preventive invariant that works perfectly never fires, so ranking on firings alone deletes exactly the ones that are succeeding.",
+    "detective": "Earns by firing on a real defect. Measured \u2014 every firing is recorded in gate-firings.jsonl. Zero firings after long exposure is evidence against it.",
+    "preventive": "Earns by being tied to a defect that actually occurred and is now unwritable. Recorded once, at creation, with the incident. Zero firings is the intended outcome and says nothing.",
+    "the_test": "A preventive invariant with no recorded incident is a guess. A detective invariant with no firings after long exposure is a guess that has been given a fair trial.",
+    "what_this_cannot_do": "It cannot rank two invariants that both earned their place, and it cannot price contributor friction. Those stay judgement. The point is to remove judgement from the one question that kept being answered wrong \u2014 does this check do anything at all.",
+    "test_for_the_tests": "Each invariant carries the exact mutation that demonstrates it. Applying it must fire that invariant; removing the invariant and applying it again must fire nothing. The second step is the real test: it proves the check is load-bearing for its own case rather than incidentally covered by another. The corpus is one reproducer per invariant, so it is bounded by max_invariants and cannot become a growth surface."
   },
-
-  "deleted_2026_08_07": "23 invariants covering dangling config references, workflow reachability, independence membership, empty version pins, the harness command-line family, and the symbolic-tooling family. All plausible, none had ever fired on anything real. The knowledge they encoded is kept in the config notes and skills; the checks come back the day a defect they would have caught actually occurs."
+  "invariants": {
+    "C-SCHEMA-001": {
+      "kind": "detective",
+      "incident": "spec/cue/evidence.cue required treatment_id while loopstrap_core/evidence.py required role_treatment_id; acceptance-check was unsatisfiable for a week behind a green battery",
+      "first_seen": "2026-08-07",
+      "reproducer": {
+        "file": "spec/cue/evidence.cue",
+        "find": "\trole_treatment_id:    #Nonempty",
+        "replace": "\ttreatment_id:         #Nonempty"
+      },
+      "severity": "expensive"
+    },
+    "C-CONFIG-001": {
+      "kind": "detective",
+      "incident": "two independence-critical roles bound to a harness recorded ruled-out in its own profile, across three files where no single file was wrong",
+      "first_seen": "2026-08-07",
+      "reproducer": {
+        "file": "config/role-treatments.v1.json",
+        "find": "\"id\": \"independent-adversary-v1\",\n   \"role\": \"independent-adversary\",\n   \"harness\": \"grok-build\",",
+        "replace": "\"id\": \"independent-adversary-v1\",\n   \"role\": \"independent-adversary\",\n   \"harness\": \"grok-build\",\n   \"enabled\": true,"
+      },
+      "severity": "expensive"
+    },
+    "C-CONFIG-009": {
+      "kind": "preventive",
+      "incident": "Role-Treatment ids encoded vendor and model, so swapping a harness touched 11 occurrences across three files",
+      "first_seen": "2026-08-07",
+      "reproducer": {
+        "file": "config/role-treatments.v1.json",
+        "find": "\"id\": \"implementer-v1\"",
+        "replace": "\"id\": \"implementer-codex-v1\""
+      },
+      "severity": "recoverable"
+    },
+    "C-LANE-001": {
+      "kind": "preventive",
+      "incident": "a test oracle was written in the shipped package, so a development expectation could unify into the production contract surface",
+      "first_seen": "2026-08-07",
+      "reproducer": {
+        "file": "spec/cue/project.cue",
+        "find": "package project",
+        "replace": "package contract"
+      },
+      "severity": "absorbing"
+    },
+    "C-LANE-002": {
+      "kind": "preventive",
+      "incident": "seal exclusions were read at runtime by a verifier that ships alone inside a courier, to a tree carrying no config; the battery caught it as 14 register-map violations",
+      "first_seen": "2026-08-07",
+      "reproducer": {
+        "file": "loopstrap_core/artifacts.py",
+        "find": "from __future__ import annotations",
+        "replace": "# see contract/ for the checks\nfrom __future__ import annotations"
+      },
+      "severity": "absorbing"
+    },
+    "C-SEAL-001": {
+      "kind": "preventive",
+      "incident": "seal rules became config and were compiled into two tools, creating a drift between authored and compiled that nothing would have noticed",
+      "first_seen": "2026-08-07",
+      "reproducer": {
+        "file": "config/seal.v1.json",
+        "find": "\"excluded_root_names\": [\"proj\"]",
+        "replace": "\"excluded_root_names\": [\"proj\", \"notes\"]"
+      },
+      "severity": "absorbing"
+    }
+  },
+  "deferred_additions": {
+    "note": "Invariants judged worth having, deliberately NOT added yet. Gate size should track reliance, not anticipate it: an invariant added before anything depends on its signal is paid for now and returns later, if ever.",
+    "C-CLI-004": {
+      "guards": "a harness surface claiming provenance 'probed' while carrying no digest or timestamp \u2014 false confidence about the vendor boundary entering the record as evidence",
+      "severity": "absorbing \u2014 a miss leaves the system unable to detect the miss",
+      "why_not_yet": "nothing is armed. allow_live is False, all six treatments are disabled, the launcher exits 2, and no obligation has ever been accepted. Nothing relies on the vendor-surface signal, so its utility today is approximately zero.",
+      "add_when": "the first treatment is enabled, i.e. the same moment C-CLI-005 would have armed itself",
+      "cost_when_added": "raise max_invariants to 7, which is a sealed change and shows in the seal delta"
+    }
+  }
 }
