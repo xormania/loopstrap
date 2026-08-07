@@ -5,6 +5,10 @@ name: pr
 on:
   pull_request:
     branches: [dev, main]
+    # `edited` matters: without it a body-check failure cannot be fixed by fixing
+    # the body. Re-running a workflow replays the original event payload, so the
+    # stale body is what gets checked. That is a check with no path to green.
+    types: [opened, synchronize, reopened, edited]
 
 permissions:
   contents: read
@@ -78,7 +82,18 @@ jobs:
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
 
+      # Promotion is not a unit of review. Every commit reaching dev already
+      # satisfied this check on its own pull request, with its own evidence and
+      # its own red-before-green. Demanding the whole template again for dev ->
+      # main re-proves work already proved, and re-proving is the ceremony this
+      # repository keeps having to cut back.
+      #
+      # The battery, the contract gate and the seal still run. Only the BODY
+      # requirement is skipped, and only for this one route.
       - name: Pull request body carries artifacts of the work
+        if: >-
+          !(github.event.pull_request.base.ref == 'main' &&
+            github.event.pull_request.head.ref == 'dev')
         env:
           BODY: ${{ github.event.pull_request.body }}
           SEAL: ${{ steps.seal.outputs.line }}

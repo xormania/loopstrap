@@ -5,7 +5,7 @@ d3bcf833b2070730d738827c2cdbf475dc591de60633fce95bd4438ce4c5440e  ./.claude/comm
 fda93145963698d5182031c543f7ea01642d6f4ee5f9b2943c4add0b88de7f5b  ./.claude/commands/retro.md
 5a53e4c73eef2794fbac81b5607096a631a9bf2fc3113187ba86f7757e75124b  ./.claude/settings.json
 5167310148c1dca3ec9d253ac471a8af88699fc46c98f4efe15073f002834959  ./.github/pull_request_template.md
-ae2341f17bdb5f4204a93b1a49f6599d54cc9573143887c4e41f4b79931f9b61  ./.github/workflows/pr.yml
+3b7582c491beaf83eb95e8e2e82d0064ad53d98b7f6ec29ecb34ed0c028fc500  ./.github/workflows/pr.yml
 9a5f9487be01fd1b19c2ccb0d07ba4fd30b625453f9b99c74c2851cf0d866bb9  ./.gitignore
 fb499f4759ba8e234f9f6020a7e321f3124dc0a65ec5df7e377f9e1338ae073c  ./.loopstrap-root-config.manifest
 6283ec4cbaa79d0ddc69954f9126c6cb1cfd9624a8485e2c58d70048aa66dcbf  ./.loopstrap/roles/builder-adversary.md
@@ -16,7 +16,7 @@ da03ecfa08a0bf7ff0cfd9a3da43bbd55f442582e15428f2fc8f1c868159b0fc  ./.loopstrap/r
 6c59ae173f6e71a08d6f3ef878f717f22b7324e7092dbbbedfa5c17724c7e1d0  ./.loopstrap/roles/planning-subagent.md
 97169fa067e287c9c7882ae1367b8784da956213aaa27365c9b678ada817854a  ./AGENTS.md
 19a96ca058fa2a7c462e1d7f9d03b6d234a735ea4747db83148495ab509868e0  ./CLAUDE.md
-229cd1fc996473f04de1ae53755ada1cd84a3aa69222f9749f537033da37eb11  ./CONTRIBUTING.md
+db7d203dde0f2a09002a4b5765545bdbb74138bc8015ca7f5e017988d120fd1d  ./CONTRIBUTING.md
 9a5ef5304a536c8b281a825e95dc731735171eafc4db8987c6cbcf9c3b5cab13  ./README.md
 a61808d689a36e9d6cf7c664fb7dc859344491a2fb652e3c47083c36f968f9e5  ./SESSION.md
 7d1d9b061cf6d81e6a6ec2048f13b41e5cfb84f6689550fc6af2cb2ce139b350  ./TELEMETRY.md
