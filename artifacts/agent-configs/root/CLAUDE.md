@@ -1,5 +1,8 @@
 # Loopstrap agent contract
 
+**New here?** `.agents/README.md` is a three-file welcome mat: what is live
+versus legacy, where everything is, and the exact commands for the usual jobs.
+
 The active implementation is `loopstrap_core`, driven by versioned data in
 `config/`. Start by verifying the frozen, externally stated expectations in
 `tests/acceptance`, `tests/active`, and `tests/integration`; never weaken those
