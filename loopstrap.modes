@@ -91,9 +91,11 @@
 0755	artifacts/instance/tools/docs-verify.sh
 0755	artifacts/instance/tools/docs_verify.py
 0644	artifacts/instance/tools/gen-seal-rules.py
+0755	artifacts/instance/tools/harness-identity.py
 0644	artifacts/instance/tools/intent-landing-template.md
 0755	artifacts/instance/tools/launcher-args.sh
 0755	artifacts/instance/tools/pr-evidence-check.py
+0755	artifacts/instance/tools/probe-ingest.py
 0644	artifacts/instance/tools/probe-key.md
 0644	artifacts/instance/tools/probe-questions.md
 0644	artifacts/instance/tools/schema-facts.py
@@ -138,6 +140,7 @@
 0644	contract/invariant_config.cue
 0644	contract/invariant_harness_cli.cue
 0644	contract/invariant_schema.cue
+0644	contract/schema_harness_surface.cue
 0755	custody-sweep.sh
 0755	harness-smoke.sh
 0755	install-configs.sh
@@ -179,6 +182,12 @@
 0755	ops/steward-status.sh
 0755	preflight.sh
 0755	probe.sh
+0644	probe/README.md
+0644	probe/lib/setup.sh
+0644	probe/prompts/claude-inventory.md
+0644	probe/prompts/codex-inventory.md
+0644	probe/prompts/grok-inventory.md
+0755	probe/run.sh
 0644	pyproject.toml
 0644	repo/plan/HALTED.md
 0755	reset.sh
