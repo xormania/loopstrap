@@ -14,7 +14,7 @@ today, plus the near-term change pipeline.
   version, docs URLs + access date, CHANGELOG head examined.
 - **Probe discipline.** Behavioral probes are encouraged and mandatory for any
   docs/behavior divergence. You are already inside a scratch git repo under
-  `~/tmp/` with a nested `sub/`, repo credentials scrubbed, and a probe token
+  a scratch directory with a nested `sub/`, repo credentials scrubbed, and a probe token
   (`PROBE_TOKEN=probe123`) planted for passthrough probes — never introduce a
   real credential. Record every probe verbatim. A claim resolved by probe is
   labeled [probed]; by docs alone, [docs]; by bundle grep, [derived] (last

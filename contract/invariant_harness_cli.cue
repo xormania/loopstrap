@@ -9,9 +9,8 @@ package contract
 // side, the snapshot is the extracted side, and disagreement is a diagnostic
 // before a launch rather than a rejection during one.
 //
-// An earlier generation of this system solved this by grepping the vendor's
-// --help output inside the launcher, pinned to one version, at launch time. This
-// moves the same check to gate time and makes its provenance explicit.
+// The check runs at gate time, and the snapshot records how each fact was
+// obtained, so a claim about the vendor is never stronger than its evidence.
 
 import (
 	"list"
