@@ -103,6 +103,23 @@ the conflict, then regenerate both; the regeneration is the resolution.
 Then **regenerate your pull request's evidence blocks**. The file count moves, and
 a body describing the pre-merge tree fails the evidence check, correctly.
 
+## Refresh a pull request's evidence
+
+```shell
+python3 artifacts/instance/tools/ship.py --push
+```
+
+Run it **before every push**, not once. The evidence is a snapshot; pushing more
+commits invalidates it and CI refuses the body, correctly. `--push` refuses a
+dirty tree, pins HEAD across the gates, pushes, confirms the remote matches, and
+only then rewrites the three fenced blocks in place — leaving the argument
+sections untouched.
+
+This works for the `dev` → `main` promotion too. A promotion's head tracks `dev`
+automatically, so **every merge into `dev` staleness-dates the open promotion**.
+Run `ship.py --push` from `dev` after merging anything; `gh` resolves to the
+promotion and its evidence is refreshed.
+
 ## Open a pull request
 
 Target `dev`. An agent may open a **draft** PR from `dev` to `main`; only the

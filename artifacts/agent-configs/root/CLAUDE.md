@@ -1,70 +1,51 @@
-# Working on Loopstrap
+# Contributing to Loopstrap
 
-This file is for **developing this repository**. It is not loop operating
-doctrine — how a run is conducted lives in `artifacts/instance/`, and none of it
-is in force here.
+What a contribution here must satisfy. This is not loop operating doctrine —
+that lives in `artifacts/instance/` and is not in force here. It is not a guide
+to the codebase either; `.agents/README.md` is, and it is three short files.
 
-**New here?** `.agents/README.md` is a three-file welcome mat: the standing of
-everything under `artifacts/`, where things are, and the exact commands for the
-usual jobs.
+## What a change must satisfy
 
-## What you are working on
+Seven things, each decidable by a command rather than by judgement.
 
-`loopstrap_core` is the deterministic kernel, driven by versioned data in
-`config/`. It is **deliberately unarmed**: role assignments and live
-Role-Treatment certification receipts are future inputs, and launch fails closed
-without them. Nothing here launches a model at anything.
+| | |
+|---|---|
+| the tree reseals and verifies | `artifacts/instance/tools/seal-tree.py .` then `verify-tree.py` |
+| the contract gate is clean | `artifacts/instance/tools/contract-check.sh` |
+| the battery is green | `tests/battery.sh` |
+| red before green | required for `loopstrap_core/`, `spec/`, `contract/`, `tests/` |
+| the evidence matches CI's own run | the three fenced blocks in the pull request |
+| nothing leaves that should not | `publication-check.py`; `ops/hooks/install.sh` makes it automatic |
+| a check that refuses correct work is the defect | `L48` — fix the check, never bypass it |
 
-The repository root is also the instance root today. Making Loopstrap a genuinely
-installable app is in-flight work, and the open design question — what an
-installed instance is *given* versus what is one deployment's own vocabulary — is
-recorded in `proj/handoff/02-installable-app.md`.
+```shell
+python3 artifacts/instance/tools/ship.py     # runs the first three, fills the evidence blocks
+```
 
-## The rules
+`/check` runs the gates alone. Neither writes the argument sections; those are
+yours.
 
-`CONTRIBUTING.md` holds all six under *Working in this tree*. The two that catch
-people:
+## Frozen suites
 
-- **Reseal after every change.** `artifacts/instance/tools/seal-tree.py .`, then
-  read the delta. The manifest is exhaustive — an unlisted file is an error.
-- **Every control has a path from red to green** (`L48`). A check that refuses
-  correct work is the defect, not the work. Fix it; never bypass it.
+Six suites are pinned by hash. Changing one requires a `REVISION-NNN.md` stating
+the **defect**, not the diff, plus a regenerated manifest:
 
-`/check` runs the seal, the gate and the battery in one step.
+```shell
+python3 artifacts/instance/tools/freeze-suite.py <suite>
+```
 
-## Invariants you must not break while changing code
+## Two more rules with a cost attached
 
-These are properties of the kernel, not instructions to a loop. Breaking one is a
-defect even if every test still passes.
+The contract gate holds **six invariants against a budget of six**. Adding one
+costs a deletion or a deliberate cap raise, and the cap is sealed.
 
-- **Frozen tests are not adjustable.** Six suites under `tests/acceptance`,
-  `tests/active`, `tests/integration`, `tests/telemetry`, `tests/readiness` and
-  `tests/certification` are pinned by hash. Never weaken one to make an
-  implementation pass; a test-basis defect needs a recorded `REVISION-NNN.md`
-  stating the defect before its replacement is frozen.
-- **Telemetry is an observation mirror, never a source.** No control, replay,
-  recovery, verification, acceptance or promotion path may read from
-  `telemetry.sqlite3`. Do not add one. Credential-shaped structured data and
-  unredacted harness streams stay prohibited.
-- **Role-Treatments are never silently substituted.** A Role names a
-  responsibility; a Role-Treatment binds it to an exact harness, provider/model
-  route, reasoning control, wrapper and configuration. Harness and provider are
-  independent identity fields.
-- **Recursion is data.** No hard-coded task count or depth.
-- **The executor is the sole promotion path.** Writes go to isolated disposable
-  workspaces.
-
-## `artifacts/` carries a standing, not an age
-
-**Authority** is cited and enforced — `registers/`, `agent-configs/`,
-`instance/tools/`; the battery fails if a cited register id is absent. **Method**
-is transferable technique, never executed. **Record** is evidence of one past
-run. An unmarked file that reads as a specification is the hazard; check the
-standing before treating anything there as binding.
+If your branch merges another and both touched the tree, regenerate the seal
+rather than resolving `loopstrap.manifest` by hand — and regenerate the pull
+request's evidence, because the counts move.
 
 ## This harness
 
 Skills and slash commands are in `.claude/`. Serena is configured project
-read-only, so it is for `find_symbol` and `find_referencing_symbols` rather than
-editing. The commit hooks run a fail-closed publication check — if one refuses a
-commit, read `.claude/skills/publication-check/SKILL.md` before working around it.
+read-only: it is for `find_symbol` and `find_referencing_symbols`, not editing.
+The commit hooks run a fail-closed publication check; if one refuses a commit,
+read `.claude/skills/publication-check/SKILL.md` before working around it.

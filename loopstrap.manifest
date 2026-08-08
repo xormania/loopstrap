@@ -1,10 +1,11 @@
 7f09d959e1d5e7e0b3be9bf241ffbe045c134a8f71f059f04d85b7d649fe0dfc  ./.agents/MAP.md
 af4cfe0608315c44c56546a6c407c57c2a9aa445c27c462fb0a4a0b4a0fae0b0  ./.agents/README.md
-01c58932c4d808ea6c8ee3ab2182a3c9df1ac889bc52ed0be0a30ffcec2cb541  ./.agents/TASKS.md
+3ed11f841e0c1d1d487970140dae6c33a6da98e0524ed525108f4950b3875f64  ./.agents/TASKS.md
 d3bcf833b2070730d738827c2cdbf475dc591de60633fce95bd4438ce4c5440e  ./.claude/commands/board.md
 041a2f845ecc98b499f6c04e4db0567ce22db31a320e18a8698c3cf26d5c2d8e  ./.claude/commands/campaign.md
 8f98e29f8759d02fe5ed2208827eed33f7263ed2b32fe342e4dc9e4895d1f8f2  ./.claude/commands/check.md
 0e169f2c3cf37c60841519e4a5d7cbb352b166a62d64e6a195ad531d166c17cb  ./.claude/commands/halt.md
+5b2dab1cd6aae56d7cc5a12ffd15c6e41de7e7957c41b2a639fcbb5883ef3040  ./.claude/commands/loopstrap/status.md
 6d44a989b19d691eb079c6ddae7b1f54798bd2a8cac8ac8d96b9277b74dd56db  ./.claude/commands/prep.md
 fda93145963698d5182031c543f7ea01642d6f4ee5f9b2943c4add0b88de7f5b  ./.claude/commands/retro.md
 4a4fc87cdf9fc0b79519ab3afee561ecf646041ce1e1521421600ce83486399f  ./.claude/settings.json
@@ -21,8 +22,8 @@ fb499f4759ba8e234f9f6020a7e321f3124dc0a65ec5df7e377f9e1338ae073c  ./.loopstrap-r
 da03ecfa08a0bf7ff0cfd9a3da43bbd55f442582e15428f2fc8f1c868159b0fc  ./.loopstrap/roles/independent-reviewer.md
 5d4a0aeda6526d6a387a04029e973559beeefcb3ac66f632bc74ab96055a948b  ./.loopstrap/roles/planner.md
 6c59ae173f6e71a08d6f3ef878f717f22b7324e7092dbbbedfa5c17724c7e1d0  ./.loopstrap/roles/planning-subagent.md
-4cb9592782bebaf64718c06b46ce4c1e604f9f1b8bd3947b768ef131288ba35b  ./AGENTS.md
-a9bdd3f691fde92ff5fce60c24d011ae5d5ae6f949353da2a342b01b65854b72  ./CLAUDE.md
+cd967ca0397511a93c7f5581234f85d1918634c30dd7fed0a239259aaa7ba352  ./AGENTS.md
+8b2dff0705a6744702d517237b426de9ab56b64475a8960bb145ac94351a8ef7  ./CLAUDE.md
 03df9581b3bc0eed7db1fc2e8e38db3fe86e697b44184179bab1a73e5f9d7953  ./CONTRIBUTING.md
 28566d34c81251bb06cc79476c483019ac5fc91f2632b95ff034209848250c78  ./README.md
 188b68c87ae9becae4c5694a8cbd673d4262f385d13d5e54b663b5540f5b67d3  ./SESSION.md
@@ -45,8 +46,8 @@ d3bcf833b2070730d738827c2cdbf475dc591de60633fce95bd4438ce4c5440e  ./artifacts/ag
 fda93145963698d5182031c543f7ea01642d6f4ee5f9b2943c4add0b88de7f5b  ./artifacts/agent-configs/root/.claude/commands/retro.md
 4a4fc87cdf9fc0b79519ab3afee561ecf646041ce1e1521421600ce83486399f  ./artifacts/agent-configs/root/.claude/settings.json
 6d1a8f2d92b7adda06f5dd0472991fc2efeb2c71164d989d4e049d198d4cda99  ./artifacts/agent-configs/root/.codex/config.toml
-4cb9592782bebaf64718c06b46ce4c1e604f9f1b8bd3947b768ef131288ba35b  ./artifacts/agent-configs/root/AGENTS.md
-a9bdd3f691fde92ff5fce60c24d011ae5d5ae6f949353da2a342b01b65854b72  ./artifacts/agent-configs/root/CLAUDE.md
+cd967ca0397511a93c7f5581234f85d1918634c30dd7fed0a239259aaa7ba352  ./artifacts/agent-configs/root/AGENTS.md
+8b2dff0705a6744702d517237b426de9ab56b64475a8960bb145ac94351a8ef7  ./artifacts/agent-configs/root/CLAUDE.md
 28566d34c81251bb06cc79476c483019ac5fc91f2632b95ff034209848250c78  ./artifacts/agent-configs/root/README.md
 176d5fff06516bf54473d74afa7c4b3080516164d9a9f70ca5dea7d0ebfceabd  ./artifacts/agent-configs/serena-home/README.md
 789ea1902fcbe8ef2370314fbb1927dfabc262a016ccb8599ede4167a23cb758  ./artifacts/agent-configs/serena-home/contexts/codex.yml
@@ -94,7 +95,7 @@ d4973d18a6a25cbec9b2733a93e386d82bc2d7ab6950194bd4e101bb52330418  ./artifacts/in
 53ca50a1026bc9744eaf9d5720a7c71b6160a3a1d8ff7f58770e01a7ebd79a95  ./artifacts/instance/metrics.md
 b8628ad8105b3ac66eeaeed2c0375111c8607f4fb6586d88e61ac1e58b45b6b4  ./artifacts/instance/process.md
 4375616b65b0fd43e4fd80174f5bf4412d32c04b414d201d6522b310fd3b672f  ./artifacts/instance/terms.md
-1641b13e266efda6b24d7f4c5e446ad076d282dc1e13ff34192bf1f658aceb43  ./artifacts/instance/tools/audit-consistency.sh
+b466a76a8de261536d6a3d65923f03fe68c297ff751ac1c748504bf2035d6e46  ./artifacts/instance/tools/audit-consistency.sh
 64ce6ad445897c4618fe9f84a28159f5a613f1af9dffd5a25c32eb853c6661e5  ./artifacts/instance/tools/contract-check.sh
 18038d2f8d3a4ed73f8bdb0899cef563f63d4ac88dae8007515d3b62852b0a88  ./artifacts/instance/tools/docs-verify.sh
 6ae5ee21158f6da2b5c3fa79684f7c0017b5735b2429c0aabe504693f0f973d9  ./artifacts/instance/tools/docs_verify.py
@@ -103,6 +104,7 @@ d7d1af511a1df1a50e37525b36db702e783c55f302a95948dc7a202d581f7ba2  ./artifacts/in
 8e4ed44736f3b8d68d243307090404767d8dd84b307e3820b05d3d721fa71df1  ./artifacts/instance/tools/gen-seal-rules.py
 b01c2a84cde1bf192ffa60859ce720dc29300d83de2af42b9e0f58a82fe52ae1  ./artifacts/instance/tools/harness-identity.py
 0523b717ee837f6b5a89e786caebba5bfb175d288d91a5734ae62921e658931a  ./artifacts/instance/tools/intent-landing-template.md
+4cfafbfba1731c3ee07dad3296dd1c73a38b59030e364bbc3428595da2d1b97c  ./artifacts/instance/tools/lane-vocabulary-live.py
 cc67d0af57cb78488674588df698111fa0ced27a455c3d0d33448b174552b959  ./artifacts/instance/tools/launcher-args.sh
 e52c47b4aea478a9e996ee59c5681a7540b1ce291f4a149f0de710a2a20c3ad3  ./artifacts/instance/tools/pin-check.py
 831011ae8a7953d62ccf1e4c9e403ad50fd35f2d4064d19a738a81edbb95ab23  ./artifacts/instance/tools/pr-evidence-check.py
@@ -110,9 +112,9 @@ e52c47b4aea478a9e996ee59c5681a7540b1ce291f4a149f0de710a2a20c3ad3  ./artifacts/in
 2a219e95cbb67175ae49d3526f5e0a45e755ff010e567a9c0b469ffc5c8aef2c  ./artifacts/instance/tools/probe-key.md
 d43a8e5fc1368496fb16b055b7a2e9c89397f7f50454e66a7a69629e48725ea0  ./artifacts/instance/tools/probe-questions.md
 3dc53b4b97b38cd11d827fce080e919b43f87c8a6a96666e01674be8a9ee9209  ./artifacts/instance/tools/publication-check.py
-1e7f96af6b1f091629308d530b909b5206c922d4ee5f6bacb295b944b4919a41  ./artifacts/instance/tools/schema-facts.py
+6e6560708ca6a01fd4a2a1d8bb0c0818499503c60e702fc8131d70efd6b85be6  ./artifacts/instance/tools/schema-facts.py
 4292f15a30784bf0f3553344645fa6bc1ecd010dfc1c321ea55adcaca3753070  ./artifacts/instance/tools/seal-tree.py
-fba7c8cb04050e1107673712872f4098eb70efa9d34bc2ce055285808f924770  ./artifacts/instance/tools/ship.py
+df110fe5cd776d80f19bbc7a0d33e3f05c55408ee2933697d7f22a9d6436c25c  ./artifacts/instance/tools/ship.py
 8d6432ad4d153aaf608944bd72aca5c6d75bbff8a2b5ee24fd592137185e0776  ./artifacts/instance/tools/token-breaker.py
 c1d205ccfeff2bbe16b000af60bf7c293580e56f668d72b9ecd06c433a650568  ./artifacts/instance/tools/verify-tree.py
 ca8885b9a56459b16ddeb214e2c4bf322cc6375b809b99182ed774fccf96dc07  ./artifacts/intent/README.md
@@ -157,7 +159,7 @@ b9e585ccf76f9edc7981f476bfccf300e987c70f4baf2f98a207137d76ce3448  ./contract/inv
 0a7adb5343b5e5d905ba18f5a26f5aa7d04c586cd42e6a5c61b339134474cc94  ./contract/invariant_schema.cue
 7df5588bc8c59bc8f96d163a48c769d0f6604cf9f3187ea63cf5994f4c5421e0  ./contract/schema_harness_surface.cue
 ed4c3dc68260a576828dc2aba15c753e0b4b0a8f9229438d844dfb9975010e71  ./launch-loop.sh
-52f21ad547120302c1d9f4b9ae25a98a103133bd0f9a68d574b7d4708e8def30  ./loopstrap.modes
+b361e0521fd0863c205e550de715fac2d44328c46cb965c7d5beff60cce2a6c6  ./loopstrap.modes
 0a8f55ad48ab37866a7f28ae6eab03e59633a14c7c31950d3c5233be753c9bab  ./loopstrap_core/__init__.py
 21ed41b12e3222813d9ad67dfed5ba92f8235caf19674c54028811e2a278fd2b  ./loopstrap_core/artifacts.py
 383fed739af1d61836eb79f394ac3632d5b53b8091ee492f50b61b702268a2af  ./loopstrap_core/atomic.py
@@ -218,7 +220,7 @@ d90df848bf3f88d33a41035e670ee5b87c1bd42775ab2f736b11ac480b789fa6  ./spec/cue/con
 22113e0232b6ae4fe1cec4a4d8261a6a72309d8d7a03c5e01bbe13a5184598a6  ./spec/cue/evidence.cue
 c1cd8006092a66b6aebd26628b12a5c1e1de4d491bfdfa194ae87c958274ed13  ./spec/cue/project.cue
 0bf12c1c0c4d2e4209adc037f7a10ada4a33c9c5aeaa5a456f0a21acde6d4ae6  ./tests/COVERAGE.md
-f017d77cc0c6bb3d70f62eefc3e925954026a3b045ce2a2ab739d3bbf6ef7b34  ./tests/REGISTER-MAP.tsv
+1fa812e63d0ed8570260aaefdf382eff48e4b11e724db78517c762e95171b29f  ./tests/REGISTER-MAP.tsv
 6c4c653b81f3d25fae46ba7d023dbc6b8a37eed6cc6647fad2607d28df958666  ./tests/acceptance/FROZEN.sha256
 0c5d923511ce592932de546bcb9d5a47250b04c122c8895cb73d922f4b982963  ./tests/acceptance/REVISION-001.md
 2dd379b5532ceda4b05c391a89e15657d0f70b960b3ca47d2c4440979f48491a  ./tests/acceptance/REVISION-002.md
@@ -246,7 +248,7 @@ c30f17100504fff10ad662b1b4424ae71367bafe3f731a931276ff6c2cc23f42  ./tests/active
 0a06ca4226a74cb9d1c4cf072bc28a334421dd02f2c8b5444df8c880db113ef9  ./tests/battery.sh
 5f33fb59067b9dc9c7f79a2f7ab799fc17abf953b66064a9520d4f9c24b3daf3  ./tests/cases/audit-readonly.sh
 c2703c431694711b3d936af1e173080bab5bb933a24eecb34ffa79d79acee803  ./tests/cases/breaker-wires.sh
-944ac65fca0598c2fdd5c070b03016de0278fa0fc621d881f2b55619e59f3c36  ./tests/cases/controls-reachable.sh
+237003b37865680ab136d90c00ded687d1eb31059c831c6ad8af42aa5221fc7c  ./tests/cases/controls-reachable.sh
 e58359984b81f4b3a6ad3eabdc0b55e6bb2424ca29ec78736d9f6b159cb12ffd  ./tests/cases/custody-sweep.sh
 9f5dbc47d168e67a1fc5de607828cb2e001c25d5f18e25a9fac5cd3bf251bc99  ./tests/cases/docs-standard.sh
 527514636de4cabbb10f36b3240c79c93900f97609a749ed458c363a7366a502  ./tests/cases/install.sh

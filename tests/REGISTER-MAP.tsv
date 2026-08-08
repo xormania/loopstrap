@@ -118,3 +118,4 @@ controls-reachable	reachable: the seal refuses an unlisted file	L48
 controls-reachable	reachable: removing the stray file restores the seal	L48
 controls-reachable	reachable: resealing also restores it, so the remedy is not only deletion	L48
 controls-reachable	reachable: the compiled seal rules are current with their config	L48
+controls-reachable	reachable: every path the lane detector knows about still exists	L48
