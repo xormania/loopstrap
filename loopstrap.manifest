@@ -114,7 +114,7 @@ d43a8e5fc1368496fb16b055b7a2e9c89397f7f50454e66a7a69629e48725ea0  ./artifacts/in
 3dc53b4b97b38cd11d827fce080e919b43f87c8a6a96666e01674be8a9ee9209  ./artifacts/instance/tools/publication-check.py
 6e6560708ca6a01fd4a2a1d8bb0c0818499503c60e702fc8131d70efd6b85be6  ./artifacts/instance/tools/schema-facts.py
 4292f15a30784bf0f3553344645fa6bc1ecd010dfc1c321ea55adcaca3753070  ./artifacts/instance/tools/seal-tree.py
-ab0a4bc3b453492a5a8f91b8effab35aa10d5a9ac8e77835d71413051925f556  ./artifacts/instance/tools/ship.py
+c8238c410be326d56182a49be5f6291cc20b9c1e90e6fdce4123eb4b593fcbcd  ./artifacts/instance/tools/ship.py
 8d6432ad4d153aaf608944bd72aca5c6d75bbff8a2b5ee24fd592137185e0776  ./artifacts/instance/tools/token-breaker.py
 c1d205ccfeff2bbe16b000af60bf7c293580e56f668d72b9ecd06c433a650568  ./artifacts/instance/tools/verify-tree.py
 ca8885b9a56459b16ddeb214e2c4bf322cc6375b809b99182ed774fccf96dc07  ./artifacts/intent/README.md
