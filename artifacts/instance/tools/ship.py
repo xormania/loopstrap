@@ -74,6 +74,42 @@ def git(root: Path, *args: str) -> str:
 
 BLOCK = re.compile(r"(\*\*(\d)\. [^\n]*\n\n```)(.*?)(```)", re.S)
 
+INVENTORY_OPEN = "<!-- ship:inventory -->"
+INVENTORY_CLOSE = "<!-- /ship:inventory -->"
+INVENTORY = re.compile(
+    re.escape(INVENTORY_OPEN) + r".*?" + re.escape(INVENTORY_CLOSE), re.S
+)
+
+
+def promotion_inventory(root: Path, base: str) -> str:
+    """What a promotion carries, derived rather than typed.
+
+    A promotion introduces nothing — it moves commits that were each reviewed on
+    their own pull request. So the list of what it carries is transcription, and
+    transcription that is typed goes stale on every merge into the source branch.
+    The judgement sections above this block are a person's; this is not.
+    """
+    commits = git(root, "log", "--format=%s", "--no-merges", f"origin/{base}..HEAD")
+    subjects = [line for line in commits.splitlines() if line.strip()]
+    stat = git(root, "diff", "--shortstat", f"origin/{base}..HEAD")
+    merges = git(root, "log", "--format=%s", "--merges", f"origin/{base}..HEAD")
+    numbers = sorted({m for m in re.findall(r"Merge pull request #(\d+)", merges)}, key=int)
+
+    rows = []
+    for number in numbers:
+        title = git(root, "log", "--format=%b", "-1", "--grep", f"Merge pull request #{number}")
+        rows.append(f"| [#{number}](../../pull/{number}) | {title.strip().splitlines()[0] if title.strip() else ''} |")
+
+    lines = [INVENTORY_OPEN, "",
+             f"**{len(subjects)} commit(s) · {stat.strip() or 'no file changes'}**", ""]
+    if rows:
+        lines += ["| pull request | |", "|---|---|", *rows, ""]
+    lines += ["Commits, oldest first:", "", "```"]
+    lines += list(reversed(subjects)) or ["(none)"]
+    lines += ["```", "", INVENTORY_CLOSE]
+    return "\n".join(lines)
+
+
 
 def refresh_evidence(body: str, captured: dict[str, str]) -> tuple[str, int]:
     """Replace the numbered evidence fences in an existing body, and only those.
@@ -106,9 +142,14 @@ def main() -> int:
     parser.add_argument("--create", action="store_true", help="push and open the pull request")
     parser.add_argument("--base", default="dev")
     parser.add_argument("--title", help="pull request title (default: the branch's first commit subject)")
+    parser.add_argument("--inventory", action="store_true",
+                        help="print the derived promotion inventory block and exit")
     parser.add_argument("--out", type=Path, help="where to write the body (default: a temp file)")
     args = parser.parse_args()
     root = args.root.resolve()
+    if args.inventory:
+        print(promotion_inventory(root, args.base))
+        return 0
     syncing = args.push or args.create
 
     # Pin HEAD across the whole run. The battery takes fifty seconds; if a commit
@@ -199,6 +240,10 @@ def main() -> int:
     code, current = run(["gh", "pr", "view", "--json", "body", "--jq", ".body"], root)
     if code == 0 and current.strip():
         merged, replaced = refresh_evidence(current, captured)
+        if INVENTORY_OPEN in merged:
+            merged = INVENTORY.sub(
+                lambda _: promotion_inventory(root, args.base), merged, count=1)
+            print(f"  {'inventory':20} ok   what the promotion carries, re-derived")
         if replaced != len([g for g in GATES if g[2]]):
             print(f"  Found {replaced} evidence fence(s), expected "
                   f"{len([g for g in GATES if g[2]])}. Not editing a body I cannot place "
