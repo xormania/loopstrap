@@ -18,18 +18,16 @@ git rev-list --count origin/main..origin/dev
 gh pr list --state open --json number,title,isDraft,baseRefName
 python3 artifacts/instance/tools/pin-check.py --check
 python3 -c "import json;d=json.load(open('config/gate-budget.v1.json'));print(len(d['invariants']),d['max_invariants'])"
-python3 -c "import json;d=json.load(open('config/role-treatments.v1.json'));print(sum(1 for t in d['role_treatments'] if t.get('enabled')),len(d['role_treatments']))"
 ```
 
 Then present exactly this, filled in — no preamble, no closing summary:
 
 ```
 TREE      <verified | the failure line>
-GATE      <n>/<budget> invariants · <n> diagnostics · <n> deferred
+GATE      <n>/<cap> invariants<, at capacity if equal> · <n> diagnostics · <n> deferred
 BRANCH    <name> · <n> uncommitted · dev is <n> ahead of main
 OPEN      <#n title (draft?)> per line, or "none"
 PINS      <n behind: names> or "current"
-ARMED     <enabled>/<total> role-treatments enabled
 ```
 
 Then, and only if any apply, a short **Needs attention** list. Include an item
@@ -44,10 +42,12 @@ only when it is actionable now:
 Rules for the report:
 
 - **Deferred gate findings are pre-existing.** Two of them concern roles reaching
-  a harness its own profile rules out, latent only because the treatments are
-  disabled. Report the count; never present them as new.
-- **`ARMED 0/6` is the expected and correct state.** It is not a problem and does
-  not belong under *Needs attention*.
+  a harness its own profile rules out. Report the count; never present them as new.
+- **The budget being at capacity is a constraint, not a fault.** It belongs on the
+  `GATE` line, which already carries the count — do not repeat it, and keep it out
+  of *Needs attention*.
+- Report nothing about whether the loop is armed. That is product state; no
+  dev-lane decision turns on it, and `.agents/README.md` covers it as orientation.
 - Do not offer to fix anything unless asked. Do not speculate about causes.
 - If `gh` is unavailable, print `OPEN unavailable` rather than omitting the line —
   "could not check" and "nothing open" are different answers.
