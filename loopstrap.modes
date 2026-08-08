@@ -104,6 +104,7 @@
 0644	artifacts/instance/tools/gen-seal-rules.py
 0755	artifacts/instance/tools/harness-identity.py
 0644	artifacts/instance/tools/intent-landing-template.md
+0755	artifacts/instance/tools/lane-vocabulary-live.py
 0755	artifacts/instance/tools/launcher-args.sh
 0755	artifacts/instance/tools/pin-check.py
 0755	artifacts/instance/tools/pr-evidence-check.py

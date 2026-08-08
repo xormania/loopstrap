@@ -133,6 +133,15 @@ python3 "$SR/artifacts/instance/tools/seal-tree.py" "$SR" >/dev/null 2>&1
 python3 "$SR/verify-tree.py" "$SR" >/dev/null 2>&1
 assert_eq "reachable: resealing also restores it, so the remedy is not only deletion" "$?" "0"
 
+# --- the lane detector's vocabulary -----------------------------------------
+# A detector whose vocabulary names something that no longer exists is dead in
+# that dimension, and dead silently. DEV_PATHS held "skills/dev/" for a while
+# after the skills moved; nothing failed, and C-LANE-002 went on passing while
+# covering less than it claimed.
+
+python3 "$FAMILY/artifacts/instance/tools/lane-vocabulary-live.py" "$FAMILY" >/dev/null 2>&1
+assert_eq "reachable: every path the lane detector knows about still exists" "$?" "0"
+
 # --- the compiled seal rules ------------------------------------------------
 # Red would require editing config/seal.v1.json in the live tree, which this
 # case must not do. The reachable half is asserted where it is safe: the shipped
