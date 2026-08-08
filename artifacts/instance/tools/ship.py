@@ -238,12 +238,19 @@ def main() -> int:
     print(f"  {'push':20} ok   {branch} at {head[:9]}")
 
     code, current = run(["gh", "pr", "view", "--json", "body", "--jq", ".body"], root)
+    # The pull request's OWN base, not the --base default. A promotion is opened
+    # against main while --base still reads dev, and an inventory derived from
+    # the wrong base reports "0 commits" — the flag and the pull request are two
+    # things that must agree, so derive one from the other rather than assume.
+    base_code, actual_base = run(
+        ["gh", "pr", "view", "--json", "baseRefName", "--jq", ".baseRefName"], root)
+    base = actual_base.strip() if base_code == 0 and actual_base.strip() else args.base
     if code == 0 and current.strip():
         merged, replaced = refresh_evidence(current, captured)
         if INVENTORY_OPEN in merged:
             merged = INVENTORY.sub(
-                lambda _: promotion_inventory(root, args.base), merged, count=1)
-            print(f"  {'inventory':20} ok   what the promotion carries, re-derived")
+                lambda _: promotion_inventory(root, base), merged, count=1)
+            print(f"  {'inventory':20} ok   re-derived against {base}")
         if replaced != len([g for g in GATES if g[2]]):
             print(f"  Found {replaced} evidence fence(s), expected "
                   f"{len([g for g in GATES if g[2]])}. Not editing a body I cannot place "
