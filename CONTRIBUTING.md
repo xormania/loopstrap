@@ -1,5 +1,8 @@
 # Contributing
 
+An agent may open a **draft** pull request to `main`. Only the owner marks it
+ready and merges it. Everything else targets `dev`.
+
 Target `dev`. `dev` → `main` is a **promotion**, not a review: every commit
 reaching `dev` already carried its own evidence, so the body requirement is
 skipped on that route. The battery, the contract gate and the seal still run.
@@ -29,6 +32,72 @@ contributions that describe work rather than do it.
 Do not reformat the pasted output to look tidier. Whitespace is normalized;
 edited content is not.
 
+## Working in this tree
+
+Five rules. The first one is the common way to get a confusing red.
+
+**1. Reseal after every change.** `loopstrap.manifest` lists every file with a
+sha256 and a mode, and it is *exhaustive* — an unlisted file is an error, not an
+omission. Run `python3 artifacts/instance/tools/seal-tree.py .` and read the
+delta it prints. If the battery reports `sealed source: tree verification failed`
+and every error is an unlisted addition, that is all this is.
+
+**2. Know which lane you are in.** Production is the sealed kernel:
+`loopstrap_core/`, `spec/cue/`, `config/*.v1.json`, `tests/`. Dev-lane is the
+machinery that develops it: `contract/` (package `contract`),
+`artifacts/instance/tools/`, `.claude/skills/`, the gate. Both are CUE in places.
+They are not the same thing, and dev-lane must never gate production into
+rigidity. See `.claude/skills/lane-classification/SKILL.md`.
+
+**3. Frozen suites need a revision.** `tests/readiness/` and five sibling suites
+are pinned by `FROZEN.sha256` with a strict `claims.toml`/`map.tsv` bijection.
+Changing one requires a `REVISION-NNN.md` stating the *defect* — not the diff —
+plus regenerated manifests. `REVISION-008.md` is the model.
+
+**4. The gate has a budget and it is full.** Six invariants against a cap of six
+in `config/gate-budget.v1.json`. Adding one costs a deletion or a deliberate cap
+raise, and the cap is sealed, so raising it shows in the seal delta.
+`gate-review.py` ranks candidates by whether they have ever fired.
+
+**5. Every control has a path from red to green** (`L48`). Not that some good
+input passes — that from a red state the documented remedy *reaches* green. A
+check that refuses correct work is the defect, not the work: it gets fixed, never
+bypassed. `tests/cases/controls-reachable.sh` enforces this, and three shipped
+violations of it are named in the register.
+
+**6. Never hand-merge the seal.** If your branch merges another and both touched
+the tree, `loopstrap.manifest` will conflict and `loopstrap.modes` may auto-merge
+*silently* — and the silent one is the dangerous one, because a clean textual
+merge of a manifest looks like success and verifies nothing. A manifest is a
+claim that these exact digests describe this exact tree; git can merge it as
+text, only `seal-tree.py` can make it true. Regenerate both, read the delta, and
+regenerate your pull request's evidence blocks too — the counts move.
+
+`/check` runs the seal, the gate and the battery in one step.
+
+## Harness configuration
+
+One instruction surface per meaning, and harnesses read it or get a thin adapter.
+Never a mirror — second copies drift.
+
+| harness | instructions | skills and commands | permissions |
+|---|---|---|---|
+| Claude Code | `CLAUDE.md` | `.claude/skills/`, `.claude/commands/` | `.claude/settings.json` |
+| grok | `AGENTS.md` **and** `CLAUDE.md`, natively | `./.claude/…` at **repo** priority | `.claude/settings.json` rules merged in |
+| codex | `AGENTS.md`, natively | — | `.codex/config.toml`, loaded on trust |
+
+**There is deliberately no `.grok/` directory.** Grok reads everything above
+under Claude compatibility, which is on by default. Adding one would duplicate
+the lot. If grok ever needs a genuine override, add `.grok/config.toml`
+containing *only* the override.
+
+`.codex/config.toml` is the single adapter, and it exists for one reason: codex
+reads neither `.claude/settings.json` nor `.claude/commands/`.
+
+Both `.claude/settings.json` and `.codex/config.toml` are kept byte-identical to
+their staged copies under `artifacts/agent-configs/root/`. `AGENTS.md`,
+`CLAUDE.md` and `README.md` are held that way by the consistency audit.
+
 ## If you maintain a denylist
 
 ```shell
@@ -43,7 +112,7 @@ That is the intended behaviour: *could not check* and *checked and clean* are
 different answers.
 
 The list itself is never committed, because the list is the disclosure. See
-`skills/dev/publication-check/SKILL.md` for the failure it cannot catch.
+`.claude/skills/publication-check/SKILL.md` for the failure it cannot catch.
 
 ## The tree is sealed
 

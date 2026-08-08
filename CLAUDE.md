@@ -1,5 +1,9 @@
 # Loopstrap agent contract
 
+**New here?** `.agents/README.md` is a three-file welcome mat: the standing of
+everything under `artifacts/`, where things are, and the exact commands for the
+usual jobs.
+
 The active implementation is `loopstrap_core`, driven by versioned data in
 `config/`. Start by verifying the frozen, externally stated expectations in
 `tests/acceptance`, `tests/active`, and `tests/integration`; never weaken those
@@ -27,6 +31,11 @@ snapshots, and available content bytes. Telemetry is evidence for later analysis
 only; no control, replay, recovery, verification, acceptance, or promotion
 decision may read from it.
 
-Existing `artifacts/` doctrine is legacy source material. It does not arm the
-current kernel. Until the governing documents and live Role-Treatment
-certifications are supplied, launch must fail closed.
+Material under `artifacts/` carries one of three standings, and age is not one
+of them. **Authority** is cited and enforced — `registers/`, `agent-configs/`,
+`instance/tools/`; the battery fails if a cited register id is absent.
+**Method** is transferable technique that is never executed. **Record** is
+evidence of one past run. None of it arms the current kernel, and an unmarked
+file that reads as a specification is the hazard — check the standing before
+treating anything there as binding. Until the governing documents and live
+Role-Treatment certifications are supplied, launch must fail closed.

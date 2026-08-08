@@ -1,4 +1,4 @@
-# wall-allow.txt — ruled exceptions, exact tab-separated schema:
+# ops/wall-allow.txt — ruled exceptions, exact tab-separated schema:
 # <rule id><TAB><fixed marker on the hit line><TAB><L-citation>
 # A row suppresses only its named rule. Malformed rows suppress nothing.
 # Currently empty; tests exercise the mechanism through WALL_ALLOW.

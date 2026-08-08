@@ -6,4 +6,4 @@
 - The exact file names/locations this vendor currently scans were NOT verified against
   current vendor docs at authoring (the family's own rule requires that verification).
   Verify when tailoring: adjust `artifacts/agent-configs/<member>/`, re-run install.
-- DO NOT EDIT FILES HERE — edit staging and re-run `./install-configs.sh`.
+- DO NOT EDIT FILES HERE — edit staging and re-run `./ops/install-configs.sh`.

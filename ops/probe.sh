@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# probe.sh — comprehension probe: does the loop harness read the doctrine correctly?
+# ops/probe.sh — comprehension probe: does the loop harness read the doctrine correctly?
 # Model inference is NOT deterministic; the GRADING is: fixed questions, closed enums,
 # exact-match against the key. A stable FAIL means either the doctrine text is ambiguous
 # (design intake — fix the doc) or the harness misreads it (fix the kickoff). Both are

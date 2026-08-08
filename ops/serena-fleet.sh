@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# serena-fleet.sh — serial register + warm for every member repo.
+# ops/serena-fleet.sh — serial register + warm for every member repo.
 # Kills the one first-run race in the Serena shared-state map (LS installs) and
 # pre-warms symbol caches. Run once after repos exist, and after adding a repo.
 # Requires the serena CLI; override the command with SERENA_CMD (e.g. an uvx form).
 set -euo pipefail
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SERENA_CMD="${SERENA_CMD:-serena}"
 # fleet shadow context — single_project lock for codex (register D26)
 CTX_SRC="$ROOT/artifacts/agent-configs/serena-home/contexts/codex.yml"

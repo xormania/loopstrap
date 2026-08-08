@@ -252,7 +252,7 @@ def validate(argument: str) -> int:
 
     if all(path.is_file() for path in triad):
         wall = subprocess.run(
-            [str(ROOT / "wall.sh"), "--lane", "runtime", *(str(path) for path in triad)],
+            [str(ROOT / "ops/wall.sh"), "--lane", "runtime", *(str(path) for path in triad)],
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
             check=False,

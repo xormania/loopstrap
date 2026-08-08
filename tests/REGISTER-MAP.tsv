@@ -107,3 +107,14 @@ wall-filter	wall refuses missing requested inputs	L18 L46 L47
 wall-filter	wall refuses an invalid lane	L18 L46 L47
 wall-filter	wall escapes registry names before regex interpolation	L18 L31 L46 L47
 wall-filter	wall does not broaden metacharacter-bearing member names	L18 L31 L46 L47
+controls-reachable	reachable: publication check fires on a new mention	L48
+controls-reachable	reachable: publication check clears once the mention is gone	L48
+controls-reachable	reachable: publication check leaves an existing mention editable	L48
+controls-reachable	reachable: publication check does not refuse the cure	L48
+controls-reachable	reachable: the commit hooks refuse a message naming a term	L48
+controls-reachable	reachable: the same staged work commits once the message is fixed	L48
+controls-reachable	reachable: a freshly sealed tree verifies	L48
+controls-reachable	reachable: the seal refuses an unlisted file	L48
+controls-reachable	reachable: removing the stray file restores the seal	L48
+controls-reachable	reachable: resealing also restores it, so the remedy is not only deletion	L48
+controls-reachable	reachable: the compiled seal rules are current with their config	L48

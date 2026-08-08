@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "comment": "The harness invocation seam. argv = the certified wrapper skeleton (change requires re-certification); smoke_argv = assumed-basic usage for harness-smoke.sh. Edit here to track vendor CLI drift (machines.md, D38). Tokens: {vendor_executable} {model_selector} {reasoning_control} {reasoning_requested} {schema_file} {workspace_dir} {prompt_file} {state_dir}; @native@ expands certified native arguments.",
+  "comment": "The harness invocation seam. argv = the certified wrapper skeleton (change requires re-certification); smoke_argv = assumed-basic usage for ops/harness-smoke.sh. Edit here to track vendor CLI drift (machines.md, D38). Tokens: {vendor_executable} {model_selector} {reasoning_control} {reasoning_requested} {schema_file} {workspace_dir} {prompt_file} {state_dir}; @native@ expands certified native arguments.",
   "harnesses": {
     "codex": {
       "version_pin": "0.144.6",

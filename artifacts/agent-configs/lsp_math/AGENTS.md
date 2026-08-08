@@ -1,6 +1,6 @@
 <!--
   PLANTED FILE — DO NOT EDIT HERE.
-  Source: artifacts/agent-configs/lsp_math/AGENTS.md  (edit template + regenerate, then ./install-configs.sh)
+  Source: artifacts/agent-configs/lsp_math/AGENTS.md  (edit template + regenerate, then ./ops/install-configs.sh)
   Excluded from git (.git/info/exclude); never committed.
 -->
 # lsp_math — spec-less (no generator role yet)

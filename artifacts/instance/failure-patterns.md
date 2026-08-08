@@ -122,8 +122,8 @@ tokens once, on the deep read; save them every time after, via the lens.**
 Treating the dev lane that BUILDS lsp_math and lsp_math the product as one thing: runtime
 vocabulary naming dev machinery, dev machinery claimed inside the product, a runtime or
 parked lexicon cited as authority over Loopstrap, or forgetting that lsp_math is never
-used to build lsp_math. **This class has a structural tripwire: `wall.sh`** — deterministic,
-direction-aware (R1–R6), with `wall-allow.txt` carrying RULED exceptions only (each cites
+used to build lsp_math. **This class has a structural tripwire: `ops/wall.sh`** — deterministic,
+direction-aware (R1–R6), with `ops/wall-allow.txt` carrying RULED exceptions only (each cites
 its ruling). It survives resets precisely because it is encoded, not remembered — the
 prior that causes the conflation lives in every fresh instance, so the guard must live
 outside them all. The tripwire's duty station is NEW text: handoffs, Fable's outputs,

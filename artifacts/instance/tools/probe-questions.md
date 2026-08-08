@@ -1,6 +1,6 @@
 # Comprehension Probe — question set (probe PQ series, `registers/id-namespaces.md`)
 
-Instructions to the probed model (delivered verbatim by `probe.sh`):
+Instructions to the probed model (delivered verbatim by `ops/probe.sh`):
 
 Read these documents, in this order, fully:
 `artifacts/instance/process.md` · `artifacts/intent/family.md` · `artifacts/instance/tools/intent-landing-template.md`.
