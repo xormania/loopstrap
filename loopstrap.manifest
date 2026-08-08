@@ -21,8 +21,8 @@ fb499f4759ba8e234f9f6020a7e321f3124dc0a65ec5df7e377f9e1338ae073c  ./.loopstrap-r
 da03ecfa08a0bf7ff0cfd9a3da43bbd55f442582e15428f2fc8f1c868159b0fc  ./.loopstrap/roles/independent-reviewer.md
 5d4a0aeda6526d6a387a04029e973559beeefcb3ac66f632bc74ab96055a948b  ./.loopstrap/roles/planner.md
 6c59ae173f6e71a08d6f3ef878f717f22b7324e7092dbbbedfa5c17724c7e1d0  ./.loopstrap/roles/planning-subagent.md
-33ce4408d88a808bca8d4102d25a6187b08c288671e63fcd24359e4bb46fa862  ./AGENTS.md
-86dfb52bed6d2afe7cbb5d9397d856c7f78c9efa37b164cf7ba172ae6f98876f  ./CLAUDE.md
+4cb9592782bebaf64718c06b46ce4c1e604f9f1b8bd3947b768ef131288ba35b  ./AGENTS.md
+a9bdd3f691fde92ff5fce60c24d011ae5d5ae6f949353da2a342b01b65854b72  ./CLAUDE.md
 03df9581b3bc0eed7db1fc2e8e38db3fe86e697b44184179bab1a73e5f9d7953  ./CONTRIBUTING.md
 28566d34c81251bb06cc79476c483019ac5fc91f2632b95ff034209848250c78  ./README.md
 188b68c87ae9becae4c5694a8cbd673d4262f385d13d5e54b663b5540f5b67d3  ./SESSION.md
@@ -45,8 +45,8 @@ d3bcf833b2070730d738827c2cdbf475dc591de60633fce95bd4438ce4c5440e  ./artifacts/ag
 fda93145963698d5182031c543f7ea01642d6f4ee5f9b2943c4add0b88de7f5b  ./artifacts/agent-configs/root/.claude/commands/retro.md
 4a4fc87cdf9fc0b79519ab3afee561ecf646041ce1e1521421600ce83486399f  ./artifacts/agent-configs/root/.claude/settings.json
 6d1a8f2d92b7adda06f5dd0472991fc2efeb2c71164d989d4e049d198d4cda99  ./artifacts/agent-configs/root/.codex/config.toml
-33ce4408d88a808bca8d4102d25a6187b08c288671e63fcd24359e4bb46fa862  ./artifacts/agent-configs/root/AGENTS.md
-86dfb52bed6d2afe7cbb5d9397d856c7f78c9efa37b164cf7ba172ae6f98876f  ./artifacts/agent-configs/root/CLAUDE.md
+4cb9592782bebaf64718c06b46ce4c1e604f9f1b8bd3947b768ef131288ba35b  ./artifacts/agent-configs/root/AGENTS.md
+a9bdd3f691fde92ff5fce60c24d011ae5d5ae6f949353da2a342b01b65854b72  ./artifacts/agent-configs/root/CLAUDE.md
 28566d34c81251bb06cc79476c483019ac5fc91f2632b95ff034209848250c78  ./artifacts/agent-configs/root/README.md
 176d5fff06516bf54473d74afa7c4b3080516164d9a9f70ca5dea7d0ebfceabd  ./artifacts/agent-configs/serena-home/README.md
 789ea1902fcbe8ef2370314fbb1927dfabc262a016ccb8599ede4167a23cb758  ./artifacts/agent-configs/serena-home/contexts/codex.yml
