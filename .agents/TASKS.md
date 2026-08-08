@@ -120,6 +120,12 @@ automatically, so **every merge into `dev` staleness-dates the open promotion**.
 Run `ship.py --push` from `dev` after merging anything; `gh` resolves to the
 promotion and its evidence is refreshed.
 
+**A promotion body must carry the template's numbered evidence fences** —
+`**1. Seal delta**`, `**2. Contract gate**`, `**3. Battery**` — even though CI
+exempts promotions from the body check. The refresh anchors on those labels, so a
+freehand evidence section cannot be refreshed and the tool will refuse rather than
+guess where the output goes. One shape, not two maintained by hand.
+
 ## Open a pull request
 
 Target `dev`. An agent may open a **draft** PR from `dev` to `main`; only the
