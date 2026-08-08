@@ -1,6 +1,6 @@
 7f09d959e1d5e7e0b3be9bf241ffbe045c134a8f71f059f04d85b7d649fe0dfc  ./.agents/MAP.md
 af4cfe0608315c44c56546a6c407c57c2a9aa445c27c462fb0a4a0b4a0fae0b0  ./.agents/README.md
-eedaf3de7d8451fee92a1d33803964501adb68fa13cc27de85dee0b12b6d7fe2  ./.agents/TASKS.md
+01c58932c4d808ea6c8ee3ab2182a3c9df1ac889bc52ed0be0a30ffcec2cb541  ./.agents/TASKS.md
 d3bcf833b2070730d738827c2cdbf475dc591de60633fce95bd4438ce4c5440e  ./.claude/commands/board.md
 041a2f845ecc98b499f6c04e4db0567ce22db31a320e18a8698c3cf26d5c2d8e  ./.claude/commands/campaign.md
 8f98e29f8759d02fe5ed2208827eed33f7263ed2b32fe342e4dc9e4895d1f8f2  ./.claude/commands/check.md
@@ -98,6 +98,7 @@ b8628ad8105b3ac66eeaeed2c0375111c8607f4fb6586d88e61ac1e58b45b6b4  ./artifacts/in
 64ce6ad445897c4618fe9f84a28159f5a613f1af9dffd5a25c32eb853c6661e5  ./artifacts/instance/tools/contract-check.sh
 18038d2f8d3a4ed73f8bdb0899cef563f63d4ac88dae8007515d3b62852b0a88  ./artifacts/instance/tools/docs-verify.sh
 6ae5ee21158f6da2b5c3fa79684f7c0017b5735b2429c0aabe504693f0f973d9  ./artifacts/instance/tools/docs_verify.py
+68b28536e3599b940feca3caf33d1f8b2c8399f3b86cca696e125448bb0f3664  ./artifacts/instance/tools/freeze-suite.py
 d7d1af511a1df1a50e37525b36db702e783c55f302a95948dc7a202d581f7ba2  ./artifacts/instance/tools/gate-review.py
 8e4ed44736f3b8d68d243307090404767d8dd84b307e3820b05d3d721fa71df1  ./artifacts/instance/tools/gen-seal-rules.py
 b01c2a84cde1bf192ffa60859ce720dc29300d83de2af42b9e0f58a82fe52ae1  ./artifacts/instance/tools/harness-identity.py
@@ -111,6 +112,7 @@ d43a8e5fc1368496fb16b055b7a2e9c89397f7f50454e66a7a69629e48725ea0  ./artifacts/in
 3dc53b4b97b38cd11d827fce080e919b43f87c8a6a96666e01674be8a9ee9209  ./artifacts/instance/tools/publication-check.py
 1e7f96af6b1f091629308d530b909b5206c922d4ee5f6bacb295b944b4919a41  ./artifacts/instance/tools/schema-facts.py
 4292f15a30784bf0f3553344645fa6bc1ecd010dfc1c321ea55adcaca3753070  ./artifacts/instance/tools/seal-tree.py
+fba7c8cb04050e1107673712872f4098eb70efa9d34bc2ce055285808f924770  ./artifacts/instance/tools/ship.py
 8d6432ad4d153aaf608944bd72aca5c6d75bbff8a2b5ee24fd592137185e0776  ./artifacts/instance/tools/token-breaker.py
 c1d205ccfeff2bbe16b000af60bf7c293580e56f668d72b9ecd06c433a650568  ./artifacts/instance/tools/verify-tree.py
 ca8885b9a56459b16ddeb214e2c4bf322cc6375b809b99182ed774fccf96dc07  ./artifacts/intent/README.md
@@ -155,7 +157,7 @@ b9e585ccf76f9edc7981f476bfccf300e987c70f4baf2f98a207137d76ce3448  ./contract/inv
 0a7adb5343b5e5d905ba18f5a26f5aa7d04c586cd42e6a5c61b339134474cc94  ./contract/invariant_schema.cue
 7df5588bc8c59bc8f96d163a48c769d0f6604cf9f3187ea63cf5994f4c5421e0  ./contract/schema_harness_surface.cue
 ed4c3dc68260a576828dc2aba15c753e0b4b0a8f9229438d844dfb9975010e71  ./launch-loop.sh
-6196c179218b522dc889fd7a2ef869257c8ae1209b3151b341450e5f072d1cec  ./loopstrap.modes
+52f21ad547120302c1d9f4b9ae25a98a103133bd0f9a68d574b7d4708e8def30  ./loopstrap.modes
 0a8f55ad48ab37866a7f28ae6eab03e59633a14c7c31950d3c5233be753c9bab  ./loopstrap_core/__init__.py
 21ed41b12e3222813d9ad67dfed5ba92f8235caf19674c54028811e2a278fd2b  ./loopstrap_core/artifacts.py
 383fed739af1d61836eb79f394ac3632d5b53b8091ee492f50b61b702268a2af  ./loopstrap_core/atomic.py
