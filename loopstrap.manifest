@@ -1,6 +1,6 @@
 7f09d959e1d5e7e0b3be9bf241ffbe045c134a8f71f059f04d85b7d649fe0dfc  ./.agents/MAP.md
 af4cfe0608315c44c56546a6c407c57c2a9aa445c27c462fb0a4a0b4a0fae0b0  ./.agents/README.md
-01c58932c4d808ea6c8ee3ab2182a3c9df1ac889bc52ed0be0a30ffcec2cb541  ./.agents/TASKS.md
+3ed11f841e0c1d1d487970140dae6c33a6da98e0524ed525108f4950b3875f64  ./.agents/TASKS.md
 d3bcf833b2070730d738827c2cdbf475dc591de60633fce95bd4438ce4c5440e  ./.claude/commands/board.md
 041a2f845ecc98b499f6c04e4db0567ce22db31a320e18a8698c3cf26d5c2d8e  ./.claude/commands/campaign.md
 8f98e29f8759d02fe5ed2208827eed33f7263ed2b32fe342e4dc9e4895d1f8f2  ./.claude/commands/check.md
@@ -95,7 +95,7 @@ d4973d18a6a25cbec9b2733a93e386d82bc2d7ab6950194bd4e101bb52330418  ./artifacts/in
 53ca50a1026bc9744eaf9d5720a7c71b6160a3a1d8ff7f58770e01a7ebd79a95  ./artifacts/instance/metrics.md
 b8628ad8105b3ac66eeaeed2c0375111c8607f4fb6586d88e61ac1e58b45b6b4  ./artifacts/instance/process.md
 4375616b65b0fd43e4fd80174f5bf4412d32c04b414d201d6522b310fd3b672f  ./artifacts/instance/terms.md
-1641b13e266efda6b24d7f4c5e446ad076d282dc1e13ff34192bf1f658aceb43  ./artifacts/instance/tools/audit-consistency.sh
+b466a76a8de261536d6a3d65923f03fe68c297ff751ac1c748504bf2035d6e46  ./artifacts/instance/tools/audit-consistency.sh
 64ce6ad445897c4618fe9f84a28159f5a613f1af9dffd5a25c32eb853c6661e5  ./artifacts/instance/tools/contract-check.sh
 18038d2f8d3a4ed73f8bdb0899cef563f63d4ac88dae8007515d3b62852b0a88  ./artifacts/instance/tools/docs-verify.sh
 6ae5ee21158f6da2b5c3fa79684f7c0017b5735b2429c0aabe504693f0f973d9  ./artifacts/instance/tools/docs_verify.py

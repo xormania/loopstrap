@@ -122,12 +122,18 @@ else
 fi
 
 echo "═══ 5. ACTIVE ROOT ═══"
+# Every root file with a staged copy, not just the three markdown ones. The two
+# harness configs were kept in step by hand and nothing checked them — two things
+# that must agree with nothing keeping them in step is the shape that produced
+# three CI failures in a day elsewhere in this repository.
 if cmp -s AGENTS.md artifacts/agent-configs/root/AGENTS.md \
    && cmp -s CLAUDE.md artifacts/agent-configs/root/CLAUDE.md \
-   && cmp -s README.md artifacts/agent-configs/root/README.md; then
-  ok "active root: instructions match staged copies"
+   && cmp -s README.md artifacts/agent-configs/root/README.md \
+   && cmp -s .claude/settings.json artifacts/agent-configs/root/.claude/settings.json \
+   && cmp -s .codex/config.toml artifacts/agent-configs/root/.codex/config.toml; then
+  ok "active root: instructions and harness configs match staged copies"
 else
-  no "active root: top-level instructions drift from staged copies"
+  no "active root: a staged root file drifts from its live copy"
 fi
 LAUNCH_RESULT="$(bash launch-loop.sh 2>&1)"
 LAUNCH_RC=$?
