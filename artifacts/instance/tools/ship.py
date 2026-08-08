@@ -105,6 +105,7 @@ def main() -> int:
                         help="push, then refresh the evidence in the existing pull request")
     parser.add_argument("--create", action="store_true", help="push and open the pull request")
     parser.add_argument("--base", default="dev")
+    parser.add_argument("--title", help="pull request title (default: the branch's first commit subject)")
     parser.add_argument("--out", type=Path, help="where to write the body (default: a temp file)")
     args = parser.parse_args()
     root = args.root.resolve()
@@ -217,8 +218,14 @@ def main() -> int:
     if not args.create:
         print("  No pull request for this branch yet. Body written; --create opens one.")
         return 0
+    # gh requires a title. Defaulting to the branch's first commit subject keeps
+    # the two in step rather than inventing a second place to say the same thing.
+    title = args.title or git(
+        root, "log", "--format=%s", "--reverse", f"origin/{args.base}..HEAD"
+    ).splitlines()[0]
     code, output = run(
-        ["gh", "pr", "create", "--base", args.base, "--head", branch, "--body-file", str(out)], root)
+        ["gh", "pr", "create", "--base", args.base, "--head", branch,
+         "--title", title, "--body-file", str(out)], root)
     print(f"\n{output}")
     return 0 if code == 0 else 1
 
