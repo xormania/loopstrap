@@ -5,6 +5,7 @@ d3bcf833b2070730d738827c2cdbf475dc591de60633fce95bd4438ce4c5440e  ./.claude/comm
 041a2f845ecc98b499f6c04e4db0567ce22db31a320e18a8698c3cf26d5c2d8e  ./.claude/commands/campaign.md
 8f98e29f8759d02fe5ed2208827eed33f7263ed2b32fe342e4dc9e4895d1f8f2  ./.claude/commands/check.md
 0e169f2c3cf37c60841519e4a5d7cbb352b166a62d64e6a195ad531d166c17cb  ./.claude/commands/halt.md
+d03a0bccd85f3c7b3078ac33d73e6aa87d2d1869697368d80890aa2559b9f998  ./.claude/commands/loopstrap/status.md
 6d44a989b19d691eb079c6ddae7b1f54798bd2a8cac8ac8d96b9277b74dd56db  ./.claude/commands/prep.md
 fda93145963698d5182031c543f7ea01642d6f4ee5f9b2943c4add0b88de7f5b  ./.claude/commands/retro.md
 4a4fc87cdf9fc0b79519ab3afee561ecf646041ce1e1521421600ce83486399f  ./.claude/settings.json
@@ -157,7 +158,7 @@ b9e585ccf76f9edc7981f476bfccf300e987c70f4baf2f98a207137d76ce3448  ./contract/inv
 0a7adb5343b5e5d905ba18f5a26f5aa7d04c586cd42e6a5c61b339134474cc94  ./contract/invariant_schema.cue
 7df5588bc8c59bc8f96d163a48c769d0f6604cf9f3187ea63cf5994f4c5421e0  ./contract/schema_harness_surface.cue
 ed4c3dc68260a576828dc2aba15c753e0b4b0a8f9229438d844dfb9975010e71  ./launch-loop.sh
-52f21ad547120302c1d9f4b9ae25a98a103133bd0f9a68d574b7d4708e8def30  ./loopstrap.modes
+e7946d305c23c794ce281328d4896b2bbdffb1fa1ef063b01b020d5f74d45687  ./loopstrap.modes
 0a8f55ad48ab37866a7f28ae6eab03e59633a14c7c31950d3c5233be753c9bab  ./loopstrap_core/__init__.py
 21ed41b12e3222813d9ad67dfed5ba92f8235caf19674c54028811e2a278fd2b  ./loopstrap_core/artifacts.py
 383fed739af1d61836eb79f394ac3632d5b53b8091ee492f50b61b702268a2af  ./loopstrap_core/atomic.py

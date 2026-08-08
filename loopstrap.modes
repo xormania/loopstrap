@@ -5,6 +5,7 @@
 0644	.claude/commands/campaign.md
 0644	.claude/commands/check.md
 0644	.claude/commands/halt.md
+0644	.claude/commands/loopstrap/status.md
 0644	.claude/commands/prep.md
 0644	.claude/commands/retro.md
 0644	.claude/settings.json
