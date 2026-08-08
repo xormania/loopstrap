@@ -46,6 +46,7 @@ run at all.
 from __future__ import annotations
 
 import argparse
+import json
 from pathlib import Path
 import re
 import subprocess
@@ -133,6 +134,82 @@ def refresh_evidence(body: str, captured: dict[str, str]) -> tuple[str, int]:
     return BLOCK.sub(swap, body), replaced
 
 
+RISKS_OPEN = "<!-- ship:risks -->"
+RISKS_CLOSE = "<!-- /ship:risks -->"
+RISKS = re.compile(re.escape(RISKS_OPEN) + r".*?" + re.escape(RISKS_CLOSE), re.S)
+
+PRODUCTION = ("loopstrap_core/", "spec/", ".loopstrap/")
+DEV_CONFIG = ("seal.v1.json", "gate-budget.v1.json", "cue-tool.v1.json", "tools.v1.json")
+
+
+def _json_at(root: Path, ref: str, path: str) -> dict:
+    raw = git(root, "show", f"{ref}:{path}")
+    try:
+        return json.loads(raw) if raw else {}
+    except ValueError:
+        return {}
+
+
+def promotion_risks(root: Path, base: str) -> str:
+    """The facts in this diff that have historically deserved a second look.
+
+    NOT a verdict. It never says a change is fine or unsafe — the moment a tool
+    renders judgement the person stops making it, and judgement is the only part
+    of a review that cannot be derived.
+
+    It stays silent when nothing fires. A risk block that always emits the same
+    reassuring lines becomes wallpaper, and wallpaper is read once.
+    """
+    ref = f"origin/{base}"
+    changed = [f for f in git(root, "diff", "--name-only", f"{ref}..HEAD").splitlines() if f]
+    notes: list[str] = []
+
+    production = [f for f in changed
+                  if f.startswith(PRODUCTION)
+                  or (f.startswith("config/") and not f.endswith(DEV_CONFIG))]
+    if production:
+        notes.append(f"- **Production files touched** ({len(production)}): "
+                     + ", ".join(f"`{f}`" for f in production[:6])
+                     + (" …" if len(production) > 6 else ""))
+
+    before = _json_at(root, ref, "config/seal.v1.json")
+    after = _json_at(root, "HEAD", "config/seal.v1.json")
+    for key in ("excluded_names", "excluded_suffixes", "excluded_root_names"):
+        gained = sorted(set(after.get(key, [])) - set(before.get(key, [])))
+        if gained:
+            notes.append(f"- **The seal now excludes more**: `{key}` gained "
+                         + ", ".join(f"`{g}`" for g in gained)
+                         + " — this reduces what the manifest covers.")
+
+    gb_before = _json_at(root, ref, "config/gate-budget.v1.json")
+    gb_after = _json_at(root, "HEAD", "config/gate-budget.v1.json")
+    if gb_before and gb_after:
+        dropped = sorted(set(gb_before.get("invariants", {})) - set(gb_after.get("invariants", {})))
+        if dropped:
+            notes.append(f"- **Gate invariant(s) removed**: {', '.join(dropped)}")
+        if gb_before.get("max_invariants") != gb_after.get("max_invariants"):
+            notes.append("- **The invariant cap moved**: "
+                         f"{gb_before.get('max_invariants')} -> {gb_after.get('max_invariants')}")
+
+    suites = sorted({f.split("/")[1] for f in changed
+                     if f.startswith("tests/") and f.endswith("FROZEN.sha256")})
+    for suite in suites:
+        revised = any(f.startswith(f"tests/{suite}/REVISION-") for f in changed)
+        notes.append(f"- **Frozen suite `{suite}` changed**"
+                     + ("" if revised else " — **and no REVISION note is in this diff**"))
+
+    claims = [l for l in git(root, "diff", f"{ref}..HEAD", "--",
+                             "tests/*/claims.toml").splitlines() if l.startswith("+id = ")]
+    if claims:
+        notes.append(f"- **{len(claims)} new claim(s)** — check each names a defect that "
+                     "occurred, not one that might.")
+
+    if not notes:
+        return (RISKS_OPEN + "\n\n_Nothing here touches production, the seal, the gate budget, "
+                "a frozen suite, or the claim set._\n\n" + RISKS_CLOSE)
+    return RISKS_OPEN + "\n\n" + "\n".join(notes) + "\n\n" + RISKS_CLOSE
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", type=Path, default=Path("."))
@@ -144,11 +221,16 @@ def main() -> int:
     parser.add_argument("--title", help="pull request title (default: the branch's first commit subject)")
     parser.add_argument("--inventory", action="store_true",
                         help="print the derived promotion inventory block and exit")
+    parser.add_argument("--risks", action="store_true",
+                        help="print the derived risk surface and exit")
     parser.add_argument("--out", type=Path, help="where to write the body (default: a temp file)")
     args = parser.parse_args()
     root = args.root.resolve()
     if args.inventory:
         print(promotion_inventory(root, args.base))
+        return 0
+    if args.risks:
+        print(promotion_risks(root, args.base))
         return 0
     syncing = args.push or args.create
 
@@ -251,6 +333,9 @@ def main() -> int:
             merged = INVENTORY.sub(
                 lambda _: promotion_inventory(root, base), merged, count=1)
             print(f"  {'inventory':20} ok   re-derived against {base}")
+        if RISKS_OPEN in merged:
+            merged = RISKS.sub(lambda _: promotion_risks(root, base), merged, count=1)
+            print(f"  {'risk surface':20} ok   facts to look at, no verdict")
         if replaced != len([g for g in GATES if g[2]]):
             print(f"  Found {replaced} evidence fence(s), expected "
                   f"{len([g for g in GATES if g[2]])}. Not editing a body I cannot place "
