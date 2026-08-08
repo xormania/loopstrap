@@ -13,6 +13,19 @@ bash tests/battery.sh                               # the full battery, ~2min
 
 `/check` runs all four in sequence and stops at the first red.
 
+`ship.py` does that **and** writes the pull request body from what the gates
+actually printed, so the evidence is transcribed rather than remembered:
+
+```shell
+python3 artifacts/instance/tools/ship.py               # gates, then the body
+python3 artifacts/instance/tools/ship.py --gates-only  # just the gates
+python3 artifacts/instance/tools/ship.py --create      # and open the PR
+```
+
+It fills the three evidence blocks and **nothing else**. The argument sections
+and red-before-green are yours; a tool that wrote those would defeat the half of
+the evidence check that matters.
+
 **Seal first, then run the battery.** Reversing them produces
 `sealed source: tree verification failed`, which looks alarming and means only
 that you added files and have not resealed.
@@ -30,10 +43,20 @@ Six suites are frozen: `acceptance`, `active`, `certification`, `integration`,
 3. Make it pass.
 4. Write `REVISION-NNN.md` stating **the defect**, not the diff.
    `tests/readiness/REVISION-008.md` is the model.
-5. Regenerate `FROZEN.sha256` for that suite, then reseal.
+5. Regenerate the manifest and reseal:
 
-Adding a *file* to a suite also means adding it to `INVENTORY` in that suite's
-`verify_freeze.py`.
+```shell
+python3 artifacts/instance/tools/freeze-suite.py <suite>          # regenerate
+python3 artifacts/instance/tools/freeze-suite.py <suite> --check  # report only
+```
+
+The six suites do not agree on how their file list is declared — four hold an
+`INVENTORY` in `verify_freeze.py`, two use the manifest itself as the list. The
+tool handles both and says which it used. For the two without an `INVENTORY`, a
+new file in the suite is invisible to everything else, so it reports that and
+fails rather than quietly rehashing what happens to be listed.
+
+Adding a file to an `INVENTORY` suite still means editing `INVENTORY`.
 
 ## Add a battery case under `tests/cases/`
 
@@ -79,6 +102,29 @@ the conflict, then regenerate both; the regeneration is the resolution.
 
 Then **regenerate your pull request's evidence blocks**. The file count moves, and
 a body describing the pre-merge tree fails the evidence check, correctly.
+
+## Refresh a pull request's evidence
+
+```shell
+python3 artifacts/instance/tools/ship.py --push
+```
+
+Run it **before every push**, not once. The evidence is a snapshot; pushing more
+commits invalidates it and CI refuses the body, correctly. `--push` refuses a
+dirty tree, pins HEAD across the gates, pushes, confirms the remote matches, and
+only then rewrites the three fenced blocks in place — leaving the argument
+sections untouched.
+
+This works for the `dev` → `main` promotion too. A promotion's head tracks `dev`
+automatically, so **every merge into `dev` staleness-dates the open promotion**.
+Run `ship.py --push` from `dev` after merging anything; `gh` resolves to the
+promotion and its evidence is refreshed.
+
+**A promotion body must carry the template's numbered evidence fences** —
+`**1. Seal delta**`, `**2. Contract gate**`, `**3. Battery**` — even though CI
+exempts promotions from the body check. The refresh anchors on those labels, so a
+freehand evidence section cannot be refreshed and the tool will refuse rather than
+guess where the output goes. One shape, not two maintained by hand.
 
 ## Open a pull request
 

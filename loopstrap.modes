@@ -5,6 +5,7 @@
 0644	.claude/commands/campaign.md
 0644	.claude/commands/check.md
 0644	.claude/commands/halt.md
+0644	.claude/commands/loopstrap/status.md
 0644	.claude/commands/prep.md
 0644	.claude/commands/retro.md
 0644	.claude/settings.json
@@ -98,10 +99,12 @@
 0755	artifacts/instance/tools/contract-check.sh
 0755	artifacts/instance/tools/docs-verify.sh
 0755	artifacts/instance/tools/docs_verify.py
+0755	artifacts/instance/tools/freeze-suite.py
 0755	artifacts/instance/tools/gate-review.py
 0644	artifacts/instance/tools/gen-seal-rules.py
 0755	artifacts/instance/tools/harness-identity.py
 0644	artifacts/instance/tools/intent-landing-template.md
+0755	artifacts/instance/tools/lane-vocabulary-live.py
 0755	artifacts/instance/tools/launcher-args.sh
 0755	artifacts/instance/tools/pin-check.py
 0755	artifacts/instance/tools/pr-evidence-check.py
@@ -111,6 +114,7 @@
 0755	artifacts/instance/tools/publication-check.py
 0644	artifacts/instance/tools/schema-facts.py
 0755	artifacts/instance/tools/seal-tree.py
+0755	artifacts/instance/tools/ship.py
 0755	artifacts/instance/tools/token-breaker.py
 0755	artifacts/instance/tools/verify-tree.py
 0644	artifacts/intent/README.md

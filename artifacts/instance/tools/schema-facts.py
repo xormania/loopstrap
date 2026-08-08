@@ -233,7 +233,34 @@ def _cache_write(binary: Path, path: Path, answer: dict) -> None:
 
 
 DEV_PACKAGE = "contract"
-DEV_PATHS = ("contract/", "probe/", "skills/dev/", "FROZEN.sha256", "seal-tree.py")
+# Every path that names development machinery. Production must survive being
+# separated from this repository, so referencing any of these is a lane
+# violation regardless of intent.
+#
+# This list went stale once: it held "skills/dev/" after the skills moved to
+# .claude/skills/, so that entry could never match again — a check that passes
+# because it can no longer fire is the failure this invariant exists to prevent.
+# lane-vocabulary-live.py now refuses a dead entry, so when a development
+# directory moves, this moves with it.
+#
+# Verified before widening: none of these strings appeared in any of the 30
+# production files, so the expansion cannot refuse correct work (L48).
+DEV_PATHS = (
+    "contract/",
+    "probe/",
+    ".claude/",
+    ".agents/",
+    "ops/",
+    "tests/",
+    "artifacts/instance/",
+    "FROZEN.sha256",
+    "loopstrap.manifest",
+    "gate-budget",
+    "seal-tree.py",
+    "verify-tree.py",
+    "freeze-suite.py",
+    "ship.py",
+)
 
 
 def lane_facts(root: Path) -> list[dict]:

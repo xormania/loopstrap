@@ -1,41 +1,51 @@
-# Loopstrap agent contract
+# Contributing to Loopstrap
 
-**New here?** `.agents/README.md` is a three-file welcome mat: the standing of
-everything under `artifacts/`, where things are, and the exact commands for the
-usual jobs.
+What a contribution here must satisfy. This is not loop operating doctrine —
+that lives in `artifacts/instance/` and is not in force here. It is not a guide
+to the codebase either; `.agents/README.md` is, and it is three short files.
 
-The active implementation is `loopstrap_core`, driven by versioned data in
-`config/`. Start by verifying the frozen, externally stated expectations in
-`tests/acceptance`, `tests/active`, and `tests/integration`; never weaken those
-tests to make an implementation pass. A test-basis defect requires a recorded
-revision before its replacement is frozen.
+## What a change must satisfy
 
-A Role is a responsibility such as Planner or Implementer. A Role-Treatment is
-the exact harness-specific realization assigned to that Role; harness and model
-provider are independent identity fields. Record the Role, harness, provider
-and resolved model, native reasoning control, orchestration mode, wrapper,
-effective configuration, context lineage, prompt, and response evidence for
-every invocation. Do not silently substitute a Role-Treatment. An adversarial
-review that requires independence must use both a different Role-Treatment and
-a different context lineage or the Cell parks.
+Seven things, each decidable by a command rather than by judgement.
 
-The recursive workflow is data, not a hard-coded task count or depth. Every cell
-begins from a contract, freezes obligation-mapped tests before planning, receives
-a decomposition review before children or implementation, verifies results, and
-receives an independent post-review before closure.
+| | |
+|---|---|
+| the tree reseals and verifies | `artifacts/instance/tools/seal-tree.py .` then `verify-tree.py` |
+| the contract gate is clean | `artifacts/instance/tools/contract-check.sh` |
+| the battery is green | `tests/battery.sh` |
+| red before green | required for `loopstrap_core/`, `spec/`, `contract/`, `tests/` |
+| the evidence matches CI's own run | the three fenced blocks in the pull request |
+| nothing leaves that should not | `publication-check.py`; `ops/hooks/install.sh` makes it automatic |
+| a check that refuses correct work is the defect | `L48` — fix the check, never bypass it |
 
-Mirror all observable runtime data to the run's append-only SQLite telemetry
-store: full sanitized event copies, UTC and monotonic timing, process traces,
-paths, causal and parent relationships, usage and unavailable fields, artifacts,
-snapshots, and available content bytes. Telemetry is evidence for later analysis
-only; no control, replay, recovery, verification, acceptance, or promotion
-decision may read from it.
+```shell
+python3 artifacts/instance/tools/ship.py     # runs the first three, fills the evidence blocks
+```
 
-Material under `artifacts/` carries one of three standings, and age is not one
-of them. **Authority** is cited and enforced — `registers/`, `agent-configs/`,
-`instance/tools/`; the battery fails if a cited register id is absent.
-**Method** is transferable technique that is never executed. **Record** is
-evidence of one past run. None of it arms the current kernel, and an unmarked
-file that reads as a specification is the hazard — check the standing before
-treating anything there as binding. Until the governing documents and live
-Role-Treatment certifications are supplied, launch must fail closed.
+`/check` runs the gates alone. Neither writes the argument sections; those are
+yours.
+
+## Frozen suites
+
+Six suites are pinned by hash. Changing one requires a `REVISION-NNN.md` stating
+the **defect**, not the diff, plus a regenerated manifest:
+
+```shell
+python3 artifacts/instance/tools/freeze-suite.py <suite>
+```
+
+## Two more rules with a cost attached
+
+The contract gate holds **six invariants against a budget of six**. Adding one
+costs a deletion or a deliberate cap raise, and the cap is sealed.
+
+If your branch merges another and both touched the tree, regenerate the seal
+rather than resolving `loopstrap.manifest` by hand — and regenerate the pull
+request's evidence, because the counts move.
+
+## This harness
+
+Skills and slash commands are in `.claude/`. Serena is configured project
+read-only: it is for `find_symbol` and `find_referencing_symbols`, not editing.
+The commit hooks run a fail-closed publication check; if one refuses a commit,
+read `.claude/skills/publication-check/SKILL.md` before working around it.

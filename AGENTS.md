@@ -1,38 +1,50 @@
-# Loopstrap implementation surface
+# Contributing to Loopstrap
 
-**New here?** `.agents/README.md` is a three-file welcome mat: the standing of
-everything under `artifacts/`, where things are, and the exact commands for the
-usual jobs.
+What a contribution here must satisfy. This is not loop operating doctrine —
+that lives in `artifacts/instance/` and is not in force here. It is not a guide
+to the codebase either; `.agents/README.md` is, and it is three short files.
 
-This directory is the Loopstrap source root. The active deterministic kernel is
-`loopstrap_core`; versioned runtime selections live under `config/`.
+## What a change must satisfy
 
-Work on Loopstrap itself is allowed here when the owner requests it. Preserve the
-tests-first boundary:
+Seven things, each decidable by a command rather than by judgement.
 
-1. verify the freezes under `tests/acceptance`, `tests/active`,
-   `tests/integration`, `tests/telemetry`, `tests/readiness`, and
-   `tests/certification`;
-2. make implementation or integration changes;
-3. run `tests/battery.sh` and `tests/mutation-check.sh`;
-4. report any untested or live-only boundary explicitly.
+| | |
+|---|---|
+| the tree reseals and verifies | `artifacts/instance/tools/seal-tree.py .` then `verify-tree.py` |
+| the contract gate is clean | `artifacts/instance/tools/contract-check.sh` |
+| the battery is green | `tests/battery.sh` |
+| red before green | required for `loopstrap_core/`, `spec/`, `contract/`, `tests/` |
+| the evidence matches CI's own run | the three fenced blocks in the pull request |
+| nothing leaves that should not | `publication-check.py`; `ops/hooks/install.sh` makes it automatic |
+| a check that refuses correct work is the defect | `L48` — fix the check, never bypass it |
 
-The Conductor coordinates transitions and dispatch. It has no filesystem,
-promotion, Git, or model-execution authority. Agents may write only to isolated
-disposable workspaces; the deterministic executor is the sole promotion path.
+```shell
+python3 artifacts/instance/tools/ship.py     # runs the first three, fills the evidence blocks
+```
 
-`telemetry.sqlite3` is an append-only observation mirror, never an execution,
-recovery, acceptance, or promotion source. Preserve every observable event,
-timestamp, duration, path, process trace, relationship, usage value, explicit
-unavailable value, content reference, and available byte copy. Large and
-repeated bytes remain digest-deduplicated inside the mirror; credential-shaped
-structured data and unredacted harness streams remain prohibited.
+It fills evidence and never argument; the prose sections are yours.
 
-Files under `artifacts/` carry a standing rather than an age. **Authority** is
-cited by an active check or versioned configuration and is binding. **Method**
-is technique, never executed. **Record** is evidence of one past run and is
-never runtime authority. Check which before relying on anything there. Roles name responsibilities; Role-Treatments bind those
-responsibilities to an exact harness, provider/model route, native reasoning
-control, wrapper, and configuration. The three governing design documents and
-live Role-Treatment receipts are intentionally not present yet, so the system
-must remain unarmed.
+## Frozen suites
+
+Six suites are pinned by hash. Changing one requires a `REVISION-NNN.md` stating
+the **defect**, not the diff, plus a regenerated manifest:
+
+```shell
+python3 artifacts/instance/tools/freeze-suite.py <suite>
+```
+
+## Two more rules with a cost attached
+
+The contract gate holds **six invariants against a budget of six**. Adding one
+costs a deletion or a deliberate cap raise, and the cap is sealed.
+
+If your branch merges another and both touched the tree, regenerate the seal
+rather than resolving `loopstrap.manifest` by hand — and regenerate the pull
+request's evidence, because the counts move.
+
+## This harness
+
+`.codex/config.toml` carries the project configuration and loads once the
+repository is trusted. There are no slash commands on this surface. The commit
+hooks run a fail-closed publication check; if one refuses a commit, read
+`.claude/skills/publication-check/SKILL.md` before working around it.
